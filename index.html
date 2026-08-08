@@ -29,7 +29,8 @@
             --text-hint: #8e8e93;
             --danger: #ff3b30;
             --warning: #ffcc00;
-            --success: #ffb700;
+            --success: #00ff66;
+            --paymento-blue: #0052ff;
         }
 
         body {
@@ -1022,9 +1023,250 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+
+        /* PAYMENTO INTEGRATION STYLES */
+        .payment-container {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 2px solid var(--paymento-blue);
+            box-shadow: 0 0 30px rgba(0, 82, 255, 0.2);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .payment-header h2 {
+            color: var(--paymento-blue);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .payment-timer {
+            background: rgba(255, 59, 48, 0.1);
+            border: 2px solid var(--danger);
+            color: var(--danger);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .payment-amount-box {
+            background: rgba(0, 82, 255, 0.1);
+            border: 1px solid var(--paymento-blue);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-amount-label {
+            font-size: 12px;
+            color: var(--text-hint);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .payment-amount-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--paymento-blue);
+            margin-bottom: 5px;
+        }
+
+        .payment-amount-crypto {
+            font-size: 14px;
+            color: var(--text-hint);
+            font-family: 'Courier New', monospace;
+        }
+
+        .payment-address-box {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .payment-address-label {
+            font-size: 11px;
+            color: var(--text-hint);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .payment-address-value {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--text-main);
+            word-break: break-all;
+            background: #0d0d0d;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--paymento-blue);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .payment-status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .payment-status.pending {
+            background: rgba(255, 183, 0, 0.1);
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+        }
+
+        .payment-status.paid {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .payment-status.expired {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .payment-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .payment-btn.primary {
+            background: var(--paymento-blue);
+            color: white;
+        }
+
+        .payment-btn.secondary {
+            background: transparent;
+            border: 2px solid #444;
+            color: var(--text-main);
+        }
+
+        .payment-btn:active {
+            transform: scale(0.98);
+        }
+
+        .qr-code-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px auto;
+            width: fit-content;
+            text-align: center;
+        }
+
+        .qr-code-container img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .payment-method-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .payment-method-btn {
+            background: #222;
+            border: 2px solid #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .payment-method-btn.active {
+            border-color: var(--paymento-blue);
+            background: rgba(0, 82, 255, 0.1);
+            color: var(--paymento-blue);
+        }
+
+        .payment-method-btn img {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            color: white;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner" style="width: 50px; height: 50px; border-width: 5px;"></div>
+        <div class="loading-text" id="loadingText">Creating payment...</div>
+    </div>
 
     <!-- Toast -->
     <div class="toast-notification" id="toast">✅ Ordine copiato!</div>
@@ -1204,9 +1446,75 @@
                 <span class="pay-badge badge-crypto">BINANCE</span>
             </div>
 
-            <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderSend()">
-                SEND ORDER TO @ELJEFESHOP
+            <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderWithPayment()">
+                PAY NOW WITH CRYPTO
             </button>
+            
+            <button class="cart-summary-floating" style="margin-top: 10px; background: #333; color: #888;" onclick="processOrderManual()">
+                OR SEND ORDER MANUALLY (No Auto-Pay)
+            </button>
+        </div>
+    </div>
+
+    <!-- Payment View (Paymento Integration) -->
+    <div id="view-payment" class="app-view">
+        <div class="payment-container">
+            <div class="payment-header">
+                <h2>⚡ Complete Payment</h2>
+                <p style="color: var(--text-hint); font-size: 14px;">Pay securely with Paymento</p>
+            </div>
+
+            <div class="payment-timer" id="paymentTimer">15:00</div>
+
+            <div class="payment-method-selector" id="cryptoSelector">
+                <button class="payment-method-btn active" onclick="selectCrypto('BTC')">
+                    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC"> Bitcoin
+                </button>
+                <button class="payment-method-btn" onclick="selectCrypto('ETH')">
+                    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH"> Ethereum
+                </button>
+                <button class="payment-method-btn" onclick="selectCrypto('USDT')">
+                    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT"> USDT
+                </button>
+                <button class="payment-method-btn" onclick="selectCrypto('LTC')">
+                    <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.png" alt="LTC"> Litecoin
+                </button>
+            </div>
+
+            <div class="payment-amount-box">
+                <div class="payment-amount-label">Amount to Pay</div>
+                <div class="payment-amount-value" id="paymentAmountFiat">€0.00</div>
+                <div class="payment-amount-crypto" id="paymentAmountCrypto">0.00000000 BTC</div>
+            </div>
+
+            <div class="qr-code-container" id="qrCodeContainer" style="display: none;">
+                <img id="qrCodeImg" src="" alt="Payment QR Code">
+                <p style="color: #333; margin-top: 10px; font-size: 12px;">Scan with your wallet</p>
+            </div>
+
+            <div class="payment-address-box">
+                <div class="payment-address-label">Payment Address</div>
+                <div class="payment-address-value" id="paymentAddress">Waiting for payment creation...</div>
+                <button class="copy-btn" onclick="copyPaymentAddress()">COPY</button>
+            </div>
+
+            <div class="payment-status pending" id="paymentStatus">
+                ⏳ Waiting for payment...
+            </div>
+
+            <div class="payment-actions">
+                <button class="payment-btn primary" onclick="openPaymentoLink()">
+                    Open Paymento
+                </button>
+                <button class="payment-btn secondary" onclick="cancelPayment()">
+                    Cancel
+                </button>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; font-size: 12px; color: var(--text-hint); text-align: center;">
+                <p>🔒 Payment powered by Paymento.io</p>
+                <p style="margin-top: 5px;">Order ID: <span id="paymentOrderId" style="color: var(--primary-neon);">-</span></p>
+            </div>
         </div>
     </div>
 
@@ -1275,6 +1583,39 @@
     </div>
 
     <script>
+        // ==========================================
+        // CONFIGURAZIONE PAYMENTO.IO
+        // ==========================================
+        const PAYMENTO_CONFIG = {
+            enabled: true, // Metti true per attivare Paymento, false per solo copia manuale
+            apiKey: 'pk_live_YOUR_API_KEY_HERE', // Inserisci qui la tua API Key pubblica
+            secretKey: 'sk_live_YOUR_SECRET_KEY_HERE', // ⚠️ Per produzione usa un backend proxy!
+            storeId: 'eljefeshop',
+            apiUrl: 'https://api.paymento.io/v1', // Verifica endpoint corretto su docs.paymento.io
+            webhookSecret: 'your_webhook_secret', // Per verifica firme webhook (opzionale)
+            
+            // Configurazione sicura: se true, usa solo il metodo "copia manuale" (consigliato se non hai backend)
+            // Se hai un backend proxy (es. Cloudflare Worker), inserisci l'URL qui:
+            proxyUrl: '' // Es: 'https://your-worker.yourdomain.com/paymento'
+        };
+
+        // ==========================================
+        // CONFIGURAZIONE APP
+        // ==========================================
+        const STORAGE_KEY = 'eljefe_cart_v1';
+        const API_ENDPOINT = 'https://your-server.com/api/orders';
+        
+        let cart = {};
+        let currentLang = 'en';
+        let currentSelectedPayment = 'crypto';
+        let activeCategoryFilter = 'all';
+        let activeCurrency = 'EUR';
+        
+        // Variabili Paymento
+        let currentInvoice = null;
+        let paymentCheckInterval = null;
+        let selectedCrypto = 'BTC';
+
         // Telegram WebApp Init
         const tg = window.Telegram?.WebApp;
         if (tg) { 
@@ -1285,16 +1626,6 @@
             tg.setBackgroundColor('#0b0b0e');
         }
 
-        // Config
-        const STORAGE_KEY = 'eljefe_cart_v1';
-        const API_ENDPOINT = 'https://your-server.com/api/orders';
-        
-        let cart = {};
-        let currentLang = 'en';
-        let currentSelectedPayment = 'crypto';
-        let activeCategoryFilter = 'all';
-        let activeCurrency = 'EUR';
-
         // Currency Config
         const currencyConfig = {
             EUR: { symbol: '€', rate: 1.0 },
@@ -1304,7 +1635,7 @@
             RUB: { symbol: '₽', rate: 98.2 }
         };
 
-        // Translations
+        // Translations (Aggiornate con stringhe Paymento)
         const i18n = {
             en: {
                 all: "All Strains",
@@ -1318,7 +1649,8 @@
                 cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu",
                 empty: "Your cart is empty. Add products from the Menu!",
                 city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME",
-                pay: "Payment Method", confirm: "SEND ORDER TO @ELJEFESHOP",
+                pay: "Payment Method", confirm: "PAY NOW WITH CRYPTO",
+                manualConfirm: "OR SEND ORDER MANUALLY (No Auto-Pay)",
                 giftT: "🎁 FREE GIFTS",
                 giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
                 asap: "As soon as possible / ASAP",
@@ -1341,7 +1673,7 @@
                 infT1: "📦 Delivery Process & Wholesale",
                 infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.\n\n💡 WHOLESALE NOTICE: Orders selected with 24/48h Express Shipping operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.",
                 infT2: "💳 Accepted Payments",
-                infD2: "We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies. If you do not own crypto, our app guides you through instant purchase via MoonPay using your debit/credit card.",
+                infD2: "We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies via Paymento.io secure gateway.",
                 infT3: "🌿 Premium Accessories",
                 infD3: "We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.",
                 infT4: "💬 Direct Contact & Support",
@@ -1374,6 +1706,16 @@
                 manualCopyTitle: "Copy the order manually",
                 manualCopyInstructions: "Select and copy the text below, then send it to @eljefeshop:",
                 orderPreview: "Order Preview:",
+                // Paymento specific
+                paymentWaiting: "⏳ Waiting for payment...",
+                paymentSuccess: "✅ Payment received! Order confirmed.",
+                paymentExpired: "❌ Payment expired. Please try again.",
+                paymentCanceled: "Payment canceled",
+                openPaymento: "Open Paymento",
+                copyAddress: "COPY",
+                paymentTimer: "Time remaining",
+                payNow: "PAY NOW WITH CRYPTO",
+                payManual: "OR SEND ORDER MANUALLY",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1403,7 +1745,8 @@
                 cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu",
                 empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
                 city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO CONSEGNA",
-                pay: "Metodo di Pagamento", confirm: "INVIA ORDINE A @ELJEFESHOP",
+                pay: "Metodo di Pagamento", confirm: "PAGA ORA CON CRYPTO",
+                manualConfirm: "O INVIA ORDINE MANUALMENTE (Senza Auto-Pay)",
                 giftT: "🎁 REGALO COMPRESO",
                 giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€!",
                 asap: "Appena possibile / ASAP",
@@ -1426,7 +1769,7 @@
                 infT1: "📦 Processo di Consegna & Ingrosso",
                 infD1: "Garantiamo spedizioni flash e consegne ultrariservate. Ogni confezione è sigillata sotto vuoto, inodore e senza branding.\n\n💡 NOTA INGROSSO: Gli ordini con Spedizione Express 24/48h hanno tariffe ingrosso drasticamente inferiori. Scrivici in privato per dettagli.",
                 infT2: "💳 Metodi di Pagamento",
-                infD2: "Accettiamo tutte le principali Criptovalute. Se non le possiedi, l'app ti guida all'acquisto istantaneo tramite MoonPay con carta.",
+                infD2: "Accettiamo tutte le principali Criptovalute tramite gateway sicuro Paymento.io.",
                 infT3: "🌿 Accessori Premium",
                 infD3: "Abbiamo selezionato cartine ultra sottili non sbiancate e filtri organici di altissima qualità, inclusi nel catalogo.",
                 infT4: "💬 Contatto Diretto",
@@ -1459,6 +1802,16 @@
                 manualCopyTitle: "Copia l'ordine manualmente",
                 manualCopyInstructions: "Seleziona e copia il testo qui sotto, poi invialo a @eljefeshop:",
                 orderPreview: "Anteprima Ordine:",
+                // Paymento
+                paymentWaiting: "⏳ In attesa di pagamento...",
+                paymentSuccess: "✅ Pagamento ricevuto! Ordine confermato.",
+                paymentExpired: "❌ Pagamento scaduto. Riprova.",
+                paymentCanceled: "Pagamento annullato",
+                openPaymento: "Apri Paymento",
+                copyAddress: "COPIA",
+                paymentTimer: "Tempo rimanente",
+                payNow: "PAGA ORA CON CRYPTO",
+                payManual: "O INVIA MANUALMENTE",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1477,9 +1830,7 @@
                 ]
             },
             fr: {
-                all: "Toutes",
-                checkCovTitle: "📍 VÉRIFIER COUVERTURE",
-                btnCheck: "VÉRIFIER",
+                all: "Toutes", checkCovTitle: "📍 VÉRIFIER COUVERTURE", btnCheck: "VÉRIFIER",
                 gateAlertErr: "Écrivez le nom de votre ville!",
                 gateStatusOk: "✅ LIVRAISON DISPONIBLE! Notre réseau est opérationnel. Livraison en 20-30 min.",
                 gateStatusErr: "❌ LIVRAISON NON DISPONIBLE! Ville invalide ou non couverte.",
@@ -1488,7 +1839,8 @@
                 cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu",
                 empty: "Votre panier est vide!",
                 city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE LIVRAISON",
-                pay: "Mode de paiement", confirm: "ENVOYER À @ELJEFESHOP",
+                pay: "Mode de paiement", confirm: "PAYER MAINTENANT",
+                manualConfirm: "OU ENVOYER MANUELLEMENT",
                 giftT: "🎁 CADEAUX GRATUITS",
                 giftD: "Briquet Clipper, feuilles et filtres inclus dès 50€!",
                 asap: "Aussitôt que possible",
@@ -1511,7 +1863,7 @@
                 infT1: "📦 Livraison & Prix de Gros",
                 infD1: "Colis scellés sous vide, sans odeur. Express 24/48h = tarifs de gros.",
                 infT2: "💳 Paiements Acceptés",
-                infD2: "Crypto-monnaies acceptées. Achat instantané via MoonPay.",
+                infD2: "Crypto-monnaies acceptées via Paymento.io.",
                 infT3: "🌿 Feuilles Premium",
                 infD3: "Feuilles ultrafines non blanchies et filtres organiques inclus.",
                 infT4: "💬 Contact",
@@ -1544,6 +1896,14 @@
                 manualCopyTitle: "Copiez la commande manuellement",
                 manualCopyInstructions: "Sélectionnez et copiez le texte ci-dessous:",
                 orderPreview: "Aperçu Commande:",
+                paymentWaiting: "⏳ En attente de paiement...",
+                paymentSuccess: "✅ Paiement reçu! Commande confirmée.",
+                paymentExpired: "❌ Paiement expiré. Réessayez.",
+                openPaymento: "Ouvrir Paymento",
+                copyAddress: "COPIER",
+                paymentTimer: "Temps restant",
+                payNow: "PAYER MAINTENANT",
+                payManual: "OU ENVOYER MANUELLEMENT",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1573,7 +1933,8 @@
                 cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü",
                 empty: "Ihr Warenkorb ist leer!",
                 city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT",
-                pay: "Zahlungsmethode", confirm: "AN @ELJEFESHOP SENDEN",
+                pay: "Zahlungsmethode", confirm: "JETZT BEZAHLEN",
+                manualConfirm: "ODER MANUELL SENDEN",
                 giftT: "🎁 GRATIS GESCHENKE",
                 giftD: "Clipper Feuerzeug, Blättchen und Filter ab 50€!",
                 asap: "Schnellstmöglich",
@@ -1596,7 +1957,7 @@
                 infT1: "📦 Lieferung & Großhandel",
                 infD1: "Pakete vakuumversiegelt, geruchslos. Express 24/48h = Großhandelspreise.",
                 infT2: "💳 Zahlungen",
-                infD2: "Kryptowährungen akzeptiert. Sofortkauf via MoonPay.",
+                infD2: "Kryptowährungen akzeptiert via Paymento.io.",
                 infT3: "🌿 Premium Blättchen",
                 infD3: "Ultradünne, ungebleichte Blättchen und Bio-Filter inklusive.",
                 infT4: "💬 Kontakt",
@@ -1629,6 +1990,14 @@
                 manualCopyTitle: "Bestellung manuell kopieren",
                 manualCopyInstructions: "Wählen und kopieren Sie den Text:",
                 orderPreview: "Bestellvorschau:",
+                paymentWaiting: "⏳ Warte auf Zahlung...",
+                paymentSuccess: "✅ Zahlung erhalten! Bestellung bestätigt.",
+                paymentExpired: "❌ Zahlung abgelaufen. Erneut versuchen.",
+                openPaymento: "Paymento öffnen",
+                copyAddress: "KOPIEREN",
+                paymentTimer: "Verbleibende Zeit",
+                payNow: "JETZT BEZAHLEN",
+                payManual: "ODER MANUELL SENDEN",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1658,7 +2027,8 @@
                 cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню",
                 empty: "Ваша корзина пуста!",
                 city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ",
-                pay: "Способ оплаты", confirm: "ОТПРАВИТЬ @ELJEFESHOP",
+                pay: "Способ оплаты", confirm: "ОПЛАТИТЬ СЕЙЧАС",
+                manualConfirm: "ИЛИ ОТПРАВИТЬ ВРУЧНУЮ",
                 giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ",
                 giftD: "Зажигалка Clipper, бумага и фильтры от 50€!",
                 asap: "Как можно скорее",
@@ -1681,7 +2051,7 @@
                 infT1: "📦 Доставка и опт",
                 infD1: "Посылки в вакууме, без запаха. Экспресс 24/48ч = оптовые цены.",
                 infT2: "💳 Оплата",
-                infD2: "Принимаем криптовалюты. Мгновенная покупка через MoonPay.",
+                infD2: "Принимаем криптовалюты через Paymento.io.",
                 infT3: "🌿 Бумага премиум",
                 infD3: "Ультратонкая неотбеленная бумага и органические фильтры.",
                 infT4: "💬 Контакт",
@@ -1714,6 +2084,14 @@
                 manualCopyTitle: "Скопируйте заказ вручную",
                 manualCopyInstructions: "Выберите и скопируйте текст ниже:",
                 orderPreview: "Предпросмотр заказа:",
+                paymentWaiting: "⏳ Ожидание оплаты...",
+                paymentSuccess: "✅ Оплата получена! Заказ подтвержден.",
+                paymentExpired: "❌ Срок оплаты истек. Попробуйте снова.",
+                openPaymento: "Открыть Paymento",
+                copyAddress: "КОПИРОВАТЬ",
+                paymentTimer: "Осталось времени",
+                payNow: "ОПЛАТИТЬ СЕЙЧАС",
+                payManual: "ИЛИ ОТПРАВИТЬ ВРУЧНУЮ",
                 cats: {
                     flowers: "🌿 Weed",
                     hash: "🍯 Hash",
@@ -1769,13 +2147,487 @@
             { id: "s4", name: "💊 MDMA", category: "special", price: 60, img: "https://i.imgur.com/0U169zB.jpg", desc: "High Purity Dutch MDMA", isGramAsset: false }
         ];
 
-        // Initialize
-        loadCartFromStorage();
-        renderProducts('all');
-        updateCartUI();
-        setLanguage('en');
+        // ==========================================
+        // PAYMENTO INTEGRATION FUNCTIONS
+        // ==========================================
 
-        // Functions
+        async function createPaymentoInvoice(orderData) {
+            try {
+                showLoading(true, 'Creating secure payment...');
+                
+                // Se hai un proxy backend (consigliato per sicurezza)
+                if (PAYMENTO_CONFIG.proxyUrl) {
+                    const response = await fetch(`${PAYMENTO_CONFIG.proxyUrl}/create-invoice`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            amount: orderData.total,
+                            currency: 'EUR',
+                            description: `El Jefe Order - ${orderData.customer}`,
+                            metadata: {
+                                telegram_user: orderData.username,
+                                delivery_address: orderData.address,
+                                items: orderData.items,
+                                order_id: orderData.id
+                            }
+                        })
+                    });
+                    
+                    if (!response.ok) throw new Error('Proxy error');
+                    const data = await response.json();
+                    return data;
+                }
+                
+                // Chiamata diretta (meno sicura, espone API key)
+                // NOTA: Paymento potrebbe richiedere header diversi, adatta secondo la loro docs
+                const response = await fetch(`${PAYMENTO_CONFIG.apiUrl}/stores/${PAYMENTO_CONFIG.storeId}/invoices`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${PAYMENTO_CONFIG.apiKey}`,
+                        'X-Secret-Key': PAYMENTO_CONFIG.secretKey
+                    },
+                    body: JSON.stringify({
+                        amount: orderData.total,
+                        currency: 'EUR',
+                        description: `El Jefe Order`,
+                        metadata: {
+                            telegram_username: orderData.username,
+                            delivery_address: orderData.address,
+                            city: orderData.city,
+                            zip: orderData.zip,
+                            items: orderData.items
+                        },
+                        success_url: window.location.href,
+                        cancel_url: window.location.href
+                    })
+                });
+                
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(error);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Paymento Error:', error);
+                showToast('Payment creation failed. Using manual mode.');
+                return null;
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function checkPaymentStatus(invoiceId) {
+            try {
+                let url, headers;
+                
+                if (PAYMENTO_CONFIG.proxyUrl) {
+                    url = `${PAYMENTO_CONFIG.proxyUrl}/check-invoice/${invoiceId}`;
+                    headers = {};
+                } else {
+                    url = `${PAYMENTO_CONFIG.apiUrl}/invoices/${invoiceId}`;
+                    headers = {
+                        'Authorization': `Bearer ${PAYMENTO_CONFIG.apiKey}`,
+                        'X-Secret-Key': PAYMENTO_CONFIG.secretKey
+                    };
+                }
+                
+                const response = await fetch(url, { headers });
+                if (!response.ok) throw new Error('Check failed');
+                
+                const data = await response.json();
+                return data.status; // 'pending', 'paid', 'expired', 'confirmed'
+            } catch (error) {
+                console.error('Check status error:', error);
+                return 'error';
+            }
+        }
+
+        function showLoading(show, text = 'Loading...') {
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingText = document.getElementById('loadingText');
+            if (show) {
+                loadingText.innerText = text;
+                overlay.classList.add('active');
+            } else {
+                overlay.classList.remove('active');
+            }
+        }
+
+        function selectCrypto(crypto) {
+            selectedCrypto = crypto;
+            document.querySelectorAll('.payment-method-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.includes(crypto)) btn.classList.add('active');
+            });
+            
+            // Se abbiamo già un invoice, aggiorna il QR/address per la crypto selezionata
+            if (currentInvoice && currentInvoice.addresses) {
+                updatePaymentDisplay();
+            }
+        }
+
+        function updatePaymentDisplay() {
+            if (!currentInvoice) return;
+            
+            const dict = i18n[currentLang];
+            const address = currentInvoice.addresses?.[selectedCrypto] || currentInvoice.address;
+            const amount = currentInvoice.amounts?.[selectedCrypto] || currentInvoice.amount;
+            
+            document.getElementById('paymentAddress').innerText = address || 'Loading...';
+            document.getElementById('paymentAmountFiat').innerText = `€${currentInvoice.amount_eur || currentInvoice.amount}`;
+            document.getElementById('paymentAmountCrypto').innerText = `${amount} ${selectedCrypto}`;
+            document.getElementById('paymentOrderId').innerText = currentInvoice.id || currentInvoice.invoice_id;
+            
+            // Genera QR code (usa API esterna o genera localmente se hai libreria)
+            const qrData = `${selectedCrypto.toLowerCase()}:${address}?amount=${amount}`;
+            document.getElementById('qrCodeImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
+            document.getElementById('qrCodeContainer').style.display = 'block';
+            
+            // Avvia timer
+            startPaymentTimer(900); // 15 minuti
+        }
+
+        function startPaymentTimer(seconds) {
+            const timerEl = document.getElementById('paymentTimer');
+            let remaining = seconds;
+            
+            if (paymentCheckInterval) clearInterval(paymentCheckInterval);
+            
+            paymentCheckInterval = setInterval(async () => {
+                remaining--;
+                
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                timerEl.innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
+                
+                // Controlla stato ogni 10 secondi
+                if (remaining % 10 === 0 && currentInvoice) {
+                    const status = await checkPaymentStatus(currentInvoice.id || currentInvoice.invoice_id);
+                    updatePaymentStatus(status);
+                    
+                    if (status === 'paid' || status === 'confirmed') {
+                        clearInterval(paymentCheckInterval);
+                        onPaymentSuccess();
+                    } else if (status === 'expired') {
+                        clearInterval(paymentCheckInterval);
+                    }
+                }
+                
+                if (remaining <= 0) {
+                    clearInterval(paymentCheckInterval);
+                    timerEl.innerText = "EXPIRED";
+                    updatePaymentStatus('expired');
+                }
+            }, 1000);
+        }
+
+        function updatePaymentStatus(status) {
+            const statusEl = document.getElementById('paymentStatus');
+            const dict = i18n[currentLang];
+            
+            statusEl.className = 'payment-status';
+            
+            switch(status) {
+                case 'paid':
+                case 'confirmed':
+                    statusEl.classList.add('paid');
+                    statusEl.innerText = dict.paymentSuccess;
+                    break;
+                case 'expired':
+                    statusEl.classList.add('expired');
+                    statusEl.innerText = dict.paymentExpired;
+                    break;
+                default:
+                    statusEl.classList.add('pending');
+                    statusEl.innerText = dict.paymentWaiting;
+            }
+        }
+
+        function onPaymentSuccess() {
+            const dict = i18n[currentLang];
+            showToast(dict.paymentSuccess);
+            
+            // Invia conferma a Telegram
+            sendPaymentConfirmation();
+            
+            // Torna al menu dopo 3 secondi
+            setTimeout(() => {
+                clearCart();
+                switchTab('menu');
+            }, 3000);
+        }
+
+        async function sendPaymentConfirmation() {
+            // Invia messaggio di conferma al bot
+            const text = `✅ PAYMENT RECEIVED!\n\nOrder: ${currentInvoice?.id}\nAmount: ${currentInvoice?.amount}€\n\nPlease confirm and process delivery.`;
+            
+            try {
+                await fetch(`https://api.telegram.org/bot${PAYMENTO_CONFIG.botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: PAYMENTO_CONFIG.adminChatId,
+                        text: text
+                    })
+                });
+            } catch (e) {
+                console.log('Notification failed');
+            }
+        }
+
+        function copyPaymentAddress() {
+            const address = document.getElementById('paymentAddress').innerText;
+            navigator.clipboard.writeText(address).then(() => {
+                showToast('Address copied!');
+            });
+        }
+
+        function openPaymentoLink() {
+            if (currentInvoice && currentInvoice.payment_url) {
+                window.open(currentInvoice.payment_url, '_blank');
+            } else {
+                showToast('Payment link not available');
+            }
+        }
+
+        function cancelPayment() {
+            if (paymentCheckInterval) clearInterval(paymentCheckInterval);
+            currentInvoice = null;
+            switchTab('chat');
+        }
+
+        // ==========================================
+        // FUNZIONI ORDINE MODIFICATE
+        // ==========================================
+
+        async function processOrderWithPayment() {
+            const dict = i18n[currentLang];
+            
+            // Validazione
+            const metrics = calculateCartMetrics();
+            if (metrics.finalProductsTotalEur < 30) {
+                showError(dict.minOrderErr);
+                return;
+            }
+
+            const city = document.getElementById('input-city').value.trim();
+            const address = document.getElementById('input-address').value.trim();
+            const cap = document.getElementById('input-cap').value.trim();
+            
+            if (!city || !address || !cap) {
+                showError(dict.fieldErr);
+                return;
+            }
+
+            // Se Paymento non è configurato, usa metodo manuale
+            if (!PAYMENTO_CONFIG.enabled || PAYMENTO_CONFIG.apiKey.includes('YOUR_API_KEY')) {
+                showToast('Paymento not configured. Using manual mode.');
+                processOrderManual();
+                return;
+            }
+
+            // Prepara dati ordine
+            const orderData = {
+                id: 'ORD_' + Date.now(),
+                total: metrics.finalTotalEur,
+                customer: `${city}, ${address}`,
+                username: tg?.initDataUnsafe?.user?.username || 'Guest',
+                city: city,
+                address: address,
+                zip: cap,
+                items: Object.keys(cart).map(id => {
+                    const p = productsData.find(prod => prod.id === id);
+                    return `${p.name} x${cart[id]}`;
+                }).join(', ')
+            };
+
+            // Crea invoice Paymento
+            const invoice = await createPaymentoInvoice(orderData);
+            
+            if (invoice) {
+                currentInvoice = invoice;
+                updatePaymentDisplay();
+                switchTab('payment');
+            } else {
+                // Fallback a manuale
+                processOrderManual();
+            }
+        }
+
+        function processOrderManual() {
+            // Usa la funzione originale di copia negli appunti
+            processOrderSendLegacy();
+        }
+
+        // La vecchia funzione rinominata
+        async function processOrderSendLegacy() {
+            const metrics = calculateCartMetrics();
+            const dict = i18n[currentLang];
+
+            const citta = document.getElementById('input-city').value.trim();
+            const indirizzo = document.getElementById('input-address').value.trim();
+            const cap = document.getElementById('input-cap').value.trim();
+            let orario = document.getElementById('select-time').value;
+
+            if (orario === 'Specific') {
+                const specTime = document.getElementById('input-time-spec');
+                if (specTime && specTime.value.trim()) {
+                    orario = specTime.value.trim();
+                }
+            }
+
+            const userId = tg?.initDataUnsafe?.user?.id || '';
+            const username = tg?.initDataUnsafe?.user?.username || '';
+            const firstName = tg?.initDataUnsafe?.user?.first_name || '';
+            const lastName = tg?.initDataUnsafe?.user?.last_name || '';
+
+            let msg = `${dict.orderTitle}\n`;
+            msg += `═══════════════════════\n\n`;
+
+            const items = [];
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                if (!p) return;
+                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
+                const itemTotal = p.price * cart[id];
+                items.push(`• ${p.name}: ${cart[id]}${unitLabel} = ${getConvertedPriceStr(itemTotal)}`);
+            });
+
+            if (metrics.giftApplied) {
+                items.push(`• ${dict.giftLabel} = ${dict.free}`);
+            }
+
+            msg += items.join('\n');
+            msg += `\n\n`;
+
+            msg += `💰 ${dict.totalLabel}: ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
+            if (metrics.discountEur > 0) {
+                msg += `🏷️ ${dict.discountLabel}: -${getConvertedPriceStr(metrics.discountEur)}\n`;
+            }
+            if (metrics.shippingFeeEur > 0) {
+                msg += `🚚 ${dict.shippingCostText}: ${getConvertedPriceStr(metrics.shippingFeeEur)}\n`;
+            } else {
+                msg += `🚚 ${dict.shippingCostText}: ${dict.free}\n`;
+            }
+            msg += `💳 ${dict.paymentLabel}: ${currentSelectedPayment.toUpperCase()}\n\n`;
+
+            msg += `📍 ${dict.deliveryLabel}:\n`;
+            msg += `   ${dict.city}: ${citta}\n`;
+            msg += `   ${dict.address}: ${indirizzo}\n`;
+            msg += `   ${dict.cap}: ${cap}\n`;
+            msg += `   ${dict.time}: ${orario}\n\n`;
+
+            msg += `👤 ${dict.customerLabel}:`;
+            if (username) msg += ` @${username}`;
+            if (firstName) msg += ` ${firstName}`;
+            if (lastName) msg += ` ${lastName}`;
+            if (!username && !firstName) msg += ` Guest`;
+            msg += `\n`;
+            if (userId) msg += `   ID: ${userId}`;
+
+            // Copia negli appunti
+            let copied = false;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                try {
+                    await navigator.clipboard.writeText(msg);
+                    copied = true;
+                } catch (err) {
+                    copied = copyFallback(msg);
+                }
+            } else {
+                copied = copyFallback(msg);
+            }
+
+            showOrderSuccessLegacy(msg, dict, copied);
+        }
+
+        function copyFallback(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                return successful;
+            } catch (err) {
+                document.body.removeChild(textArea);
+                return false;
+            }
+        }
+
+        function showOrderSuccessLegacy(orderText, dict, copied) {
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
+
+            const successDiv = document.getElementById('orderSuccessMsg');
+            
+            if (copied) {
+                successDiv.innerHTML = `
+                    <h3>✅ ${dict.pasteInstructions}</h3>
+                    <p style="margin: 15px 0; color: #ccc;">${dict.openTelegramInstructions}</p>
+                    <div style="margin-top: 20px;">
+                        <button class="new-order-btn" onclick="openElJefeChat()">
+                            📱 ${dict.openChatBtn}
+                        </button>
+                        <button class="new-order-btn secondary" onclick="resetForNewOrder()" style="margin-left: 10px;">
+                            🛒 ${dict.newOrder}
+                        </button>
+                    </div>
+                `;
+            } else {
+                successDiv.innerHTML = `
+                    <h3>⚠️ ${dict.manualCopyTitle}</h3>
+                    <div class="order-preview">
+                        <div class="order-preview-label">${dict.manualCopyInstructions}</div>
+                        <pre onclick="this.select()">${orderText.replace(/</g, '&lt;')}</pre>
+                    </div>
+                    <button class="new-order-btn" onclick="openElJefeChat()">
+                        📱 ${dict.openChatBtn}
+                    </button>
+                `;
+            }
+            
+            successDiv.style.display = 'block';
+            showToast(dict.copySuccess);
+            clearCart();
+            successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function openElJefeChat() {
+            const url = 'https://t.me/eljefeshop';
+            if (tg && tg.openTelegramLink) {
+                tg.openTelegramLink(url);
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+
+        function resetForNewOrder() {
+            const successDiv = document.getElementById('orderSuccessMsg');
+            if (successDiv) successDiv.style.display = 'none';
+            
+            document.getElementById('input-city').value = '';
+            document.getElementById('input-address').value = '';
+            document.getElementById('input-cap').value = '';
+            document.getElementById('select-time').selectedIndex = 0;
+            document.getElementById('input-time-spec').value = '';
+            document.getElementById('input-time-spec').style.display = 'none';
+            
+            setPaymentMethod('crypto');
+            switchTab('menu');
+        }
+
+        // ==========================================
+        // FUNZIONI ESISTENTI (invariate)
+        // ==========================================
+
         function loadCartFromStorage() {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
@@ -1855,7 +2707,6 @@
             const dict = i18n[lang];
             if (!dict) return;
 
-            // Update all text elements
             const elements = {
                 'txt-header-sub': dict.sub,
                 'txt-promo': dict.promo,
@@ -1899,8 +2750,13 @@
                 'txt-rev-title': dict.revTitle,
                 'txt-rev-sub': dict.revSub,
                 'btn-group-rev': dict.btnGroupRev,
-                'contactBtnText': dict.contact
+                'contactBtnText': dict.contact,
+                'btn-submit-order': dict.confirm
             };
+
+            // Aggiorna testi bottoni paymento
+            const manualBtn = document.querySelector('#btn-submit-order + button');
+            if (manualBtn) manualBtn.innerText = dict.manualConfirm;
 
             for (const [id, text] of Object.entries(elements)) {
                 const el = document.getElementById(id);
@@ -1911,7 +2767,6 @@
                 }
             }
 
-            // Update delivery status if visible
             const statusBox = document.getElementById('inlineDeliveryStatus');
             if (statusBox && statusBox.style.display === 'block') {
                 if (statusBox.innerHTML.includes('❌')) {
@@ -1955,7 +2810,6 @@
             const dict = i18n[currentLang];
             if (!dict || !dict.cats) return;
 
-            // All button
             const allCard = document.createElement('div');
             allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
             allCard.innerText = dict.all;
@@ -1966,7 +2820,6 @@
             };
             container.appendChild(allCard);
 
-            // Category buttons
             Object.keys(dict.cats).forEach(key => {
                 const card = document.createElement('div');
                 card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
@@ -1995,7 +2848,6 @@
             saveCartToStorage();
             updateCartUI();
 
-            // Update display
             const display = document.getElementById(`gram-display-${productId}`);
             const input = document.getElementById(`qty-input-${productId}`);
             const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
@@ -2003,7 +2855,6 @@
             if (display) display.innerText = `${qty}${unitLabel}`;
             if (input) input.value = qty;
 
-            // Update quick buttons
             document.querySelectorAll(`#gram-quick-${productId} .gram-quick-btn`).forEach(btn => {
                 btn.classList.remove('active');
                 if (parseInt(btn.dataset.qty) === qty) {
@@ -2089,12 +2940,11 @@
                 }
             });
 
-            // Calculate discount
             let discountEur = 0;
             let discountReason = '';
             
             if (totalWeedGrams >= 10) {
-                discountEur = totalWeedGrams * 3; // 3€ off per 10g+
+                discountEur = totalWeedGrams * 3;
                 discountReason = `${totalWeedGrams}g Weed (-3€/g)`;
             } else if (baseProductsTotalEur >= 150) {
                 discountEur = baseProductsTotalEur * 0.10;
@@ -2149,7 +2999,6 @@
             formBlock.style.display = 'block';
             let html = '';
 
-            // Cart items
             Object.keys(cart).forEach(id => {
                 const p = productsData.find(prod => prod.id === id);
                 if (!p) return;
@@ -2173,7 +3022,6 @@
 
             const metrics = calculateCartMetrics();
 
-            // Discount row
             if (metrics.discountEur > 0) {
                 html += `
                     <div class="discount-row">
@@ -2182,7 +3030,6 @@
                     </div>`;
             }
 
-            // Shipping row
             html += `
                 <div class="shipping-row">
                     <div>⚙️ <strong>${dict.shippingCostText}</strong></div>
@@ -2191,7 +3038,6 @@
                     </div>
                 </div>`;
 
-            // Gift row
             if (metrics.giftApplied) {
                 html += `
                     <div class="gift-row">
@@ -2200,12 +3046,10 @@
                     </div>`;
             }
 
-            // Min order error
             if (metrics.finalProductsTotalEur < 30) {
                 html += `<div class="error-message show" style="display: block; margin-top: 15px;">⚠️ ${dict.minOrderErr}</div>`;
             }
 
-            // Total
             html += `
                 <div class="total-row">
                     ${dict.totEff}: <span>${getConvertedPriceStr(metrics.finalTotalEur)}</span>
@@ -2226,20 +3070,17 @@
         }
 
         function switchTab(tabId) {
-            // Hide success/error messages
             const successMsg = document.getElementById('orderSuccessMsg');
             const errorMsg = document.getElementById('errorMsg');
             if (successMsg) successMsg.style.display = 'none';
             if (errorMsg) errorMsg.classList.remove('show');
 
-            // Switch views
             document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
 
             document.getElementById(`view-${tabId}`).classList.add('active');
             document.getElementById(`tab-btn-${tabId}`).classList.add('active');
 
-            // Refresh content
             if (tabId === 'chat') renderCartPage();
             else if (tabId === 'menu') renderProducts(activeCategoryFilter);
             else if (tabId === 'reviews') renderReviews(i18n[currentLang]);
@@ -2247,7 +3088,6 @@
             if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
         }
 
-        // Delivery check
         function checkInlineDelivery() {
             const cityInput = document.getElementById('inlineGateCity').value.trim();
             const dict = i18n[currentLang];
@@ -2276,7 +3116,6 @@
             }
         }
 
-        // Time select handler
         document.getElementById('select-time').addEventListener('change', function() {
             const specInput = document.getElementById('input-time-spec');
             const dict = i18n[currentLang];
@@ -2285,220 +3124,11 @@
             if (isSpecific) specInput.placeholder = dict.p_spec;
         });
 
-        // Process Order
-        async function processOrderSend() {
-            const metrics = calculateCartMetrics();
-            const dict = i18n[currentLang];
-
-            // Validation
-            if (metrics.finalProductsTotalEur < 30) {
-                showError(dict.minOrderErr);
-                return;
-            }
-
-            const citta = document.getElementById('input-city').value.trim();
-            const indirizzo = document.getElementById('input-address').value.trim();
-            const cap = document.getElementById('input-cap').value.trim();
-            let orario = document.getElementById('select-time').value;
-
-            if (orario === 'Specific') {
-                const specTime = document.getElementById('input-time-spec');
-                if (specTime && specTime.value.trim()) {
-                    orario = specTime.value.trim();
-                }
-            }
-
-            if (!citta || !indirizzo || !cap) {
-                showError(dict.fieldErr);
-                return;
-            }
-
-            // Get user info
-            const userId = tg?.initDataUnsafe?.user?.id || '';
-            const username = tg?.initDataUnsafe?.user?.username || '';
-            const firstName = tg?.initDataUnsafe?.user?.first_name || '';
-            const lastName = tg?.initDataUnsafe?.user?.last_name || '';
-
-            // Build order message
-            let msg = `${dict.orderTitle}\n`;
-            msg += `═══════════════════════\n\n`;
-
-            // Products
-            const items = [];
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                if (!p) return;
-                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                const itemTotal = p.price * cart[id];
-                items.push(`• ${p.name}: ${cart[id]}${unitLabel} = ${getConvertedPriceStr(itemTotal)}`);
-            });
-
-            if (metrics.giftApplied) {
-                items.push(`• ${dict.giftLabel} = ${dict.free}`);
-            }
-
-            msg += items.join('\n');
-            msg += `\n\n`;
-
-            // Pricing
-            msg += `💰 ${dict.totalLabel}: ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
-            if (metrics.discountEur > 0) {
-                msg += `🏷️ ${dict.discountLabel}: -${getConvertedPriceStr(metrics.discountEur)}\n`;
-            }
-            if (metrics.shippingFeeEur > 0) {
-                msg += `🚚 ${dict.shippingCostText}: ${getConvertedPriceStr(metrics.shippingFeeEur)}\n`;
-            } else {
-                msg += `🚚 ${dict.shippingCostText}: ${dict.free}\n`;
-            }
-            msg += `💳 ${dict.paymentLabel}: ${currentSelectedPayment.toUpperCase()}\n\n`;
-
-            // Delivery
-            msg += `📍 ${dict.deliveryLabel}:\n`;
-            msg += `   ${dict.city}: ${citta}\n`;
-            msg += `   ${dict.address}: ${indirizzo}\n`;
-            msg += `   ${dict.cap}: ${cap}\n`;
-            msg += `   ${dict.time}: ${orario}\n\n`;
-
-            // Customer
-            msg += `👤 ${dict.customerLabel}:`;
-            if (username) msg += ` @${username}`;
-            if (firstName) msg += ` ${firstName}`;
-            if (lastName) msg += ` ${lastName}`;
-            if (!username && !firstName) msg += ` Guest`;
-            msg += `\n`;
-            if (userId) msg += `   ID: ${userId}`;
-
-            // Try to send to server first (optional)
-            try {
-                if (API_ENDPOINT !== 'https://your-server.com/api/orders') {
-                    await fetch(API_ENDPOINT, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            order: msg,
-                            userId,
-                            username,
-                            total: metrics.finalTotalEur,
-                            currency: activeCurrency,
-                            timestamp: new Date().toISOString()
-                        })
-                    });
-                }
-            } catch (e) {
-                console.log('Server sync failed, continuing with clipboard');
-            }
-
-            // Copy to clipboard
-            let copied = false;
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                try {
-                    await navigator.clipboard.writeText(msg);
-                    copied = true;
-                } catch (err) {
-                    console.error('Clipboard API failed:', err);
-                }
-            }
-
-            if (!copied) {
-                copied = copyFallback(msg);
-            }
-
-            // Show success
-            showOrderSuccess(msg, dict, copied);
-        }
-
-        function copyFallback(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            textArea.style.top = "0";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-
-            try {
-                const successful = document.execCommand('copy');
-                document.body.removeChild(textArea);
-                return successful;
-            } catch (err) {
-                document.body.removeChild(textArea);
-                console.error('Fallback copy failed:', err);
-                return false;
-            }
-        }
-
-        function showOrderSuccess(orderText, dict, copied) {
-            // Haptic feedback
-            if (tg && tg.HapticFeedback) {
-                tg.HapticFeedback.notificationOccurred('success');
-            }
-
-            const successDiv = document.getElementById('orderSuccessMsg');
-            
-            if (copied) {
-                successDiv.innerHTML = `
-                    <h3>✅ ${dict.pasteInstructions}</h3>
-                    <p style="margin: 15px 0; color: #ccc;">${dict.openTelegramInstructions}</p>
-                    <div style="margin-top: 20px;">
-                        <button class="new-order-btn" onclick="openElJefeChat()">
-                            📱 ${dict.openChatBtn}
-                        </button>
-                        <button class="new-order-btn secondary" onclick="resetForNewOrder()" style="margin-left: 10px;">
-                            🛒 ${dict.newOrder}
-                        </button>
-                    </div>
-                `;
-            } else {
-                successDiv.innerHTML = `
-                    <h3>⚠️ ${dict.manualCopyTitle}</h3>
-                    <div class="order-preview">
-                        <div class="order-preview-label">${dict.manualCopyInstructions}</div>
-                        <pre onclick="this.select()">${orderText.replace(/</g, '&lt;')}</pre>
-                    </div>
-                    <button class="new-order-btn" onclick="openElJefeChat()">
-                        📱 ${dict.openChatBtn}
-                    </button>
-                `;
-            }
-            
-            successDiv.style.display = 'block';
-            showToast(dict.copySuccess);
-            
-            // Clear cart
-            clearCart();
-            
-            // Scroll to success
-            successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function openElJefeChat() {
-            const url = 'https://t.me/eljefeshop';
-            if (tg && tg.openTelegramLink) {
-                tg.openTelegramLink(url);
-            } else {
-                window.open(url, '_blank');
-            }
-        }
-
-        function resetForNewOrder() {
-            const successDiv = document.getElementById('orderSuccessMsg');
-            if (successDiv) successDiv.style.display = 'none';
-            
-            document.getElementById('input-city').value = '';
-            document.getElementById('input-address').value = '';
-            document.getElementById('input-cap').value = '';
-            document.getElementById('select-time').selectedIndex = 0;
-            document.getElementById('input-time-spec').value = '';
-            document.getElementById('input-time-spec').style.display = 'none';
-            
-            setPaymentMethod('crypto');
-            switchTab('menu');
-            
-            const dict = i18n[currentLang];
-            showToast(dict.newOrder || 'New Order');
-        }
+        // Initialize
+        loadCartFromStorage();
+        renderProducts('all');
+        updateCartUI();
+        setLanguage('en');
 
         // Prevent double tap zoom
         let lastTouchEnd = 0;
