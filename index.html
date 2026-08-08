@@ -1,0 +1,2514 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0b0b0e">
+    <title>El Jefe Premium Shop</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        :root {
+            --bg-dark: #0b0b0e;
+            --bg-card: #16161e;
+            --primary-neon: #ffb700;
+            --secondary-neon: #ff3b30;
+            --accent-purple: #9d4edd;
+            --text-main: #ffffff;
+            --text-hint: #8e8e93;
+            --danger: #ff3b30;
+            --warning: #ffcc00;
+            --success: #ffb700;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 120px;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Header */
+        .brand-header {
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 59, 48, 0.15) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .main-logo-container {
+            width: 85px; 
+            height: 85px; 
+            margin: 0 auto 12px; 
+            border-radius: 50%; 
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            box-shadow: 0 0 20px rgba(255, 183, 0, 0.4); 
+            overflow: hidden; 
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .main-logo-container:active { transform: scale(0.95); }
+        .main-logo-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+        .brand-header h1 { 
+            font-size: 32px; 
+            font-weight: 800; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Top Controls */
+        .top-controls-bar {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 10px 15px; 
+            background: rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .currency-select {
+            background: #1c1c24; 
+            color: var(--primary-neon); 
+            border: 1px solid #3a3a44;
+            border-radius: 8px; 
+            padding: 8px 12px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            outline: none;
+            cursor: pointer;
+        }
+
+        .lang-selector { display: flex; gap: 5px; }
+        .lang-btn {
+            background: #1c1c24; 
+            border: 1px solid #3a3a44; 
+            border-radius: 6px;
+            padding: 6px 10px; 
+            font-size: 11px; 
+            cursor: pointer; 
+            color: white; 
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        .lang-btn.active { 
+            border-color: var(--primary-neon); 
+            background: rgba(255,183,0,0.15);
+            color: var(--primary-neon);
+        }
+
+        /* Banners */
+        .promo-banner {
+            background: linear-gradient(90deg, #ff3b30, #ffb700);
+            margin: 15px; 
+            padding: 15px; 
+            border-radius: 12px;
+            font-weight: 700; 
+            text-align: center; 
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.9; } }
+        
+        .gift-banner {
+            background: rgba(255, 59, 48, 0.1); 
+            border: 1px solid var(--secondary-neon);
+            margin: 0 15px 15px 15px; 
+            padding: 12px; 
+            border-radius: 12px;
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+        }
+
+        .gift-thumb { 
+            width: 60px; 
+            height: 60px; 
+            object-fit: cover; 
+            border-radius: 8px; 
+            border: 1px solid rgba(255,255,255,0.2); 
+            cursor: pointer; 
+        }
+
+        /* Categories */
+        .categories-scroller {
+            position: sticky; 
+            top: 60px; 
+            z-index: 100;
+            background: rgba(11, 11, 14, 0.98); 
+            backdrop-filter: blur(10px);
+            padding: 15px 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .categories-list {
+            display: flex; 
+            overflow-x: auto; 
+            padding: 0 15px; 
+            gap: 10px;
+            scrollbar-width: none;
+        }
+        .categories-list::-webkit-scrollbar { display: none; }
+
+        .cat-card {
+            flex-shrink: 0; 
+            padding: 12px 20px; 
+            background: var(--bg-card);
+            border: 1px solid #2c2c35; 
+            border-radius: 25px; 
+            color: var(--text-main);
+            font-size: 14px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .cat-card:active { transform: scale(0.95); }
+        .cat-card.active {
+            background: linear-gradient(135deg, var(--primary-neon), #cc9200);
+            color: #000; 
+            border-color: var(--primary-neon);
+            box-shadow: 0 4px 12px rgba(255, 183, 0, 0.25);
+        }
+
+        /* Views */
+        .app-view { display: none; padding: 15px; animation: fadeIn 0.3s ease; }
+        .app-view.active { display: block; }
+        
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* Products Grid */
+        .products-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            margin-top: 5px; 
+        }
+
+        .product-card {
+            background: var(--bg-card); 
+            border-radius: 20px; 
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05); 
+            display: flex; 
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .product-card:active { 
+            transform: scale(0.98); 
+            box-shadow: 0 4px 20px rgba(255,183,0,0.1); 
+        }
+
+        .product-img { 
+            width: 100%; 
+            height: 140px; 
+            object-fit: cover; 
+            background: #222; 
+            cursor: pointer; 
+        }
+
+        .product-info { 
+            padding: 12px; 
+            display: flex; 
+            flex-direction: column; 
+            flex-grow: 1; 
+        }
+
+        .product-name { 
+            font-size: 14px; 
+            font-weight: 700; 
+            margin-bottom: 4px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+
+        .product-desc { 
+            font-size: 11px; 
+            color: var(--text-hint); 
+            height: 32px; 
+            overflow: hidden; 
+            line-height: 1.3; 
+            margin-bottom: 10px; 
+        }
+
+        /* Gram Selector */
+        .gram-selector-fluid {
+            margin-top: auto;
+            background: #222;
+            border-radius: 12px;
+            padding: 8px;
+        }
+
+        .gram-display {
+            text-align: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--primary-neon);
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(255, 183, 0, 0.3);
+        }
+
+        .gram-input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .gram-input {
+            width: 60px;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: var(--primary-neon);
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .gram-btn-large {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-neon), #cc9200);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .gram-btn-large:active { transform: scale(0.95); }
+
+        .gram-quick-buttons {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .gram-quick-btn {
+            background: #333;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            min-width: 36px;
+        }
+
+        .gram-quick-btn:active { transform: scale(0.95); }
+        .gram-quick-btn.active {
+            background: var(--primary-neon);
+            color: #000;
+            border-color: var(--primary-neon);
+            box-shadow: 0 2px 8px rgba(255, 183, 0, 0.3);
+        }
+
+        /* Info Sections */
+        .info-section { 
+            background: var(--bg-card); 
+            padding: 20px; 
+            border-radius: 18px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            margin-bottom: 15px; 
+        }
+
+        .info-section h3 { 
+            color: var(--secondary-neon); 
+            margin-bottom: 10px; 
+            font-size: 18px; 
+        }
+
+        .info-section p { 
+            font-size: 14px; 
+            color: #d1d1d6; 
+            line-height: 1.6; 
+            margin-bottom: 10px; 
+        }
+
+        .alert-section { 
+            border-left: 4px solid var(--danger); 
+            background: rgba(255, 59, 48, 0.05); 
+        }
+
+        .tg-link-btn { 
+            display: block; 
+            text-align: center; 
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon)); 
+            color: #000; 
+            padding: 14px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin-top: 10px; 
+            font-size: 15px; 
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(255, 183, 0, 0.3);
+        }
+
+        .tg-link-btn:active { 
+            transform: scale(0.98); 
+            box-shadow: 0 2px 8px rgba(255, 183, 0, 0.2);
+        }
+
+        /* Checkout Form */
+        .checkout-form { 
+            background: var(--bg-card); 
+            padding: 20px; 
+            border-radius: 18px; 
+            margin-top: 20px; 
+            border: 1px solid #333; 
+        }
+
+        .form-group { 
+            margin-bottom: 15px; 
+        }
+
+        .form-group label { 
+            display: block; 
+            font-size: 13px; 
+            color: var(--text-hint); 
+            margin-bottom: 6px; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group select { 
+            width: 100%; 
+            padding: 14px; 
+            background: #222; 
+            border: 1px solid #444; 
+            border-radius: 12px; 
+            color: white; 
+            font-size: 15px; 
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus { 
+            border-color: var(--primary-neon); 
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 183, 0, 0.1);
+        }
+
+        /* Delivery Check */
+        .inline-check-box { 
+            background: #1c1c24; 
+            border: 1px solid #333; 
+            padding: 15px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+        }
+
+        .inline-check-box label { 
+            display: block; 
+            font-size: 13px; 
+            color: var(--primary-neon); 
+            margin-bottom: 10px; 
+            font-weight: bold; 
+        }
+
+        .inline-input-group { 
+            display: flex; 
+            gap: 10px; 
+        }
+
+        .inline-input-group input { 
+            flex: 1; 
+            padding: 12px; 
+            background: #222; 
+            border: 1px solid #444; 
+            border-radius: 10px; 
+            color: white; 
+            font-size: 15px; 
+        }
+
+        .inline-input-group button { 
+            padding: 12px 20px; 
+            background: rgba(255,183,0,0.1); 
+            color: var(--primary-neon); 
+            border: 1px solid var(--primary-neon); 
+            border-radius: 10px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+        }
+
+        .inline-input-group button:active { 
+            transform: scale(0.95); 
+            background: rgba(255,183,0,0.2); 
+        }
+
+        .inline-status { 
+            display: none; 
+            margin-top: 12px; 
+            font-size: 13px; 
+            line-height: 1.5; 
+            padding: 12px; 
+            border-radius: 10px; 
+            animation: slideDown 0.3s ease; 
+        }
+
+        @keyframes slideDown { 
+            from { opacity: 0; transform: translateY(-10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* Payment Options */
+        .pay-option { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 15px; 
+            background: #222; 
+            border: 2px solid transparent; 
+            border-radius: 12px; 
+            margin-bottom: 10px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+        }
+
+        .pay-option:active { transform: scale(0.98); }
+        .pay-option.active { 
+            border-color: var(--secondary-neon); 
+            background: rgba(255,59,48,0.05); 
+        }
+
+        .pay-option-content {
+            display: flex; 
+            align-items: center; 
+            flex: 1;
+        }
+
+        .pay-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .pay-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .pay-badge { 
+            font-size: 10px; 
+            padding: 4px 8px; 
+            border-radius: 6px; 
+            font-weight: 700; 
+        }
+
+        .badge-crypto { background: #ffb700; color: #000; }
+        .badge-card { background: #0052ff; color: #fff; }
+        .badge-off { background: #555; color: #aaa; }
+
+        /* Reviews */
+        .review-card { 
+            background: var(--bg-card); 
+            padding: 18px; 
+            border-radius: 16px; 
+            margin-bottom: 12px; 
+            border-left: 4px solid var(--primary-neon);
+            transition: transform 0.2s ease; 
+        }
+
+        .review-card:active { transform: scale(0.98); }
+
+        .review-stars { 
+            color: var(--warning); 
+            font-size: 16px; 
+            margin-bottom: 8px; 
+            letter-spacing: 2px;
+        }
+
+        .review-text { 
+            font-size: 15px; 
+            color: var(--text-main); 
+            line-height: 1.5; 
+            margin-bottom: 10px; 
+        }
+
+        .review-user { 
+            font-size: 13px; 
+            color: var(--text-hint); 
+            font-weight: 600; 
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100vw;
+            background: rgba(22, 22, 30, 0.98); 
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.08); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 0; 
+            z-index: 999;
+            padding-bottom: env(safe-area-inset-bottom, 12px);
+        }
+
+        .nav-tab {
+            background: none; 
+            border: none; 
+            color: var(--text-hint); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            font-size: 12px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            position: relative; 
+            width: 25%;
+            transition: all 0.2s ease;
+            padding: 5px;
+        }
+
+        .nav-tab:active { transform: scale(0.9); }
+        .nav-tab .icon { 
+            font-size: 24px; 
+            margin-bottom: 4px; 
+            transition: transform 0.2s; 
+        }
+
+        .nav-tab.active { color: var(--primary-neon); }
+        .nav-tab.active .icon { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(255,183,0,0.5)); }
+
+        .badge-cart-count { 
+            position: absolute; 
+            top: -5px; 
+            right: 15px; 
+            background: var(--danger); 
+            color: white; 
+            border-radius: 50%; 
+            width: 20px; 
+            height: 20px; 
+            font-size: 11px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            animation: popIn 0.3s ease; 
+            font-weight: bold;
+        }
+
+        @keyframes popIn { 
+            0% { transform: scale(0); } 
+            80% { transform: scale(1.2); } 
+            100% { transform: scale(1); } 
+        }
+
+        /* Cart Summary */
+        .cart-summary-floating { 
+            background: linear-gradient(135deg, var(--primary-neon), #cc9200); 
+            color: #000; 
+            font-weight: 800; 
+            padding: 16px; 
+            text-align: center; 
+            border-radius: 14px; 
+            margin-top: 20px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            width: 100%; 
+            border: none; 
+            transition: all 0.2s ease; 
+            box-shadow: 0 4px 20px rgba(255, 183, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cart-summary-floating:active { 
+            transform: scale(0.98); 
+            box-shadow: 0 2px 10px rgba(255, 183, 0, 0.3); 
+        }
+
+        .cart-summary-floating:disabled {
+            background: #444;
+            color: #888;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* Cart Items */
+        .cart-item { 
+            background: var(--bg-card); 
+            padding: 15px; 
+            border-radius: 12px; 
+            margin-bottom: 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border: 1px solid #2c2c35; 
+            transition: all 0.2s ease; 
+        }
+
+        .cart-item:active { transform: scale(0.98); }
+
+        .cart-qty-btn { 
+            background: #333; 
+            border: none; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: all 0.15s; 
+            font-size: 16px;
+        }
+
+        .cart-qty-btn:active { 
+            background: #444; 
+            transform: scale(0.9); 
+        }
+
+        /* Lightbox */
+        .lightbox-modal {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            background: rgba(0, 0, 0, 0.95); 
+            z-index: 100000;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            opacity: 0; 
+            pointer-events: none; 
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active { 
+            opacity: 1; 
+            pointer-events: auto; 
+        }
+
+        .lightbox-content { 
+            max-width: 90%; 
+            max-height: 80%; 
+            border-radius: 12px; 
+            box-shadow: 0 0 30px rgba(255,255,255,0.1); 
+            transform: scale(0.9); 
+            transition: transform 0.3s ease; 
+        }
+
+        .lightbox-modal.active .lightbox-content { transform: scale(1); }
+
+        .lightbox-close { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            font-size: 36px; 
+            color: white; 
+            cursor: pointer; 
+            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.2s;
+        }
+
+        .lightbox-close:active { 
+            background: rgba(255,255,255,0.2);
+            transform: scale(0.9); 
+        }
+
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, rgba(255, 183, 0, 0.15), rgba(255, 59, 48, 0.1));
+            border: 2px solid var(--primary-neon);
+            color: var(--primary-neon);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+
+        .success-message h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-neon);
+        }
+
+        /* Toast */
+        .toast-notification {
+            position: fixed; 
+            top: 20px; 
+            left: 50%; 
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--primary-neon); 
+            color: #000; 
+            padding: 14px 28px; 
+            border-radius: 30px;
+            font-weight: bold; 
+            font-size: 15px; 
+            z-index: 100001; 
+            box-shadow: 0 4px 25px rgba(255,183,0,0.5);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            pointer-events: none;
+            max-width: 90%; 
+            text-align: center;
+        }
+
+        .toast-notification.show { transform: translateX(-50%) translateY(0); }
+
+        /* Floating Contact */
+        .floating-contact {
+            position: fixed;
+            bottom: 100px;
+            right: 15px;
+            z-index: 998;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 22px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 25px rgba(255, 183, 0, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .floating-contact:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 15px rgba(255, 183, 0, 0.4);
+        }
+
+        /* Buttons */
+        .new-order-btn {
+            background: var(--primary-neon);
+            color: #000;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .new-order-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--primary-neon);
+            color: var(--primary-neon);
+        }
+
+        .new-order-btn:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        /* Price Display */
+        .price-tag {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--primary-neon);
+            margin-top: 10px;
+            text-align: center;
+            padding: 8px;
+            background: rgba(255, 183, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,0.3);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 380px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .gram-quick-btn { padding: 4px 8px; font-size: 10px; }
+        }
+
+        /* Reviews Header */
+        .reviews-header { margin-bottom: 25px; }
+        .reviews-header h2 { 
+            margin-bottom: 8px; 
+            font-size: 24px;
+        }
+        .reviews-header p { 
+            font-size: 14px; 
+            color: var(--text-hint); 
+            margin-bottom: 15px; 
+        }
+
+        /* Discount Badge */
+        .discount-row {
+            background: rgba(255, 183, 0, 0.08);
+            border: 1px dashed var(--primary-neon);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .discount-row span {
+            color: var(--primary-neon);
+            font-weight: bold;
+        }
+
+        /* Shipping Row */
+        .shipping-row {
+            border: 1px solid #444;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shipping-row .free {
+            color: var(--primary-neon);
+            font-weight: bold;
+        }
+
+        /* Gift Row */
+        .gift-row {
+            background: rgba(255, 59, 48, 0.08);
+            border: 1px dashed var(--secondary-neon);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--secondary-neon);
+            font-size: 13px;
+        }
+
+        /* Total Row */
+        .total-row {
+            margin-top: 15px;
+            padding: 15px;
+            text-align: right;
+            font-size: 20px;
+            font-weight: 800;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+        }
+
+        .total-row span {
+            color: var(--primary-neon);
+            font-size: 24px;
+        }
+
+        /* Error Message */
+        .error-message {
+            margin-top: 15px;
+            padding: 14px;
+            border-radius: 12px;
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid var(--danger);
+            text-align: center;
+            color: var(--danger);
+            font-weight: bold;
+            font-size: 14px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Order Text Preview */
+        .order-preview {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .order-preview pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .order-preview-label {
+            font-size: 11px;
+            color: var(--text-hint);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast -->
+    <div class="toast-notification" id="toast">✅ Ordine copiato!</div>
+
+    <!-- Lightbox -->
+    <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Top Controls -->
+    <div class="top-controls-bar">
+        <select class="currency-select" id="currencySelect" onchange="changeCurrency(this.value)">
+            <option value="EUR">EUR (€)</option>
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="JPY">JPY (¥)</option>
+            <option value="RUB">RUB (₽)</option>
+        </select>
+
+        <div class="lang-selector">
+            <button class="lang-btn active" id="lang-btn-en" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" id="lang-btn-it" onclick="setLanguage('it')">IT</button>
+            <button class="lang-btn" id="lang-btn-fr" onclick="setLanguage('fr')">FR</button>
+            <button class="lang-btn" id="lang-btn-de" onclick="setLanguage('de')">DE</button>
+            <button class="lang-btn" id="lang-btn-ru" onclick="setLanguage('ru')">RU</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="brand-header">
+        <div class="main-logo-container" onclick="openLightbox('https://i.imgur.com/GO6zIdq.png')">
+            <img src="https://i.imgur.com/GO6zIdq.png" alt="El Jefe">
+        </div>
+        <h1>EL JEFE</h1>
+        <p id="txt-header-sub">Premium Quality Direct • Delivery in 1 hour!</p>
+    </div>
+
+    <!-- Promo Banner -->
+    <div class="promo-banner" id="txt-promo">
+        🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!
+    </div>
+
+    <!-- Gift Banner -->
+    <div class="gift-banner">
+        <img class="gift-thumb" src="https://i.imgur.com/7835lP2.jpg" alt="Gifts" onclick="openLightbox(this.src)">
+        <div>
+            <strong id="gift-title" style="color: var(--secondary-neon); display: block; margin-bottom: 5px;">🎁 FREE GIFTS</strong>
+            <span id="gift-desc" style="font-size: 13px; color: var(--text-hint);">Clipper lighter, rolling papers and filters included free in every order from 50€!</span>
+        </div>
+    </div>
+
+    <!-- Menu View -->
+    <div id="view-menu" class="app-view active">
+        <div class="categories-scroller">
+            <div class="categories-list" id="catList"></div>
+        </div>
+        <div id="productsDisplay"></div>
+    </div>
+
+    <!-- Cart View -->
+    <div id="view-chat" class="app-view">
+        <h2 id="txt-cart-title" style="margin-bottom:20px; font-size: 24px;">🛒 Your Cart</h2>
+        
+        <div class="success-message" id="orderSuccessMsg"></div>
+        <div class="error-message" id="errorMsg"></div>
+        
+        <div id="cartItemsContainer"></div>
+        
+        <div class="checkout-form" id="checkoutFormBlock" style="display:none;">
+            <h3 id="txt-delivery-details" style="margin-bottom:20px; color:var(--primary-neon); font-size: 18px;">📍 Delivery Details</h3>
+
+            <!-- Delivery Check -->
+            <div class="inline-check-box">
+                <label id="lbl-check-cov">📍 CHECK INSTANT DELIVERY COVERAGE</label>
+                <div class="inline-input-group">
+                    <input type="text" id="inlineGateCity" placeholder="e.g. Rome, Milan, London...">
+                    <button id="btn-inline-check" onclick="checkInlineDelivery()">CHECK</button>
+                </div>
+                <div id="inlineDeliveryStatus" class="inline-status"></div>
+            </div>
+            
+            <div class="form-group">
+                <label id="lbl-city">CITY</label>
+                <input type="text" id="input-city" placeholder="">
+            </div>
+            
+            <div class="form-group">
+                <label id="lbl-address">ADDRESS</label>
+                <input type="text" id="input-address" placeholder="">
+            </div>
+            
+            <div class="form-group">
+                <label id="lbl-cap">ZIP CODE</label>
+                <input type="text" id="input-cap" placeholder="">
+            </div>
+            
+            <div class="form-group">
+                <label id="lbl-time">PREFERRED DELIVERY TIME</label>
+                <select id="select-time">
+                    <option value="ASAP" id="opt-asap">As soon as possible / ASAP</option>
+                    <option value="Express Shipping 24/48h" id="opt-ship">Express Shipping 24/48h (Wholesale Prices)</option>
+                    <option value="Specific" id="opt-spec">Specific Time Slot (Write below)</option>
+                </select>
+                <input type="text" id="input-time-spec" placeholder="" style="margin-top:10px; display:none;">
+            </div>
+
+            <h3 id="txt-pay-title" style="margin-top:25px; margin-bottom:15px; color:var(--secondary-neon); font-size: 18px;">💳 Payment Method</h3>
+            
+            <div class="pay-option active" id="pay-opt-crypto" onclick="setPaymentMethod('crypto')">
+                <div class="pay-option-content">
+                    <div class="pay-logo badge-crypto">₿</div>
+                    <div>
+                        <strong style="display:block; font-size: 15px;">Crypto (BTC, USDT, LTC, ETH)</strong>
+                        <small id="txt-crypto-sub" style="color: var(--text-hint); font-size: 12px;">Receive direct payment address in chat</small>
+                    </div>
+                </div>
+                <span class="pay-badge badge-crypto">CRYPTO</span>
+            </div>
+
+            <div class="pay-option" id="pay-opt-moonpay" onclick="setPaymentMethod('moonpay')">
+                <div class="pay-option-content">
+                    <div class="pay-logo badge-card">💳</div>
+                    <div>
+                        <strong style="display:block; font-size: 15px;">Credit / Debit Card (MoonPay)</strong>
+                        <small id="txt-moonpay-sub" style="color: var(--text-hint); font-size: 12px;">We will guide you to buy Bitcoin instantly with card</small>
+                    </div>
+                </div>
+                <span class="pay-badge badge-card">CARD</span>
+            </div>
+
+            <div class="pay-option" id="pay-opt-paypal" onclick="setPaymentMethod('paypal')">
+                <div class="pay-option-content">
+                    <div class="pay-logo" style="background:#003087; color:white; font-size: 18px;">P</div>
+                    <div>
+                        <strong style="display:block; font-size: 15px; color:#aaa;" id="txt-paypal-head">PayPal</strong>
+                        <small id="txt-paypal-sub" style="color:#777; font-size: 12px;">Not always available. Ask in chat for approval</small>
+                    </div>
+                </div>
+                <span class="pay-badge badge-off" id="badge-req">REQUEST</span>
+            </div>
+
+            <div class="pay-option" id="pay-opt-revolut" onclick="setPaymentMethod('revolut')">
+                <div class="pay-option-content">
+                    <div class="pay-logo" style="background:linear-gradient(135deg, #00d4aa, #0077ff); color:white; font-size: 11px; font-weight:bold;">REV</div>
+                    <div>
+                        <strong style="display:block; font-size: 15px;">Revolut Crypto</strong>
+                        <small id="txt-revolut-sub" style="color: var(--text-hint); font-size: 12px;">Pay instantly with your Revolut crypto wallet</small>
+                    </div>
+                </div>
+                <span class="pay-badge badge-crypto">REVOLUT</span>
+            </div>
+
+            <div class="pay-option" id="pay-opt-bitpanda" onclick="setPaymentMethod('bitpanda')">
+                <div class="pay-option-content">
+                    <div class="pay-logo" style="background:#00a4e0; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: white; font-size: 10px; font-weight: bold;">BIT</span>
+                    </div>
+                    <div>
+                        <strong style="display:block; font-size: 15px;">Bitpanda Crypto</strong>
+                        <small id="txt-bitpanda-sub" style="color: var(--text-hint); font-size: 12px;">Send from your Bitpanda brokerage account</small>
+                    </div>
+                </div>
+                <span class="pay-badge badge-crypto">BITPANDA</span>
+            </div>
+
+            <div class="pay-option" id="pay-opt-binance" onclick="setPaymentMethod('binance')">
+                <div class="pay-option-content">
+                    <div class="pay-logo" style="background:#f0b90b; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #000; font-size: 10px; font-weight: bold;">BNB</span>
+                    </div>
+                    <div>
+                        <strong style="display:block; font-size: 15px;">Binance Crypto</strong>
+                        <small id="txt-binance-sub" style="color: var(--text-hint); font-size: 12px;">Transfer from your Binance wallet via P2P or direct</small>
+                    </div>
+                </div>
+                <span class="pay-badge badge-crypto">BINANCE</span>
+            </div>
+
+            <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderSend()">
+                SEND ORDER TO @ELJEFESHOP
+            </button>
+        </div>
+    </div>
+
+    <!-- Info View -->
+    <div id="view-info" class="app-view">
+        <div class="info-section alert-section">
+            <h3 style="color:var(--danger);" id="info-p0-t"></h3>
+            <p id="info-p0-d" style="color:#fff; font-weight: 500; line-height: 1.7;"></p>
+        </div>
+        
+        <div class="info-section">
+            <h3 id="info-p1-t"></h3>
+            <p id="info-p1-d"></p>
+        </div>
+        
+        <div class="info-section">
+            <h3 id="info-p2-t"></h3>
+            <p id="info-p2-d"></p>
+            <img class="papers-hosted-img" src="https://i.imgur.com/7835lP2.jpg" alt="Accessories" onclick="openLightbox(this.src)" style="width: 100%; border-radius: 12px; margin-top: 15px;">
+        </div>
+        
+        <div class="info-section">
+            <h3 id="info-p3-t"></h3>
+            <p id="info-p3-d"></p>
+            <a href="https://t.me/eljefeshop" target="_blank" class="tg-link-btn" id="btn-contact-tg"></a>
+        </div>
+    </div>
+
+    <!-- Reviews View -->
+    <div id="view-reviews" class="app-view">
+        <div class="reviews-header">
+            <h2 id="txt-rev-title">Reviews</h2>
+            <p id="txt-rev-sub">Real reviews from our customers</p>
+            <a href="https://t.me/+dWYBdbc2_WgwMDJk" target="_blank" class="tg-link-btn" id="btn-group-rev">Join Reviews Channel</a>
+        </div>
+        <div id="reviewsContainer"></div>
+    </div>
+
+    <!-- Floating Contact -->
+    <button class="floating-contact" id="floatingContactBtn" onclick="openContact()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+        <span id="contactBtnText">Contact</span>
+    </button>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-tab active" id="tab-btn-menu" onclick="switchTab('menu')">
+            <span class="icon">🌿</span>
+            <span id="tab-menu">Menu</span>
+        </button>
+        <button class="nav-tab" id="tab-btn-chat" onclick="switchTab('chat')">
+            <span class="icon">🛒</span>
+            <span id="tab-cart">Cart</span>
+            <span class="badge-cart-count" id="cartBadge" style="display:none;">0</span>
+        </button>
+        <button class="nav-tab" id="tab-btn-info" onclick="switchTab('info')">
+            <span class="icon">ℹ️</span>
+            <span id="tab-info">Info</span>
+        </button>
+        <button class="nav-tab" id="tab-btn-reviews" onclick="switchTab('reviews')">
+            <span class="icon">⭐</span>
+            <span id="tab-reviews">Reviews</span>
+        </button>
+    </div>
+
+    <script>
+        // Telegram WebApp Init
+        const tg = window.Telegram?.WebApp;
+        if (tg) { 
+            tg.expand(); 
+            tg.ready();
+            tg.enableClosingConfirmation();
+            tg.setHeaderColor('#0b0b0e');
+            tg.setBackgroundColor('#0b0b0e');
+        }
+
+        // Config
+        const STORAGE_KEY = 'eljefe_cart_v1';
+        const API_ENDPOINT = 'https://your-server.com/api/orders';
+        
+        let cart = {};
+        let currentLang = 'en';
+        let currentSelectedPayment = 'crypto';
+        let activeCategoryFilter = 'all';
+        let activeCurrency = 'EUR';
+
+        // Currency Config
+        const currencyConfig = {
+            EUR: { symbol: '€', rate: 1.0 },
+            USD: { symbol: '$', rate: 1.08 },
+            GBP: { symbol: '£', rate: 0.85 },
+            JPY: { symbol: '¥', rate: 168.5 },
+            RUB: { symbol: '₽', rate: 98.2 }
+        };
+
+        // Translations
+        const i18n = {
+            en: {
+                all: "All Strains",
+                checkCovTitle: "📍 CHECK INSTANT DELIVERY COVERAGE",
+                btnCheck: "CHECK",
+                gateAlertErr: "Please enter your city name!",
+                gateStatusOk: "✅ DELIVERY AVAILABLE! Our instant network is fully operational in your area. Guaranteed delivery within 20-30 minutes from order confirmation.",
+                gateStatusErr: "❌ DELIVERY NOT AVAILABLE! The city name entered seems invalid or not covered by our rapid rider distribution network. Please check the spelling.",
+                sub: "Premium Quality Direct • Delivery in 1 hour!",
+                promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
+                cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu",
+                empty: "Your cart is empty. Add products from the Menu!",
+                city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME",
+                pay: "Payment Method", confirm: "SEND ORDER TO @ELJEFESHOP",
+                giftT: "🎁 FREE GIFTS",
+                giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
+                asap: "As soon as possible / ASAP",
+                ship: "Express Shipping 24/48h (Wholesale Prices)",
+                spec: "Specific Time Slot (Write below)",
+                p_city: "e.g. Rome, Milan, London...",
+                p_address: "Street Name and Number",
+                p_cap: "e.g. 00100, 20121...",
+                p_spec: "e.g. Between 14:00 and 16:00",
+                delDetails: "📍 Delivery Details",
+                cryptoSub: "Receive direct payment address in chat",
+                cardSub: "We will guide you to buy Bitcoin instantly with card",
+                ppSub: "Not always available. Ask in chat for approval",
+                reqAvail: "REQUEST",
+                revSub: "Pay instantly with your Revolut crypto wallet",
+                bitSub: "Send from your Bitpanda brokerage account",
+                binSub: "Transfer from your Binance wallet via P2P or direct",
+                infT0: "⚠️ NO CASH ACCEPTED",
+                infD0: "We work exclusively with fully anonymous riders whom we prepay in crypto. We do not know their identities, and they arrive randomly to pick up your package and securely deliver it near your coordinates.\n\nWhen the rider reaches the spot, they will contact you directly to guide you to the precise hideout (e.g., behind a pillar, under a car wheel, or a specific discrete point). This airtight process ensures that even if law enforcement is around, nothing can be connected to you or the rider.\n\nDo not insist on cash payments. We make absolutely zero exceptions. No upfront payment, no order.",
+                infT1: "📦 Delivery Process & Wholesale",
+                infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.\n\n💡 WHOLESALE NOTICE: Orders selected with 24/48h Express Shipping operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.",
+                infT2: "💳 Accepted Payments",
+                infD2: "We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies. If you do not own crypto, our app guides you through instant purchase via MoonPay using your debit/credit card.",
+                infT3: "🌿 Premium Accessories",
+                infD3: "We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.",
+                infT4: "💬 Direct Contact & Support",
+                infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
+                btnContact: "💬 Contact @eljefeshop",
+                revTitle: "Verified Customer Reviews",
+                revSub: "Real reviews from our trusted community.",
+                btnGroupRev: "⭐️ Join Reviews Channel",
+                actPromo: "🎉 Min. Order met!",
+                totEff: "Total Price",
+                free: "FREE",
+                shippingCostText: "Shipping",
+                minOrderErr: "Minimum order is 30€! Please add more items.",
+                fieldErr: "Please fill City, Address and ZIP code fields!",
+                discountTxt: "Quantity Discount",
+                orderSuccess: "✅ Order copied to clipboard!",
+                copySuccess: "✅ Order copied! Paste it to @eljefeshop",
+                contact: "Contact",
+                newOrder: "🛒 New Order",
+                orderTitle: "📦 ORDER EL JEFE",
+                totalLabel: "TOTAL",
+                discountLabel: "Discount",
+                paymentLabel: "PAYMENT",
+                deliveryLabel: "DELIVERY",
+                customerLabel: "CUSTOMER",
+                giftLabel: "🎁 Gift: Lighter + Papers + Filters",
+                pasteInstructions: "Order copied to clipboard!",
+                openTelegramInstructions: "Open Telegram and paste this message to @eljefeshop to complete your order.",
+                openChatBtn: "Open @eljefeshop Chat",
+                manualCopyTitle: "Copy the order manually",
+                manualCopyInstructions: "Select and copy the text below, then send it to @eljefeshop:",
+                orderPreview: "Order Preview:",
+                cats: {
+                    flowers: "🌿 Weed",
+                    hash: "🍯 Hash",
+                    edibles: "🍫 Edibles",
+                    vapes: "💨 Vapes",
+                    mushrooms: "🍄 Mushrooms",
+                    prerolls: "🚬 Prerolls",
+                    special: "🔥 Special"
+                },
+                revs: [
+                    {text: "Just received my order from yesterday. The product quality exceeded my expectations - perfectly cured, sticky and dense. The aroma is incredible with sweet citrus notes. Delivery was stealthy and arrived right on time. Will definitely be a returning customer!", user: "@alex_martinez92 - 2 hours ago"},
+                    {text: "Third purchase this month and consistently impressed. The packaging is always professional and discreet. Customer service is responsive and helpful. The product itself is top shelf - exactly as described. 10/10 experience!", user: "@sophie.london - 4 hours ago"},
+                    {text: "Express shipping option is amazing! Ordered Monday morning, arrived Wednesday afternoon. The stealth packaging was so clever I almost couldn't find my own order! Product quality is unmatched in this price range.", user: "@max_runner - 6 hours ago"},
+                    {text: "First time buyer here and I'm blown away by the quality. The buds are fresh, not dry at all, and the effects are exactly what I was looking for. The free gifts included were a nice surprise. Highly recommend!", user: "@emma_johnson88 - yesterday"},
+                    {text: "Been ordering weekly for the past 3 months. Never had a single issue. Delivery is always on time, product is consistent, and the support team is friendly. This is how online shopping should be!", user: "@david_chen - yesterday"}
+                ]
+            },
+            it: {
+                all: "Tutte",
+                checkCovTitle: "📍 CONTROLLO COPERTURA CONSEGNA",
+                btnCheck: "VERIFICA",
+                gateAlertErr: "Inserisci il nome della tua città!",
+                gateStatusOk: "✅ CONSEGNA DISPONIBILE! La nostra rete istantanea è completamente operativa nella tua zona. Consegna garantita entro 20-30 minuti dalla conferma dell'ordine.",
+                gateStatusErr: "❌ CONSEGNA NON DISPONIBILE! Il nome della città inserito sembra non valido o non coperto dalla nostra rete di distribuzione. Controlla l'ortografia.",
+                sub: "Qualità Premium Diretta • Consegna in 1 ora!",
+                promo: "🔥 Ordine Minimo 30€ + 10€ Spedizione | Consegna GRATIS da 50€!",
+                cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu",
+                empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
+                city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO CONSEGNA",
+                pay: "Metodo di Pagamento", confirm: "INVIA ORDINE A @ELJEFESHOP",
+                giftT: "🎁 REGALO COMPRESO",
+                giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€!",
+                asap: "Appena possibile / ASAP",
+                ship: "Spedizione Express 24/48h (Prezzi Ingrosso)",
+                spec: "Fascia Oraria Specifica",
+                p_city: "Es: Milano, Roma, Napoli...",
+                p_address: "Via e Numero Civico",
+                p_cap: "Es: 00100, 20121...",
+                p_spec: "Es: Tra le 14:00 e le 16:00",
+                delDetails: "📍 Dati Consegna",
+                cryptoSub: "Ricevi l'indirizzo di pagamento in chat",
+                cardSub: "Ti guideremo su MoonPay per acquistare Bitcoin",
+                ppSub: "Non sempre disponibile. Chiedi in chat",
+                reqAvail: "RICHIESTA",
+                revSub: "Paga istantaneamente con il tuo wallet Revolut",
+                bitSub: "Invia dal tuo conto Bitpanda",
+                binSub: "Trasferisci dal tuo wallet Binance via P2P",
+                infT0: "⚠️ NESSUN PAGAMENTO IN CONTANTI",
+                infD0: "Lavoriamo esclusivamente con rider anonimi prepagati in crypto. Non conosciamo le loro identità. Quando il rider arriva, ti contatterà per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto una ruota).\n\nQuesto processo garantisce che nulla possa essere ricollegato a te o al rider.\n\nNon insistere per i pagamenti in contanti. Nessuna eccezione. Nessun pagamento anticipato, nessun ordine.",
+                infT1: "📦 Processo di Consegna & Ingrosso",
+                infD1: "Garantiamo spedizioni flash e consegne ultrariservate. Ogni confezione è sigillata sotto vuoto, inodore e senza branding.\n\n💡 NOTA INGROSSO: Gli ordini con Spedizione Express 24/48h hanno tariffe ingrosso drasticamente inferiori. Scrivici in privato per dettagli.",
+                infT2: "💳 Metodi di Pagamento",
+                infD2: "Accettiamo tutte le principali Criptovalute. Se non le possiedi, l'app ti guida all'acquisto istantaneo tramite MoonPay con carta.",
+                infT3: "🌿 Accessori Premium",
+                infD3: "Abbiamo selezionato cartine ultra sottili non sbiancate e filtri organici di altissima qualità, inclusi nel catalogo.",
+                infT4: "💬 Contatto Diretto",
+                infD4: "Hai bisogno di aiuto? Contatta immediatamente il nostro operatore su Telegram.",
+                btnContact: "💬 Contatta @eljefeshop",
+                revTitle: "Recensioni Verificate",
+                revSub: "Recensioni reali dalla nostra community.",
+                btnGroupRev: "⭐️ Unisciti al Canale",
+                actPromo: "🎉 Minimo raggiunto!",
+                totEff: "Totale",
+                free: "GRATIS",
+                shippingCostText: "Spedizione",
+                minOrderErr: "L'ordine minimo è di 30€!",
+                fieldErr: "Compila Città, Indirizzo e CAP!",
+                discountTxt: "Sconto Quantità",
+                orderSuccess: "✅ Ordine copiato negli appunti!",
+                copySuccess: "✅ Ordine copiato! Incollalo su @eljefeshop",
+                contact: "Contatta",
+                newOrder: "🛒 Nuovo Ordine",
+                orderTitle: "📦 ORDINE EL JEFE",
+                totalLabel: "TOTALE",
+                discountLabel: "Sconto",
+                paymentLabel: "PAGAMENTO",
+                deliveryLabel: "CONSEGNA",
+                customerLabel: "CLIENTE",
+                giftLabel: "🎁 Regalo: Accendino+Cartine+Filtri",
+                pasteInstructions: "Ordine copiato negli appunti!",
+                openTelegramInstructions: "Apri Telegram e incolla questo messaggio a @eljefeshop per completare l'ordine.",
+                openChatBtn: "Apri chat @eljefeshop",
+                manualCopyTitle: "Copia l'ordine manualmente",
+                manualCopyInstructions: "Seleziona e copia il testo qui sotto, poi invialo a @eljefeshop:",
+                orderPreview: "Anteprima Ordine:",
+                cats: {
+                    flowers: "🌿 Weed",
+                    hash: "🍯 Hash",
+                    edibles: "🍫 Edibles",
+                    vapes: "💨 Vapes",
+                    mushrooms: "🍄 Mushrooms",
+                    prerolls: "🚬 Prerolls",
+                    special: "🔥 Special"
+                },
+                revs: [
+                    {text: "Appena ricevuto il mio ordine di ieri. La qualità del prodotto ha superato le mie aspettative - perfettamente curato, appiccicoso e denso. Consegna stealth e puntuale. Tornerò sicuramente!", user: "@alex_martinez92 - 2 ore fa"},
+                    {text: "Terzo acquisto questo mese e sempre impressionato. Il packaging è sempre professionale e discreto. Servizio clienti disponibile. Prodotto top - esattamente come descritto. Esperienza 10/10!", user: "@sophie.london - 4 ore fa"},
+                    {text: "L'opzione spedizione express è fantastica! Ordinato lunedì mattina, arrivato mercoledì pomeriggio.", user: "@max_runner - 6 ore fa"},
+                    {text: "Prima volta che acquisto e sono stupito dalla qualità. Consigliatissimo!", user: "@emma_johnson88 - ieri"},
+                    {text: "Ordino settimanalmente da 3 mesi. Mai avuto un problema. Così dovrebbe essere lo shopping online!", user: "@david_chen - ieri"}
+                ]
+            },
+            fr: {
+                all: "Toutes",
+                checkCovTitle: "📍 VÉRIFIER COUVERTURE",
+                btnCheck: "VÉRIFIER",
+                gateAlertErr: "Écrivez le nom de votre ville!",
+                gateStatusOk: "✅ LIVRAISON DISPONIBLE! Notre réseau est opérationnel. Livraison en 20-30 min.",
+                gateStatusErr: "❌ LIVRAISON NON DISPONIBLE! Ville invalide ou non couverte.",
+                sub: "Qualité Premium Directe • Livraison en 1h!",
+                promo: "🔥 Min. 30€ + 10€ Expédition | GRATUIT dès 50€!",
+                cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu",
+                empty: "Votre panier est vide!",
+                city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE LIVRAISON",
+                pay: "Mode de paiement", confirm: "ENVOYER À @ELJEFESHOP",
+                giftT: "🎁 CADEAUX GRATUITS",
+                giftD: "Briquet Clipper, feuilles et filtres inclus dès 50€!",
+                asap: "Aussitôt que possible",
+                ship: "Livraison Express 24/48h (Prix de gros)",
+                spec: "Créneau spécifique",
+                p_city: "Ex: Paris, Lyon...",
+                p_address: "Rue et Numéro",
+                p_cap: "Ex: 75001...",
+                p_spec: "Ex: Entre 14h et 16h",
+                delDetails: "📍 Détails Livraison",
+                cryptoSub: "Recevez l'adresse en chat",
+                cardSub: "Nous vous guidons sur MoonPay",
+                ppSub: "Pas toujours dispo. Demandez en chat",
+                reqAvail: "DEMANDE",
+                revSub: "Payez instantanément avec Revolut",
+                bitSub: "Envoyez depuis Bitpanda",
+                binSub: "Transférez depuis Binance",
+                infT0: "⚠️ AUCUN PAIEMENT ESPÈCES",
+                infD0: "Nous travaillons avec des livreurs anonymes prépayés en crypto. Ils vous contacteront pour le drop discret.\n\nN'insistez pas pour espèces. Aucune exception.",
+                infT1: "📦 Livraison & Prix de Gros",
+                infD1: "Colis scellés sous vide, sans odeur. Express 24/48h = tarifs de gros.",
+                infT2: "💳 Paiements Acceptés",
+                infD2: "Crypto-monnaies acceptées. Achat instantané via MoonPay.",
+                infT3: "🌿 Feuilles Premium",
+                infD3: "Feuilles ultrafines non blanchies et filtres organiques inclus.",
+                infT4: "💬 Contact",
+                infD4: "Besoin d'aide? Contactez @eljefeshop.",
+                btnContact: "💬 Contacter @eljefeshop",
+                revTitle: "Avis Vérifiés",
+                revSub: "Vrais avis de nos clients.",
+                btnGroupRev: "⭐️ Rejoindre le Canal",
+                actPromo: "🎉 Min. atteint!",
+                totEff: "Prix Total",
+                free: "GRATUIT",
+                shippingCostText: "Expédition",
+                minOrderErr: "Commande minimum: 30€!",
+                fieldErr: "Remplissez tous les champs!",
+                discountTxt: "Remise quantité",
+                orderSuccess: "✅ Commande copiée!",
+                copySuccess: "✅ Commande copiée! Collez-la sur @eljefeshop",
+                contact: "Contacter",
+                newOrder: "🛒 Nouvelle Commande",
+                orderTitle: "📦 COMMANDE EL JEFE",
+                totalLabel: "TOTAL",
+                discountLabel: "Réduction",
+                paymentLabel: "PAIEMENT",
+                deliveryLabel: "LIVRAISON",
+                customerLabel: "CLIENT",
+                giftLabel: "🎁 Cadeau: Briquet+Papiers+Filtres",
+                pasteInstructions: "Commande copiée!",
+                openTelegramInstructions: "Ouvrez Telegram et collez ce message à @eljefeshop.",
+                openChatBtn: "Ouvrir @eljefeshop",
+                manualCopyTitle: "Copiez la commande manuellement",
+                manualCopyInstructions: "Sélectionnez et copiez le texte ci-dessous:",
+                orderPreview: "Aperçu Commande:",
+                cats: {
+                    flowers: "🌿 Weed",
+                    hash: "🍯 Hash",
+                    edibles: "🍫 Edibles",
+                    vapes: "💨 Vapes",
+                    mushrooms: "🍄 Mushrooms",
+                    prerolls: "🚬 Prerolls",
+                    special: "🔥 Special"
+                },
+                revs: [
+                    {text: "Commande reçue d'hier, la qualité a dépassé mes attentes. Livraison discrète et ponctuelle. Je reviendrai!", user: "@alex_martinez92 - il y a 2 heures"},
+                    {text: "Troisième achat ce mois et toujours impressionné. Emballage professionnel. Expérience 10/10!", user: "@sophie.london - il y a 4 heures"},
+                    {text: "Option livraison express incroyable! Commandé lundi, arrivé mercredi.", user: "@max_runner - il y a 6 heures"},
+                    {text: "Première fois et impressionné par la qualité. Recommandé!", user: "@emma_johnson88 - hier"},
+                    {text: "Je commande chaque semaine depuis 3 mois. Jamais eu de problème.", user: "@david_chen - hier"}
+                ]
+            },
+            de: {
+                all: "Alle",
+                checkCovTitle: "📍 PRÜFEN",
+                btnCheck: "PRÜFEN",
+                gateAlertErr: "Stadtname eingeben!",
+                gateStatusOk: "✅ LIEFERUNG VERFÜGBAR! Netzwerk aktiv. Lieferung in 20-30 Min.",
+                gateStatusErr: "❌ NICHT VERFÜGBAR! Stadt nicht im Netzwerk.",
+                sub: "Premium Qualität Direkt • Lieferung in 1 Std!",
+                promo: "🔥 Mindestbestellwert 30€ + 10€ Versand | KOSTENLOS ab 50€!",
+                cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü",
+                empty: "Ihr Warenkorb ist leer!",
+                city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT",
+                pay: "Zahlungsmethode", confirm: "AN @ELJEFESHOP SENDEN",
+                giftT: "🎁 GRATIS GESCHENKE",
+                giftD: "Clipper Feuerzeug, Blättchen und Filter ab 50€!",
+                asap: "Schnellstmöglich",
+                ship: "Expressversand 24/48h (Großhandel)",
+                spec: "Spezifisches Zeitfenster",
+                p_city: "z.B. Berlin, München...",
+                p_address: "Straße und Hausnummer",
+                p_cap: "z.B. 10115...",
+                p_spec: "z.B. Zwischen 14:00 und 16:00",
+                delDetails: "📍 Lieferdetails",
+                cryptoSub: "Zahlungsadresse im Chat",
+                cardSub: "Wir zeigen MoonPay",
+                ppSub: "Nicht immer verfügbar. Fragen Sie im Chat",
+                reqAvail: "ANFRAGE",
+                revSub: "Sofort mit Revolut bezahlen",
+                bitSub: "Von Bitpanda senden",
+                binSub: "Von Binance überweisen",
+                infT0: "⚠️ KEINE BARZAHLUNG",
+                infD0: "Wir arbeiten mit anonymen, vorab bezahlten Fahrern. Sie kontaktieren Sie für den diskreten Drop.\n\nKeine Barzahlung. Keine Ausnahmen.",
+                infT1: "📦 Lieferung & Großhandel",
+                infD1: "Pakete vakuumversiegelt, geruchslos. Express 24/48h = Großhandelspreise.",
+                infT2: "💳 Zahlungen",
+                infD2: "Kryptowährungen akzeptiert. Sofortkauf via MoonPay.",
+                infT3: "🌿 Premium Blättchen",
+                infD3: "Ultradünne, ungebleichte Blättchen und Bio-Filter inklusive.",
+                infT4: "💬 Kontakt",
+                infD4: "Hilfe nötig? Kontaktieren Sie @eljefeshop.",
+                btnContact: "💬 Kontakt @eljefeshop",
+                revTitle: "Kundenbewertungen",
+                revSub: "Echte Bewertungen.",
+                btnGroupRev: "⭐️ Kanal Beitreten",
+                actPromo: "🎉 Min. erreicht!",
+                totEff: "Gesamtpreis",
+                free: "KOSTENLOS",
+                shippingCostText: "Versand",
+                minOrderErr: "Mindestbestellwert 30€!",
+                fieldErr: "Alle Felder ausfüllen!",
+                discountTxt: "Mengenrabatt",
+                orderSuccess: "✅ Bestellung kopiert!",
+                copySuccess: "✅ Bestellung kopiert! Fügen Sie sie bei @eljefeshop ein",
+                contact: "Kontakt",
+                newOrder: "🛒 Neue Bestellung",
+                orderTitle: "📦 BESTELLUNG EL JEFE",
+                totalLabel: "GESAMT",
+                discountLabel: "Rabatt",
+                paymentLabel: "ZAHLUNG",
+                deliveryLabel: "LIEFERUNG",
+                customerLabel: "KUNDE",
+                giftLabel: "🎁 Geschenk: Feuerzeug+Blättchen+Filter",
+                pasteInstructions: "Bestellung kopiert!",
+                openTelegramInstructions: "Öffnen Sie Telegram und fügen Sie diese Nachricht bei @eljefeshop ein.",
+                openChatBtn: "@eljefeshop öffnen",
+                manualCopyTitle: "Bestellung manuell kopieren",
+                manualCopyInstructions: "Wählen und kopieren Sie den Text:",
+                orderPreview: "Bestellvorschau:",
+                cats: {
+                    flowers: "🌿 Weed",
+                    hash: "🍯 Hash",
+                    edibles: "🍫 Edibles",
+                    vapes: "💨 Vapes",
+                    mushrooms: "🍄 Mushrooms",
+                    prerolls: "🚬 Prerolls",
+                    special: "🔥 Special"
+                },
+                revs: [
+                    {text: "Bestellung von gestern erhalten, Qualität hat Erwartungen übertroffen. Diskrete und pünktliche Lieferung. Komme wieder!", user: "@alex_martinez92 - vor 2 Stunden"},
+                    {text: "Dritter Kauf diesen Monat und immer beeindruckt. Professionelle Verpackung. 10/10 Erfahrung!", user: "@sophie.london - vor 4 Stunden"},
+                    {text: "Expressversand ist erstaunlich! Montag bestellt, Mittwoch angekommen.", user: "@max_runner - vor 6 Stunden"},
+                    {text: "Erstmaliger Käufer und beeindruckt von der Qualität. Empfohlen!", user: "@emma_johnson88 - gestern"},
+                    {text: "Bestelle seit 3 Monaten wöchentlich. Nie ein Problem gehabt.", user: "@david_chen - gestern"}
+                ]
+            },
+            ru: {
+                all: "Все",
+                checkCovTitle: "📍 ПРОВЕРКА ДОСТАВКИ",
+                btnCheck: "ПРОВЕРИТЬ",
+                gateAlertErr: "Напишите название города!",
+                gateStatusOk: "✅ ДОСТАВКА ДОСТУПНА! Сеть активна. Доставка за 20-30 мин.",
+                gateStatusErr: "❌ ДОСТАВКА НЕДОСТУПНА! Город не поддерживается.",
+                sub: "Премиум Качество Напрямую • Доставка за 1 час!",
+                promo: "🔥 Мин. заказ 30€ + 10€ Доставка | БЕСПЛАТНО от 50€!",
+                cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню",
+                empty: "Ваша корзина пуста!",
+                city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ",
+                pay: "Способ оплаты", confirm: "ОТПРАВИТЬ @ELJEFESHOP",
+                giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ",
+                giftD: "Зажигалка Clipper, бумага и фильтры от 50€!",
+                asap: "Как можно скорее",
+                ship: "Экспресс 24/48ч (Оптовые цены)",
+                spec: "Указать время",
+                p_city: "Пример: Москва, СПБ...",
+                p_address: "Улица и номер дома",
+                p_cap: "Пример: 101000...",
+                p_spec: "Пример: Между 14:00 и 16:00",
+                delDetails: "📍 Данные доставки",
+                cryptoSub: "Адрес для оплаты в чате",
+                cardSub: "Поможем купить через MoonPay",
+                ppSub: "Не всегда доступно. Уточняйте в чате",
+                reqAvail: "ПО ЗАПРОСУ",
+                revSub: "Оплатите мгновенно с Revolut",
+                bitSub: "Отправьте со счета Bitpanda",
+                binSub: "Перевод с Binance через P2P",
+                infT0: "⚠️ НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ",
+                infD0: "Работаем с анонимными курьерами, оплаченными заранее. Свяжутся с вами для точки.\n\nНе настаивайте на наличных. Без предоплаты — нет заказа.",
+                infT1: "📦 Доставка и опт",
+                infD1: "Посылки в вакууме, без запаха. Экспресс 24/48ч = оптовые цены.",
+                infT2: "💳 Оплата",
+                infD2: "Принимаем криптовалюты. Мгновенная покупка через MoonPay.",
+                infT3: "🌿 Бумага премиум",
+                infD3: "Ультратонкая неотбеленная бумага и органические фильтры.",
+                infT4: "💬 Контакт",
+                infD4: "Нужна помощь? Пишите @eljefeshop в Telegram.",
+                btnContact: "💬 Связаться @eljefeshop",
+                revTitle: "Отзывы клиентов",
+                revSub: "Реальные отзывы.",
+                btnGroupRev: "⭐️ Присоединиться к каналу",
+                actPromo: "🎉 Мин. заказ достигнут!",
+                totEff: "Итоговая цена",
+                free: "БЕСПЛАТНО",
+                shippingCostText: "Доставка",
+                minOrderErr: "Минимальный заказ 30€!",
+                fieldErr: "Заполните все поля!",
+                discountTxt: "Скидка за количество",
+                orderSuccess: "✅ Заказ скопирован!",
+                copySuccess: "✅ Заказ скопирован! Вставьте его @eljefeshop",
+                contact: "Связаться",
+                newOrder: "🛒 Новый Заказ",
+                orderTitle: "📦 ЗАКАЗ EL JEFE",
+                totalLabel: "ИТОГО",
+                discountLabel: "Скидка",
+                paymentLabel: "ОПЛАТА",
+                deliveryLabel: "ДОСТАВКА",
+                customerLabel: "КЛИЕНТ",
+                giftLabel: "🎁 Подарок: Зажигалка+Бумага+Фильтры",
+                pasteInstructions: "Заказ скопирован в буфер обмена!",
+                openTelegramInstructions: "Откройте Telegram и вставьте это сообщение @eljefeshop.",
+                openChatBtn: "Открыть @eljefeshop",
+                manualCopyTitle: "Скопируйте заказ вручную",
+                manualCopyInstructions: "Выберите и скопируйте текст ниже:",
+                orderPreview: "Предпросмотр заказа:",
+                cats: {
+                    flowers: "🌿 Weed",
+                    hash: "🍯 Hash",
+                    edibles: "🍫 Edibles",
+                    vapes: "💨 Vapes",
+                    mushrooms: "🍄 Mushrooms",
+                    prerolls: "🚬 Prerolls",
+                    special: "🔥 Special"
+                },
+                revs: [
+                    {text: "Только что получил заказ. Качество превзошло ожидания. Доставка скрытная и точно в срок. Обязательно вернусь!", user: "@alex_martinez92 - 2 часа назад"},
+                    {text: "Третья покупка в этом месяце и постоянно впечатлен. Упаковка всегда профессиональная. Опыт 10/10!", user: "@sophie.london - 4 часа назад"},
+                    {text: "Экспресс-доставка потрясающая! Заказал утром понедельника, пришло средой.", user: "@max_runner - 6 часов назад"},
+                    {text: "Первый раз покупаю и впечатлен качеством. Настоятельно рекомендую!", user: "@emma_johnson88 - вчера"},
+                    {text: "Заказываю еженедельно уже 3 месяца. Никогда не было проблем.", user: "@david_chen - вчера"}
+                ]
+            }
+        };
+
+        // Products Data
+        const productsData = [
+            { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://i.imgur.com/GSeL6SZ.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
+            { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://i.imgur.com/dHdgIK4.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
+            { id: "f3", name: "Snow Cone", category: "flowers", price: 12, img: "https://i.imgur.com/FkxOkma.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
+            { id: "f4", name: "Purple Platinum", category: "flowers", price: 12, img: "https://i.imgur.com/I34SWCY.jpg", desc: "Premium Indoor • 28% THC • Grape & Berry", isGramAsset: true },
+            { id: "f5", name: "Moonrock", category: "flowers", price: 12, img: "https://i.imgur.com/uq57Q5R.jpg", desc: "Premium Indoor • 29% THC • Ultra Potent", isGramAsset: true },
+            { id: "f6", name: "Cookies", category: "flowers", price: 12, img: "https://i.imgur.com/eUUDbVv.jpg", desc: "Premium Indoor • 26% THC • Sweet & Earthy", isGramAsset: true },
+            { id: "f7", name: "Green Crack", category: "flowers", price: 12, img: "https://i.imgur.com/N9veHSX.jpg", desc: "Premium Indoor • 25% THC • Energetic", isGramAsset: true },
+            { id: "f8", name: "White Widow", category: "flowers", price: 12, img: "https://i.imgur.com/BwHfHbE.jpg", desc: "Premium Indoor • 26% THC • Classic", isGramAsset: true },
+            { id: "f9", name: "Lemon Cherry", category: "flowers", price: 12, img: "https://i.imgur.com/TwGSr4q.jpg", desc: "Premium Indoor • 27% THC • Citrus", isGramAsset: true },
+            { id: "f10", name: "Blue Dream", category: "flowers", price: 12, img: "https://i.imgur.com/QM2YT92.jpg", desc: "Premium Indoor • 25% THC • Berry", isGramAsset: true },
+            { id: "f11", name: "Northern Lights", category: "flowers", price: 12, img: "https://i.imgur.com/EOBnvh2.jpg", desc: "Premium Indoor • 26% THC • Spicy", isGramAsset: true },
+            { id: "f12", name: "Sour Diesel", category: "flowers", price: 12, img: "https://i.imgur.com/pS5sukI.jpg", desc: "Premium Indoor • 27% THC • Pungent", isGramAsset: true },
+            { id: "f13", name: "Rainbow Zaza", category: "flowers", price: 12, img: "https://i.imgur.com/Zi019co.jpg", desc: "Premium Indoor • 28% THC • Colorful", isGramAsset: true },
+            { id: "f14", name: "Bubblegum Gusher", category: "flowers", price: 12, img: "https://i.imgur.com/MhDwfmI.jpg", desc: "Premium Indoor • 26% THC • Candy", isGramAsset: true },
+            { id: "f15", name: "Premium Selection (Wholesale)", category: "flowers", price: 4000, img: "https://i.imgur.com/BtdgyqR.jpg", desc: "Starts at 4000€ • Ask for Strain", isGramAsset: false, unit: "kg" },
+            { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://i.imgur.com/JazOzhP.jpg", desc: "Traditional Sift • 35% THC • Classic", isGramAsset: true },
+            { id: "h2", name: "Frozen Sift FB", category: "hash", price: 15, img: "https://i.imgur.com/ik7mUV1.jpg", desc: "Full Bubble • 50% THC • Melting", isGramAsset: true },
+            { id: "h3", name: "Premium Hash Selection", category: "hash", price: 10, img: "https://i.imgur.com/qRsKYsW.jpg", desc: "Various Imports • Ask stock", isGramAsset: true },
+            { id: "e1", name: "THC Edibles 40mg", category: "edibles", price: 40, img: "https://i.imgur.com/7ADKVgB.jpg", desc: "Lab-Dosed • 40mg THC total", isGramAsset: false },
+            { id: "e2", name: "THC Edibles 60mg", category: "edibles", price: 60, img: "https://i.imgur.com/5WGtdFe.jpg", desc: "High Potency • 60mg THC", isGramAsset: false },
+            { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://i.imgur.com/9g0YRHN.jpg", desc: "0.5ml • 85% THC • Premium", isGramAsset: false },
+            { id: "v2", name: "Runtz Vape", category: "vapes", price: 65, img: "https://i.imgur.com/apvap5v.jpg", desc: "0.5ml • 85% THC • Creamy", isGramAsset: false },
+            { id: "v3", name: "Blue Dream Vape", category: "vapes", price: 65, img: "https://i.imgur.com/ZGR6c0x.jpg", desc: "0.5ml • 85% THC • Smooth", isGramAsset: false },
+            { id: "v4", name: "Amnesia Vape", category: "vapes", price: 65, img: "https://i.imgur.com/1Ynle57.jpg", desc: "0.5ml • 85% THC • Pure", isGramAsset: false },
+            { id: "m1", name: "Golden Teacher", category: "mushrooms", price: 8, img: "https://i.imgur.com/YgLYT8t.jpg", desc: "Psilocybin • Dry • Potent", isGramAsset: true },
+            { id: "m2", name: "Purple Mystic", category: "mushrooms", price: 8, img: "https://i.imgur.com/mzoaONo.jpg", desc: "Psilocybin • High Quality", isGramAsset: true },
+            { id: "p1", name: "Standard Prerolls", category: "prerolls", price: 15, img: "https://i.imgur.com/7835lP2.jpg", desc: "Moon Rocket / Cali Woods", isGramAsset: false },
+            { id: "p2", name: "Baby Jeeter Infused", category: "prerolls", price: 30, img: "https://i.imgur.com/ZqGSpGM.jpg", desc: "Kief Infused • Premium", isGramAsset: false },
+            { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://i.imgur.com/6sEzcSq.jpg", desc: "Pure Fishscale • Colombian 1g", isGramAsset: true },
+            { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://i.imgur.com/VXq51eZ.jpg", desc: "Liquid Dropper • 1ml • 200µg", isGramAsset: false },
+            { id: "s3", name: "💎 Crystal Meth", category: "special", price: 50, img: "https://i.imgur.com/qFNns3S.jpg", desc: "Glass Ice • Purity Tested 1g", isGramAsset: true },
+            { id: "s4", name: "💊 MDMA", category: "special", price: 60, img: "https://i.imgur.com/0U169zB.jpg", desc: "High Purity Dutch MDMA", isGramAsset: false }
+        ];
+
+        // Initialize
+        loadCartFromStorage();
+        renderProducts('all');
+        updateCartUI();
+        setLanguage('en');
+
+        // Functions
+        function loadCartFromStorage() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) cart = JSON.parse(saved);
+            } catch (e) { cart = {}; }
+        }
+
+        function saveCartToStorage() {
+            try { 
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); 
+            } catch (e) { console.error('Error saving cart:', e); }
+        }
+
+        function clearCart() {
+            cart = {};
+            saveCartToStorage();
+            updateCartUI();
+            renderProducts(activeCategoryFilter);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMsg');
+            errorDiv.innerText = message;
+            errorDiv.classList.add('show');
+            setTimeout(() => errorDiv.classList.remove('show'), 5000);
+        }
+
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = src;
+            lb.classList.add('active');
+            if (tg) tg.HapticFeedback.impactOccurred('light');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function openContact() {
+            const url = 'https://t.me/eljefeshop';
+            if (tg && tg.openTelegramLink) {
+                tg.openTelegramLink(url);
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+
+        function changeCurrency(val) {
+            activeCurrency = val;
+            renderProducts(activeCategoryFilter);
+            renderCartPage();
+        }
+
+        function getConvertedPrice(baseEurPrice) {
+            return Math.round((baseEurPrice * currencyConfig[activeCurrency].rate) * 100) / 100;
+        }
+
+        function getConvertedPriceStr(baseEurPrice) {
+            const cfg = currencyConfig[activeCurrency];
+            return `${cfg.symbol}${getConvertedPrice(baseEurPrice).toFixed(2)}`;
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            document.querySelectorAll('.lang-selector .lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`lang-btn-${lang}`).classList.add('active');
+
+            const dict = i18n[lang];
+            if (!dict) return;
+
+            // Update all text elements
+            const elements = {
+                'txt-header-sub': dict.sub,
+                'txt-promo': dict.promo,
+                'gift-title': dict.giftT,
+                'gift-desc': dict.giftD,
+                'tab-menu': dict.menu,
+                'tab-cart': dict.cart,
+                'tab-info': dict.info,
+                'tab-reviews': dict.reviews,
+                'txt-cart-title': `🛒 ${dict.cart}`,
+                'txt-delivery-details': dict.delDetails,
+                'lbl-city': dict.city,
+                'input-city': dict.p_city,
+                'lbl-address': dict.address,
+                'input-address': dict.p_address,
+                'lbl-cap': dict.cap,
+                'input-cap': dict.p_cap,
+                'lbl-time': dict.time,
+                'lbl-check-cov': dict.checkCovTitle,
+                'inlineGateCity': dict.p_city,
+                'btn-inline-check': dict.btnCheck,
+                'opt-asap': dict.asap,
+                'opt-ship': dict.ship,
+                'opt-spec': dict.spec,
+                'input-time-spec': dict.p_spec,
+                'txt-pay-title': `💳 ${dict.pay}`,
+                'txt-crypto-sub': dict.cryptoSub,
+                'txt-moonpay-sub': dict.cardSub,
+                'txt-paypal-sub': dict.ppSub,
+                'badge-req': dict.reqAvail,
+                'txt-revolut-sub': dict.revSub,
+                'txt-bitpanda-sub': dict.bitSub,
+                'txt-binance-sub': dict.binSub,
+                'info-p0-t': dict.infT0,
+                'info-p0-d': dict.infD0,
+                'info-p1-t': dict.infT1,
+                'info-p1-d': dict.infD1,
+                'info-p2-t': dict.infT2,
+                'info-p2-d': dict.infD2,
+                'btn-contact-tg': dict.btnContact,
+                'txt-rev-title': dict.revTitle,
+                'txt-rev-sub': dict.revSub,
+                'btn-group-rev': dict.btnGroupRev,
+                'contactBtnText': dict.contact
+            };
+
+            for (const [id, text] of Object.entries(elements)) {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (el.tagName === 'INPUT') el.placeholder = text;
+                    else if (id === 'info-p0-d' || id === 'info-p1-d' || id === 'info-p2-d') el.innerText = text;
+                    else el.innerText = text;
+                }
+            }
+
+            // Update delivery status if visible
+            const statusBox = document.getElementById('inlineDeliveryStatus');
+            if (statusBox && statusBox.style.display === 'block') {
+                if (statusBox.innerHTML.includes('❌')) {
+                    statusBox.innerText = dict.gateStatusErr;
+                } else {
+                    statusBox.innerText = dict.gateStatusOk;
+                }
+            }
+
+            renderReviews(dict);
+            renderCategoryTabs();
+            renderProducts(activeCategoryFilter);
+            updateCartUI();
+        }
+
+        function renderReviews(dict) {
+            const revBlock = document.getElementById('reviewsContainer');
+            if (!revBlock) return;
+
+            revBlock.innerHTML = '';
+            if (dict.revs && Array.isArray(dict.revs)) {
+                dict.revs.forEach(r => {
+                    const reviewDiv = document.createElement('div');
+                    reviewDiv.className = 'review-card';
+                    reviewDiv.innerHTML = `
+                        <div class="review-stars">★★★★★</div>
+                        <div class="review-text">"${r.text}"</div>
+                        <div class="review-user">${r.user}</div>
+                    `;
+                    revBlock.appendChild(reviewDiv);
+                });
+            }
+        }
+
+        function renderCategoryTabs() {
+            const container = document.getElementById('catList');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            const dict = i18n[currentLang];
+            if (!dict || !dict.cats) return;
+
+            // All button
+            const allCard = document.createElement('div');
+            allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
+            allCard.innerText = dict.all;
+            allCard.onclick = () => {
+                activeCategoryFilter = 'all';
+                renderCategoryTabs();
+                renderProducts('all');
+            };
+            container.appendChild(allCard);
+
+            // Category buttons
+            Object.keys(dict.cats).forEach(key => {
+                const card = document.createElement('div');
+                card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
+                card.innerText = dict.cats[key];
+                card.onclick = () => {
+                    activeCategoryFilter = key;
+                    renderCategoryTabs();
+                    renderProducts(key);
+                };
+                container.appendChild(card);
+            });
+        }
+
+        function updateGramQuantity(productId, value) {
+            const p = productsData.find(prod => prod.id === productId);
+            if (!p) return;
+
+            const qty = parseInt(value) || 0;
+
+            if (qty <= 0) {
+                delete cart[productId];
+            } else {
+                cart[productId] = qty;
+            }
+
+            saveCartToStorage();
+            updateCartUI();
+
+            // Update display
+            const display = document.getElementById(`gram-display-${productId}`);
+            const input = document.getElementById(`qty-input-${productId}`);
+            const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
+            
+            if (display) display.innerText = `${qty}${unitLabel}`;
+            if (input) input.value = qty;
+
+            // Update quick buttons
+            document.querySelectorAll(`#gram-quick-${productId} .gram-quick-btn`).forEach(btn => {
+                btn.classList.remove('active');
+                if (parseInt(btn.dataset.qty) === qty) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+        }
+
+        function changeQuantity(productId, delta) {
+            const currentQty = cart[productId] || 0;
+            const newQty = Math.max(0, currentQty + delta);
+            updateGramQuantity(productId, newQty);
+        }
+
+        function renderProducts(filterCategory) {
+            const container = document.getElementById('productsDisplay');
+            if (!container) return;
+
+            container.innerHTML = '';
+            const grid = document.createElement('div');
+            grid.className = 'products-grid';
+
+            const sourceArray = filterCategory === 'all'
+                ? productsData
+                : productsData.filter(p => p.category === filterCategory);
+
+            sourceArray.forEach(p => {
+                const qty = cart[p.id] || 0;
+                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img class="product-img" src="${p.img}" alt="${p.name}" onclick="openLightbox(this.src)" loading="lazy">
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-desc">${p.desc}</div>
+                        <div class="gram-selector-fluid">
+                            <div class="gram-display" id="gram-display-${p.id}">${qty}${unitLabel}</div>
+                            <div class="gram-input-container">
+                                <button class="gram-btn-large" onclick="changeQuantity('${p.id}', -1)">−</button>
+                                <input type="number" 
+                                       class="gram-input" 
+                                       id="qty-input-${p.id}"
+                                       value="${qty}"
+                                       min="0"
+                                       onchange="updateGramQuantity('${p.id}', this.value)"
+                                       onfocus="this.select()">
+                                <button class="gram-btn-large" onclick="changeQuantity('${p.id}', 1)">+</button>
+                            </div>
+                            <div class="gram-quick-buttons" id="gram-quick-${p.id}">
+                                ${[1, 3, 5, 10, 20, 50, 100].map(num => `
+                                    <button class="gram-quick-btn ${qty === num ? 'active' : ''}" 
+                                            data-qty="${num}"
+                                            onclick="updateGramQuantity('${p.id}', ${num})">${num}</button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="price-tag">${getConvertedPriceStr(p.price)}/${unitLabel}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            container.appendChild(grid);
+        }
+
+        function calculateCartMetrics() {
+            let itemsCount = 0;
+            let baseProductsTotalEur = 0;
+            let totalWeedGrams = 0;
+
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                if (!p) return;
+
+                baseProductsTotalEur += (p.price * cart[id]);
+                itemsCount += cart[id];
+
+                if (p.category === 'flowers' && p.isGramAsset) {
+                    totalWeedGrams += cart[id];
+                }
+            });
+
+            // Calculate discount
+            let discountEur = 0;
+            let discountReason = '';
+            
+            if (totalWeedGrams >= 10) {
+                discountEur = totalWeedGrams * 3; // 3€ off per 10g+
+                discountReason = `${totalWeedGrams}g Weed (-3€/g)`;
+            } else if (baseProductsTotalEur >= 150) {
+                discountEur = baseProductsTotalEur * 0.10;
+                discountReason = '10% Bulk Discount';
+            }
+
+            discountEur = Math.min(discountEur, baseProductsTotalEur);
+
+            let finalProductsTotalEur = baseProductsTotalEur - discountEur;
+            let shippingFeeEur = finalProductsTotalEur > 0 ? (finalProductsTotalEur >= 50 ? 0 : 10) : 0;
+
+            return {
+                itemsCount,
+                baseTotalEur: baseProductsTotalEur,
+                discountEur,
+                discountReason,
+                finalProductsTotalEur,
+                shippingFeeEur,
+                finalTotalEur: finalProductsTotalEur + shippingFeeEur,
+                giftApplied: finalProductsTotalEur >= 50,
+                totalWeedGrams
+            };
+        }
+
+        function updateCartUI() {
+            const metrics = calculateCartMetrics();
+            const badge = document.getElementById('cartBadge');
+            
+            if (metrics.itemsCount > 0) {
+                badge.innerText = metrics.itemsCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+            
+            renderCartPage();
+        }
+
+        function renderCartPage() {
+            const container = document.getElementById('cartItemsContainer');
+            const formBlock = document.getElementById('checkoutFormBlock');
+            const dict = i18n[currentLang];
+
+            if (!container || !formBlock) return;
+
+            if (Object.keys(cart).length === 0) {
+                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint); font-size: 16px;">${dict.empty}</p>`;
+                formBlock.style.display = 'none';
+                return;
+            }
+
+            formBlock.style.display = 'block';
+            let html = '';
+
+            // Cart items
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                if (!p) return;
+
+                const qty = cart[id];
+                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
+                
+                html += `
+                    <div class="cart-item">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; margin-bottom: 4px;">${p.name}</div>
+                            <div style="display:inline-flex; align-items:center; gap:8px; background:#222; padding:4px 8px; border-radius:8px;">
+                                <button class="cart-qty-btn" style="color:var(--danger);" onclick="modifyQty('${p.id}', -1)">−</button>
+                                <span style="color:var(--primary-neon); font-weight:bold; min-width: 30px; text-align: center;">${qty}${unitLabel}</span>
+                                <button class="cart-qty-btn" style="color:var(--primary-neon);" onclick="modifyQty('${p.id}', 1)">+</button>
+                            </div>
+                        </div>
+                        <div style="font-weight: bold; color: var(--primary-neon);">${getConvertedPriceStr(p.price * qty)}</div>
+                    </div>`;
+            });
+
+            const metrics = calculateCartMetrics();
+
+            // Discount row
+            if (metrics.discountEur > 0) {
+                html += `
+                    <div class="discount-row">
+                        <span>🔥 ${dict.discountTxt} (${metrics.discountReason})</span>
+                        <span>-${getConvertedPriceStr(metrics.discountEur)}</span>
+                    </div>`;
+            }
+
+            // Shipping row
+            html += `
+                <div class="shipping-row">
+                    <div>⚙️ <strong>${dict.shippingCostText}</strong></div>
+                    <div class="${metrics.shippingFeeEur === 0 ? 'free' : ''}" style="font-weight: bold;">
+                        ${metrics.shippingFeeEur === 0 ? dict.free : getConvertedPriceStr(metrics.shippingFeeEur)}
+                    </div>
+                </div>`;
+
+            // Gift row
+            if (metrics.giftApplied) {
+                html += `
+                    <div class="gift-row">
+                        <span>🎁 ${dict.giftLabel}</span>
+                        <strong>${dict.free}</strong>
+                    </div>`;
+            }
+
+            // Min order error
+            if (metrics.finalProductsTotalEur < 30) {
+                html += `<div class="error-message show" style="display: block; margin-top: 15px;">⚠️ ${dict.minOrderErr}</div>`;
+            }
+
+            // Total
+            html += `
+                <div class="total-row">
+                    ${dict.totEff}: <span>${getConvertedPriceStr(metrics.finalTotalEur)}</span>
+                </div>`;
+
+            container.innerHTML = html;
+        }
+
+        function modifyQty(id, change) {
+            changeQuantity(id, change);
+        }
+
+        function setPaymentMethod(method) {
+            currentSelectedPayment = method;
+            document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
+            document.getElementById(`pay-opt-${method}`).classList.add('active');
+            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+        }
+
+        function switchTab(tabId) {
+            // Hide success/error messages
+            const successMsg = document.getElementById('orderSuccessMsg');
+            const errorMsg = document.getElementById('errorMsg');
+            if (successMsg) successMsg.style.display = 'none';
+            if (errorMsg) errorMsg.classList.remove('show');
+
+            // Switch views
+            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+            document.getElementById(`view-${tabId}`).classList.add('active');
+            document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+
+            // Refresh content
+            if (tabId === 'chat') renderCartPage();
+            else if (tabId === 'menu') renderProducts(activeCategoryFilter);
+            else if (tabId === 'reviews') renderReviews(i18n[currentLang]);
+
+            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+        }
+
+        // Delivery check
+        function checkInlineDelivery() {
+            const cityInput = document.getElementById('inlineGateCity').value.trim();
+            const dict = i18n[currentLang];
+            const statusBox = document.getElementById('inlineDeliveryStatus');
+
+            if (!cityInput) {
+                showToast(dict.gateAlertErr);
+                return;
+            }
+
+            const lowerCity = cityInput.toLowerCase();
+            const genericGibberish = /^[bcdfghjklmnpqrstvwxyz]+$/i.test(lowerCity) || lowerCity.length < 3;
+
+            statusBox.style.display = 'block';
+            if (genericGibberish) {
+                statusBox.innerText = dict.gateStatusErr;
+                statusBox.style.background = 'rgba(255, 59, 48, 0.1)';
+                statusBox.style.border = '1px solid var(--danger)';
+                statusBox.style.color = '#fff';
+            } else {
+                statusBox.innerText = dict.gateStatusOk;
+                statusBox.style.background = 'rgba(255, 183, 0, 0.1)';
+                statusBox.style.border = '1px solid var(--primary-neon)';
+                statusBox.style.color = '#fff';
+                document.getElementById('input-city').value = cityInput.charAt(0).toUpperCase() + lowerCity.slice(1);
+            }
+        }
+
+        // Time select handler
+        document.getElementById('select-time').addEventListener('change', function() {
+            const specInput = document.getElementById('input-time-spec');
+            const dict = i18n[currentLang];
+            const isSpecific = this.value === 'Specific';
+            specInput.style.display = isSpecific ? 'block' : 'none';
+            if (isSpecific) specInput.placeholder = dict.p_spec;
+        });
+
+        // Process Order
+        async function processOrderSend() {
+            const metrics = calculateCartMetrics();
+            const dict = i18n[currentLang];
+
+            // Validation
+            if (metrics.finalProductsTotalEur < 30) {
+                showError(dict.minOrderErr);
+                return;
+            }
+
+            const citta = document.getElementById('input-city').value.trim();
+            const indirizzo = document.getElementById('input-address').value.trim();
+            const cap = document.getElementById('input-cap').value.trim();
+            let orario = document.getElementById('select-time').value;
+
+            if (orario === 'Specific') {
+                const specTime = document.getElementById('input-time-spec');
+                if (specTime && specTime.value.trim()) {
+                    orario = specTime.value.trim();
+                }
+            }
+
+            if (!citta || !indirizzo || !cap) {
+                showError(dict.fieldErr);
+                return;
+            }
+
+            // Get user info
+            const userId = tg?.initDataUnsafe?.user?.id || '';
+            const username = tg?.initDataUnsafe?.user?.username || '';
+            const firstName = tg?.initDataUnsafe?.user?.first_name || '';
+            const lastName = tg?.initDataUnsafe?.user?.last_name || '';
+
+            // Build order message
+            let msg = `${dict.orderTitle}\n`;
+            msg += `═══════════════════════\n\n`;
+
+            // Products
+            const items = [];
+            Object.keys(cart).forEach(id => {
+                const p = productsData.find(prod => prod.id === id);
+                if (!p) return;
+                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
+                const itemTotal = p.price * cart[id];
+                items.push(`• ${p.name}: ${cart[id]}${unitLabel} = ${getConvertedPriceStr(itemTotal)}`);
+            });
+
+            if (metrics.giftApplied) {
+                items.push(`• ${dict.giftLabel} = ${dict.free}`);
+            }
+
+            msg += items.join('\n');
+            msg += `\n\n`;
+
+            // Pricing
+            msg += `💰 ${dict.totalLabel}: ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
+            if (metrics.discountEur > 0) {
+                msg += `🏷️ ${dict.discountLabel}: -${getConvertedPriceStr(metrics.discountEur)}\n`;
+            }
+            if (metrics.shippingFeeEur > 0) {
+                msg += `🚚 ${dict.shippingCostText}: ${getConvertedPriceStr(metrics.shippingFeeEur)}\n`;
+            } else {
+                msg += `🚚 ${dict.shippingCostText}: ${dict.free}\n`;
+            }
+            msg += `💳 ${dict.paymentLabel}: ${currentSelectedPayment.toUpperCase()}\n\n`;
+
+            // Delivery
+            msg += `📍 ${dict.deliveryLabel}:\n`;
+            msg += `   ${dict.city}: ${citta}\n`;
+            msg += `   ${dict.address}: ${indirizzo}\n`;
+            msg += `   ${dict.cap}: ${cap}\n`;
+            msg += `   ${dict.time}: ${orario}\n\n`;
+
+            // Customer
+            msg += `👤 ${dict.customerLabel}:`;
+            if (username) msg += ` @${username}`;
+            if (firstName) msg += ` ${firstName}`;
+            if (lastName) msg += ` ${lastName}`;
+            if (!username && !firstName) msg += ` Guest`;
+            msg += `\n`;
+            if (userId) msg += `   ID: ${userId}`;
+
+            // Try to send to server first (optional)
+            try {
+                if (API_ENDPOINT !== 'https://your-server.com/api/orders') {
+                    await fetch(API_ENDPOINT, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            order: msg,
+                            userId,
+                            username,
+                            total: metrics.finalTotalEur,
+                            currency: activeCurrency,
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+                }
+            } catch (e) {
+                console.log('Server sync failed, continuing with clipboard');
+            }
+
+            // Copy to clipboard
+            let copied = false;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                try {
+                    await navigator.clipboard.writeText(msg);
+                    copied = true;
+                } catch (err) {
+                    console.error('Clipboard API failed:', err);
+                }
+            }
+
+            if (!copied) {
+                copied = copyFallback(msg);
+            }
+
+            // Show success
+            showOrderSuccess(msg, dict, copied);
+        }
+
+        function copyFallback(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                return successful;
+            } catch (err) {
+                document.body.removeChild(textArea);
+                console.error('Fallback copy failed:', err);
+                return false;
+            }
+        }
+
+        function showOrderSuccess(orderText, dict, copied) {
+            // Haptic feedback
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
+
+            const successDiv = document.getElementById('orderSuccessMsg');
+            
+            if (copied) {
+                successDiv.innerHTML = `
+                    <h3>✅ ${dict.pasteInstructions}</h3>
+                    <p style="margin: 15px 0; color: #ccc;">${dict.openTelegramInstructions}</p>
+                    <div style="margin-top: 20px;">
+                        <button class="new-order-btn" onclick="openElJefeChat()">
+                            📱 ${dict.openChatBtn}
+                        </button>
+                        <button class="new-order-btn secondary" onclick="resetForNewOrder()" style="margin-left: 10px;">
+                            🛒 ${dict.newOrder}
+                        </button>
+                    </div>
+                `;
+            } else {
+                successDiv.innerHTML = `
+                    <h3>⚠️ ${dict.manualCopyTitle}</h3>
+                    <div class="order-preview">
+                        <div class="order-preview-label">${dict.manualCopyInstructions}</div>
+                        <pre onclick="this.select()">${orderText.replace(/</g, '&lt;')}</pre>
+                    </div>
+                    <button class="new-order-btn" onclick="openElJefeChat()">
+                        📱 ${dict.openChatBtn}
+                    </button>
+                `;
+            }
+            
+            successDiv.style.display = 'block';
+            showToast(dict.copySuccess);
+            
+            // Clear cart
+            clearCart();
+            
+            // Scroll to success
+            successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function openElJefeChat() {
+            const url = 'https://t.me/eljefeshop';
+            if (tg && tg.openTelegramLink) {
+                tg.openTelegramLink(url);
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+
+        function resetForNewOrder() {
+            const successDiv = document.getElementById('orderSuccessMsg');
+            if (successDiv) successDiv.style.display = 'none';
+            
+            document.getElementById('input-city').value = '';
+            document.getElementById('input-address').value = '';
+            document.getElementById('input-cap').value = '';
+            document.getElementById('select-time').selectedIndex = 0;
+            document.getElementById('input-time-spec').value = '';
+            document.getElementById('input-time-spec').style.display = 'none';
+            
+            setPaymentMethod('crypto');
+            switchTab('menu');
+            
+            const dict = i18n[currentLang];
+            showToast(dict.newOrder || 'New Order');
+        }
+
+        // Prevent double tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
