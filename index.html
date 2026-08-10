@@ -20,6 +20,8 @@
             --medium-gray: #2a2a2a;
             --light-gray: #888;
             --white: #ffffff;
+            --danger: #ff4444;
+            --success: #00C851;
         }
 
         body {
@@ -64,6 +66,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            border-radius: 50%;
             filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.5));
         }
 
@@ -103,13 +106,13 @@
             text-align: center;
         }
 
-        .language-selector {
+        .language-selector, .currency-selector {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
         }
 
-        .lang-btn {
+        .lang-btn, .currency-btn {
             background: var(--medium-gray);
             border: 2px solid transparent;
             color: var(--white);
@@ -121,41 +124,12 @@
             transition: all 0.3s ease;
         }
 
-        .lang-btn:hover {
+        .lang-btn:hover, .currency-btn:hover {
             background: var(--dark-gray);
             border-color: var(--gold);
         }
 
-        .lang-btn.active {
-            background: var(--gold);
-            color: var(--black);
-            border-color: var(--gold);
-        }
-
-        .currency-selector {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-
-        .currency-btn {
-            background: var(--medium-gray);
-            border: 2px solid transparent;
-            color: var(--white);
-            padding: 12px 8px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .currency-btn:hover {
-            background: var(--dark-gray);
-            border-color: var(--gold);
-        }
-
-        .currency-btn.active {
+        .lang-btn.active, .currency-btn.active {
             background: var(--gold);
             color: var(--black);
             border-color: var(--gold);
@@ -185,22 +159,12 @@
             box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
         }
 
-        .enter-shop-btn:active {
-            transform: translateY(-1px);
-        }
-
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* MAIN APP STYLES */
+        /* MAIN APP */
         .app-container {
             display: none;
             min-height: 100vh;
@@ -211,106 +175,124 @@
             display: block;
         }
 
-        /* Top Bar */
-        .top-bar {
-            background: linear-gradient(180deg, var(--dark-gray) 0%, transparent 100%);
+        /* Top Controls */
+        .top-controls-bar {
+            background: var(--dark-gray);
             padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-
-        .top-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .logo-small {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-small img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .logo-small span {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--gold);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .currency-select {
             background: var(--medium-gray);
             border: 1px solid var(--gold);
             color: var(--white);
-            padding: 8px 12px;
+            padding: 10px 15px;
             border-radius: 8px;
             font-size: 14px;
             cursor: pointer;
+            min-width: 100px;
         }
 
-        .cart-btn {
-            background: var(--gold);
-            border: none;
+        .lang-selector {
+            display: flex;
+            gap: 5px;
+        }
+
+        .lang-selector .lang-btn {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        /* Brand Header */
+        .brand-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(180deg, var(--dark-gray) 0%, var(--black) 100%);
+        }
+
+        .main-logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+        }
+
+        .main-logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .brand-header h1 {
+            font-size: 32px;
+            color: var(--gold);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .brand-header p {
+            color: var(--light-gray);
+            font-size: 14px;
+        }
+
+        /* Promo Banner */
+        .promo-banner {
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
             color: var(--black);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            position: relative;
-            font-size: 18px;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
         }
 
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff4444;
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            font-size: 11px;
-            font-weight: 700;
+        /* Gift Banner */
+        .gift-banner {
+            background: var(--dark-gray);
+            margin: 15px 20px;
+            padding: 15px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 15px;
+            border: 1px solid var(--medium-gray);
         }
 
-        /* Category Tabs */
-        .category-tabs {
-            display: flex;
-            gap: 10px;
+        .gift-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Categories */
+        .categories-scroller {
+            padding: 15px 20px;
             overflow-x: auto;
-            padding-bottom: 5px;
             scrollbar-width: none;
         }
 
-        .category-tabs::-webkit-scrollbar {
+        .categories-scroller::-webkit-scrollbar {
             display: none;
         }
 
-        .category-tab {
+        .categories-list {
+            display: flex;
+            gap: 10px;
+        }
+
+        .category-btn {
             background: var(--medium-gray);
             border: 2px solid transparent;
             color: var(--white);
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 25px;
             cursor: pointer;
             white-space: nowrap;
@@ -319,29 +301,15 @@
             transition: all 0.3s ease;
         }
 
-        .category-tab:hover {
-            background: var(--dark-gray);
-            border-color: var(--gold);
-        }
-
-        .category-tab.active {
+        .category-btn:hover, .category-btn.active {
             background: var(--gold);
             color: var(--black);
             border-color: var(--gold);
         }
 
-        /* Products Grid */
+        /* Products */
         .products-section {
             padding: 20px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .products-grid {
@@ -362,7 +330,6 @@
         .product-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
         }
 
         .product-image {
@@ -381,7 +348,12 @@
             font-weight: 600;
             margin-bottom: 5px;
             color: var(--white);
-            line-height: 1.3;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: var(--light-gray);
+            margin-bottom: 10px;
         }
 
         .product-price {
@@ -395,10 +367,10 @@
             background: var(--gold);
             border: none;
             color: var(--black);
-            padding: 10px;
+            padding: 12px;
             margin-top: 10px;
             border-radius: 8px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -407,7 +379,7 @@
             background: var(--gold-light);
         }
 
-        /* Bottom Navigation */
+        /* Bottom Nav */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -421,78 +393,63 @@
             z-index: 1000;
         }
 
-        .nav-item {
+        .nav-tab {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 5px;
-            padding: 5px 20px;
+            padding: 5px 15px;
             cursor: pointer;
             color: var(--light-gray);
+            background: none;
+            border: none;
             transition: all 0.3s ease;
         }
 
-        .nav-item.active {
+        .nav-tab.active {
             color: var(--gold);
         }
 
-        .nav-item span {
-            font-size: 20px;
+        .nav-tab .icon {
+            font-size: 22px;
         }
 
-        .nav-item label {
+        .nav-tab span:last-child {
             font-size: 11px;
             font-weight: 500;
         }
 
-        /* Cart Modal */
-        .cart-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            display: none;
-            flex-direction: column;
-        }
-
-        .cart-modal.visible {
+        .badge-cart-count {
+            position: absolute;
+            top: 5px;
+            right: 25%;
+            background: var(--danger);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
             display: flex;
-        }
-
-        .cart-header {
-            background: var(--dark-gray);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--medium-gray);
+            justify-content: center;
         }
 
-        .cart-header h2 {
-            color: var(--gold);
-            font-size: 20px;
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
+        /* Views */
+        .app-view {
+            display: none;
             padding: 20px;
+            padding-bottom: 100px;
         }
 
+        .app-view.active {
+            display: block;
+        }
+
+        /* Cart View */
         .cart-item {
             background: var(--dark-gray);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 15px;
             margin-bottom: 15px;
             display: flex;
@@ -540,40 +497,27 @@
         }
 
         .remove-item {
-            background: #ff4444;
+            background: var(--danger);
             border: none;
             color: white;
             padding: 5px 15px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 12px;
+            margin-left: auto;
         }
 
-        .cart-footer {
-            background: var(--dark-gray);
-            padding: 20px;
-            border-top: 1px solid var(--medium-gray);
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--gold);
-        }
-
-        .checkout-btn {
+        .cart-summary-floating {
             width: 100%;
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
             border: none;
             color: var(--black);
             padding: 18px;
-            border-radius: 10px;
-            font-size: 18px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
+            margin-top: 20px;
             text-transform: uppercase;
         }
 
@@ -587,6 +531,245 @@
             font-size: 60px;
             margin-bottom: 20px;
         }
+
+        /* Checkout Form */
+        .checkout-form {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            background: var(--medium-gray);
+            border: 1px solid var(--medium-gray);
+            color: var(--white);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        /* Payment Options */
+        .pay-option {
+            background: var(--medium-gray);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .pay-option.active {
+            border-color: var(--gold);
+            background: var(--dark-gray);
+        }
+
+        .pay-option-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pay-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .badge-crypto {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .badge-card {
+            background: #0070ba;
+            color: white;
+        }
+
+        .badge-off {
+            background: var(--medium-gray);
+            color: var(--light-gray);
+        }
+
+        .pay-badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-section h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-section p {
+            color: var(--light-gray);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .alert-section {
+            border: 1px solid var(--danger);
+        }
+
+        .tg-link-btn {
+            display: inline-block;
+            background: #0088cc;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        /* Reviews */
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .reviews-header h2 {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .review-card {
+            background: var(--dark-gray);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .review-rating {
+            color: var(--gold);
+        }
+
+        .review-text {
+            color: var(--light-gray);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Floating Contact */
+        .floating-contact {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background: #0088cc;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 136, 204, 0.4);
+            z-index: 999;
+        }
+
+        /* Toast */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--success);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            z-index: 10000;
+            transition: transform 0.3s ease;
+        }
+
+        .toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Lightbox */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-modal.visible {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -594,7 +777,7 @@
     <!-- WELCOME SCREEN -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-logo">
-            <img src="https://files.catbox.moe/logo.png" alt="El Jefe Logo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>'">
+            <img src="https://files.catbox.moe/w9w6hz.jpg" alt="El Jefe Logo">
         </div>
         <h1 class="welcome-title" id="welcomeTitle">Welcome to El Jefe Shop</h1>
         <p class="welcome-subtitle" id="welcomeSubtitle">Please select your Language and Currency</p>
@@ -626,96 +809,186 @@
 
     <!-- MAIN APP -->
     <div class="app-container" id="appContainer">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="top-controls">
-                <div class="logo-small">
-                    <img src="https://files.catbox.moe/logo.png" alt="El Jefe" onerror="this.style.display='none'">
-                    <span>EL JEFE</span>
-                </div>
-                <div class="header-actions">
-                    <select class="currency-select" id="headerCurrency" onchange="changeCurrency(this.value)">
-                        <option value="EUR">EUR €</option>
-                        <option value="USD">USD $</option>
-                        <option value="GBP">GBP £</option>
-                        <option value="JPY">JPY ¥</option>
-                        <option value="RUB">RUB ₽</option>
-                    </select>
-                    <button class="cart-btn" onclick="openCart()">
-                        🛒
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
+        
+        <!-- Top Controls -->
+        <div class="top-controls-bar">
+            <select class="currency-select" id="headerCurrency" onchange="changeCurrency(this.value)">
+                <option value="EUR">EUR (€)</option>
+                <option value="USD">USD ($)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="JPY">JPY (¥)</option>
+                <option value="RUB">RUB (₽)</option>
+            </select>
+            
+            <div class="lang-selector">
+                <button class="lang-btn active" onclick="changeLang('EN')">EN</button>
+                <button class="lang-btn" onclick="changeLang('IT')">IT</button>
+                <button class="lang-btn" onclick="changeLang('FR')">FR</button>
+                <button class="lang-btn" onclick="changeLang('DE')">DE</button>
+                <button class="lang-btn" onclick="changeLang('RU')">RU</button>
+            </div>
+        </div>
+
+        <!-- Brand Header -->
+        <div class="brand-header">
+            <div class="main-logo-container">
+                <img src="https://files.catbox.moe/w9w6hz.jpg" alt="El Jefe">
+            </div>
+            <h1>EL JEFE</h1>
+            <p id="headerSub">Premium Quality Direct • Delivery in 1 hour!</p>
+        </div>
+
+        <!-- Promo Banner -->
+        <div class="promo-banner" id="promoBanner">
+            🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!
+        </div>
+
+        <!-- Gift Banner -->
+        <div class="gift-banner">
+            <img class="gift-thumb" src="https://files.catbox.moe/9tu5hx.jpg" alt="Gifts">
+            <div>
+                <strong style="color: var(--gold); display: block; margin-bottom: 5px;">🎁 FREE GIFTS</strong>
+                <span style="font-size: 13px; color: var(--light-gray);" id="giftDesc">Clipper lighter, rolling papers and filters included free in every order from 50€!</span>
+            </div>
+        </div>
+
+        <!-- MENU VIEW -->
+        <div id="view-menu" class="app-view active">
+            <div class="categories-scroller">
+                <div class="categories-list" id="catList">
+                    <button class="category-btn active" onclick="filterProducts('all', this)">All</button>
+                    <button class="category-btn" onclick="filterProducts('weed', this)">🌿 Weed</button>
+                    <button class="category-btn" onclick="filterProducts('vape', this)">💨 Vapes</button>
+                    <button class="category-btn" onclick="filterProducts('hash', this)">🟫 Hash</button>
+                    <button class="category-btn" onclick="filterProducts('mushrooms', this)">🍄 Mushrooms</button>
+                    <button class="category-btn" onclick="filterProducts('prerolls', this)">🚬 Prerolls</button>
+                    <button class="category-btn" onclick="filterProducts('edibles', this)">🍬 Edibles</button>
+                    <button class="category-btn" onclick="filterProducts('special', this)">💎 Special</button>
                 </div>
             </div>
             
-            <div class="category-tabs">
-                <button class="category-tab active" onclick="filterCategory('all', this)">All</button>
-                <button class="category-tab" onclick="filterCategory('cocaine', this)">❄️ Cocaine</button>
-                <button class="category-tab" onclick="filterCategory('weed', this)">🌿 Weed</button>
-                <button class="category-tab" onclick="filterCategory('pills', this)">💊 Pills</button>
-                <button class="category-tab" onclick="filterCategory('hash', this)">🟫 Hash</button>
-                <button class="category-tab" onclick="filterCategory('shrooms', this)">🍄 Shrooms</button>
-                <button class="category-tab" onclick="filterCategory('lsd', this)">🧬 LSD</button>
-                <button class="category-tab" onclick="filterCategory('mdma', this)">✨ MDMA</button>
-                <button class="category-tab" onclick="filterCategory('ketamine', this)">🔮 Ketamine</button>
-                <button class="category-tab" onclick="filterCategory('heroin', this)">🌙 Heroin</button>
-                <button class="category-tab" onclick="filterCategory('meth', this)">💎 Meth</button>
-                <button class="category-tab" onclick="filterCategory('crack', this)">⚡ Crack</button>
+            <div class="products-section">
+                <div class="products-grid" id="productsGrid"></div>
             </div>
         </div>
 
-        <!-- Products -->
-        <div class="products-section">
-            <h2 class="section-title" id="productsTitle">Premium Products</h2>
-            <div class="products-grid" id="productsGrid">
-                <!-- Products will be loaded here -->
+        <!-- CART VIEW -->
+        <div id="view-cart" class="app-view">
+            <h2 style="margin-bottom: 20px; font-size: 24px;" id="cartTitle">🛒 Your Cart</h2>
+            <div id="cartItemsContainer">
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <p id="emptyCartText">Your cart is empty</p>
+                </div>
+            </div>
+            
+            <div class="checkout-form" id="checkoutForm" style="display: none;">
+                <h3 style="margin-bottom: 20px; color: var(--gold);" id="deliveryDetails">📍 Delivery Details</h3>
+                
+                <div class="form-group">
+                    <label id="lblCity">CITY</label>
+                    <input type="text" id="inputCity" placeholder="Enter your city">
+                </div>
+                
+                <div class="form-group">
+                    <label id="lblAddress">ADDRESS</label>
+                    <input type="text" id="inputAddress" placeholder="Enter your address">
+                </div>
+                
+                <div class="form-group">
+                    <label id="lblZip">ZIP CODE</label>
+                    <input type="text" id="inputZip" placeholder="Enter ZIP code">
+                </div>
+
+                <h3 style="margin-top: 25px; margin-bottom: 15px; color: var(--gold);" id="paymentTitle">💳 Payment Method</h3>
+                
+                <div class="pay-option active">
+                    <div class="pay-option-content">
+                        <div class="pay-logo badge-crypto">₿</div>
+                        <div>
+                            <strong style="display: block; font-size: 15px;">Crypto (BTC, USDT, LTC, ETH)</strong>
+                            <small style="color: var(--light-gray); font-size: 12px;">Receive direct payment address</small>
+                        </div>
+                    </div>
+                    <span class="pay-badge badge-crypto">CRYPTO</span>
+                </div>
+
+                <button class="cart-summary-floating" id="btnCheckout" onclick="checkout()">
+                    CHECKOUT
+                </button>
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
+        <!-- INFO VIEW -->
+        <div id="view-info" class="app-view">
+            <div class="info-section alert-section">
+                <h3 style="color: var(--danger);" id="warningTitle">⚠️ IMPORTANT</h3>
+                <p id="warningText" style="color: #fff; font-weight: 500;">By using this service, you confirm you are of legal age in your jurisdiction. We do not condone illegal activity.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3 id="shippingTitle">🚚 Shipping</h3>
+                <p id="shippingText">We offer discreet packaging and fast delivery. All orders are tracked and insured.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3 id="contactTitle">📞 Contact</h3>
+                <p id="contactText">Need help? Contact us on Telegram for support.</p>
+                <a href="https://t.me/eljefeshop" class="tg-link-btn">Contact on Telegram</a>
+            </div>
+        </div>
+
+        <!-- REVIEWS VIEW -->
+        <div id="view-reviews" class="app-view">
+            <div class="reviews-header">
+                <h2 id="reviewsTitle">Reviews</h2>
+                <p id="reviewsSub">Real reviews from our customers</p>
+                <a href="https://t.me/+dWYBdbc2_WgwMDJk" class="tg-link-btn">Join Reviews Channel</a>
+            </div>
+            <div id="reviewsContainer"></div>
+        </div>
+
+        <!-- Bottom Nav -->
         <nav class="bottom-nav">
-            <div class="nav-item active" onclick="showSection('shop', this)">
-                <span>🏪</span>
-                <label>Shop</label>
-            </div>
-            <div class="nav-item" onclick="showSection('orders', this)">
-                <span>📦</span>
-                <label>Orders</label>
-            </div>
-            <div class="nav-item" onclick="showSection('profile', this)">
-                <span>👤</span>
-                <label>Profile</label>
-            </div>
-            <div class="nav-item" onclick="showSection('support', this)">
-                <span>💬</span>
-                <label>Support</label>
-            </div>
+            <button class="nav-tab active" onclick="showView('menu', this)">
+                <span class="icon">🌿</span>
+                <span id="navMenu">Menu</span>
+            </button>
+            <button class="nav-tab" onclick="showView('cart', this)" style="position: relative;">
+                <span class="icon">🛒</span>
+                <span id="navCart">Cart</span>
+                <span class="badge-cart-count" id="navCartBadge" style="display: none;">0</span>
+            </button>
+            <button class="nav-tab" onclick="showView('info', this)">
+                <span class="icon">ℹ️</span>
+                <span id="navInfo">Info</span>
+            </button>
+            <button class="nav-tab" onclick="showView('reviews', this)">
+                <span class="icon">⭐</span>
+                <span id="navReviews">Reviews</span>
+            </button>
         </nav>
+
+        <!-- Floating Contact -->
+        <button class="floating-contact" onclick="window.open('https://t.me/eljefeshop', '_blank')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
+            </svg>
+            <span id="contactBtnText">Contact</span>
+        </button>
     </div>
 
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-header">
-            <h2>🛒 Your Cart</h2>
-            <button class="close-cart" onclick="closeCart()">✕</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <div class="empty-cart">
-                <div class="empty-cart-icon">🛒</div>
-                <p>Your cart is empty</p>
-            </div>
-        </div>
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">€0.00</span>
-            </div>
-            <button class="checkout-btn" onclick="checkout()">Checkout</button>
-        </div>
+    <!-- Lightbox -->
+    <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom">
     </div>
+
+    <!-- Toast -->
+    <div class="toast-notification" id="toast">✅ Added to cart!</div>
 
     <script>
-        // Telegram WebApp init
+        // Telegram WebApp
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
@@ -724,8 +997,8 @@
         let currentLang = 'EN';
         let currentCurrency = 'EUR';
         let cart = [];
-        
-        // Exchange rates (relative to EUR)
+
+        // Exchange rates
         const rates = {
             EUR: 1,
             USD: 1.08,
@@ -742,7 +1015,7 @@
             RUB: '₽'
         };
 
-        // Translations
+        // Complete translations for ALL app
         const translations = {
             EN: {
                 welcome: "Welcome to El Jefe Shop",
@@ -750,11 +1023,33 @@
                 language: "Language",
                 currency: "Currency",
                 enter: "ENTER SHOP",
-                products: "Premium Products",
-                cart: "Your Cart",
-                empty: "Your cart is empty",
-                total: "Total",
-                checkout: "Checkout"
+                headerSub: "Premium Quality Direct • Delivery in 1 hour!",
+                promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
+                giftDesc: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
+                categories: { all: "All", weed: "🌿 Weed", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", edibles: "🍬 Edibles", special: "💎 Special" },
+                addToCart: "Add to Cart",
+                cartTitle: "🛒 Your Cart",
+                emptyCart: "Your cart is empty",
+                deliveryDetails: "📍 Delivery Details",
+                city: "CITY",
+                address: "ADDRESS",
+                zip: "ZIP CODE",
+                payment: "💳 Payment Method",
+                checkout: "CHECKOUT",
+                navMenu: "Menu",
+                navCart: "Cart",
+                navInfo: "Info",
+                navReviews: "Reviews",
+                contact: "Contact",
+                warningTitle: "⚠️ IMPORTANT",
+                warningText: "By using this service, you confirm you are of legal age in your jurisdiction. We do not condone illegal activity.",
+                shippingTitle: "🚚 Shipping",
+                shippingText: "We offer discreet packaging and fast delivery. All orders are tracked and insured.",
+                contactTitle: "📞 Contact",
+                contactText: "Need help? Contact us on Telegram for support.",
+                reviewsTitle: "Reviews",
+                reviewsSub: "Real reviews from our customers",
+                addedToCart: "✅ Added to cart!"
             },
             IT: {
                 welcome: "Benvenuto in El Jefe Shop",
@@ -762,11 +1057,33 @@
                 language: "Lingua",
                 currency: "Valuta",
                 enter: "ENTRA NEL NEGOZIO",
-                products: "Prodotti Premium",
-                cart: "Il tuo Carrello",
-                empty: "Il tuo carrello è vuoto",
-                total: "Totale",
-                checkout: "Checkout"
+                headerSub: "Qualità Premium Diretta • Consegna in 1 ora!",
+                promo: "🔥 Ordine min. 30€ + 10€ spedizione | Spedizione GRATIS e Regali da 50€!",
+                giftDesc: "Accendino Clipper, cartine e filtri inclusi gratis in ogni ordine da 50€!",
+                categories: { all: "Tutti", weed: "🌿 Erba", vape: "💨 Vaporizzatori", hash: "🟫 Hash", mushrooms: "🍄 Funghi", prerolls: "🚬 Preroll", edibles: "🍬 Edibili", special: "💎 Speciali" },
+                addToCart: "Aggiungi al Carrello",
+                cartTitle: "🛒 Il tuo Carrello",
+                emptyCart: "Il tuo carrello è vuoto",
+                deliveryDetails: "📍 Dettagli Consegna",
+                city: "CITTÀ",
+                address: "INDIRIZZO",
+                zip: "CAP",
+                payment: "💳 Metodo di Pagamento",
+                checkout: "PAGA ORA",
+                navMenu: "Menu",
+                navCart: "Carrello",
+                navInfo: "Info",
+                navReviews: "Recensioni",
+                contact: "Contatto",
+                warningTitle: "⚠️ IMPORTANTE",
+                warningText: "Utilizzando questo servizio, confermi di essere maggiorenne nella tua giurisdizione. Non approviamo attività illegali.",
+                shippingTitle: "🚚 Spedizione",
+                shippingText: "Offriamo imballaggio discreto e consegna veloce. Tutti gli ordini sono tracciati e assicurati.",
+                contactTitle: "📞 Contatti",
+                contactText: "Serve aiuto? Contattaci su Telegram per supporto.",
+                reviewsTitle: "Recensioni",
+                reviewsSub: "Recensioni reali dei nostri clienti",
+                addedToCart: "✅ Aggiunto al carrello!"
             },
             FR: {
                 welcome: "Bienvenue chez El Jefe Shop",
@@ -774,11 +1091,33 @@
                 language: "Langue",
                 currency: "Devise",
                 enter: "ENTRER DANS LA BOUTIQUE",
-                products: "Produits Premium",
-                cart: "Votre Panier",
-                empty: "Votre panier est vide",
-                total: "Total",
-                checkout: "Payer"
+                headerSub: "Qualité Premium Directe • Livraison en 1 heure!",
+                promo: "🔥 Commande min. 30€ + 10€ livraison | Livraison GRATUITE et Cadeaux dès 50€!",
+                giftDesc: "Briquet Clipper, feuilles et filtres inclus gratuitement dans chaque commande de 50€!",
+                categories: { all: "Tout", weed: "🌿 Herbe", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Champignons", prerolls: "🚬 Prerolls", edibles: "🍬 Comestibles", special: "💎 Spécial" },
+                addToCart: "Ajouter au Panier",
+                cartTitle: "🛒 Votre Panier",
+                emptyCart: "Votre panier est vide",
+                deliveryDetails: "📍 Détails Livraison",
+                city: "VILLE",
+                address: "ADRESSE",
+                zip: "CODE POSTAL",
+                payment: "💳 Mode de Paiement",
+                checkout: "PAIER",
+                navMenu: "Menu",
+                navCart: "Panier",
+                navInfo: "Info",
+                navReviews: "Avis",
+                contact: "Contact",
+                warningTitle: "⚠️ IMPORTANT",
+                warningText: "En utilisant ce service, vous confirmez être majeur dans votre juridiction. Nous ne tolérons pas les activités illégales.",
+                shippingTitle: "🚚 Livraison",
+                shippingText: "Nous offrons un emballage discret et une livraison rapide. Toutes les commandes sont suivies et assurées.",
+                contactTitle: "📞 Contact",
+                contactText: "Besoin d'aide? Contactez-nous sur Telegram.",
+                reviewsTitle: "Avis",
+                reviewsSub: "Avis réels de nos clients",
+                addedToCart: "✅ Ajouté au panier!"
             },
             DE: {
                 welcome: "Willkommen bei El Jefe Shop",
@@ -786,11 +1125,33 @@
                 language: "Sprache",
                 currency: "Währung",
                 enter: "LADEN BETRETEN",
-                products: "Premium Produkte",
-                cart: "Ihr Warenkorb",
-                empty: "Ihr Warenkorb ist leer",
-                total: "Gesamt",
-                checkout: "Zur Kasse"
+                headerSub: "Premium Qualität Direkt • Lieferung in 1 Stunde!",
+                promo: "🔥 Min. Bestellung 30€ + 10€ Versand | GRATIS Versand & Geschenke ab 50€!",
+                giftDesc: "Clipper Feuerzeug, Blättchen und Filter gratis in jeder Bestellung ab 50€!",
+                categories: { all: "Alle", weed: "🌿 Gras", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Pilze", prerolls: "🚬 Prerolls", edibles: "🍬 Esswaren", special: "💎 Spezial" },
+                addToCart: "In den Warenkorb",
+                cartTitle: "🛒 Ihr Warenkorb",
+                emptyCart: "Ihr Warenkorb ist leer",
+                deliveryDetails: "📍 Lieferdetails",
+                city: "STADT",
+                address: "ADRESSE",
+                zip: "PLZ",
+                payment: "💳 Zahlungsmethode",
+                checkout: "ZUR KASSE",
+                navMenu: "Menü",
+                navCart: "Warenkorb",
+                navInfo: "Info",
+                navReviews: "Bewertungen",
+                contact: "Kontakt",
+                warningTitle: "⚠️ WICHTIG",
+                warningText: "Mit der Nutzung bestätigen Sie, dass Sie volljährig sind. Wir dulden keine illegalen Aktivitäten.",
+                shippingTitle: "🚚 Versand",
+                shippingText: "Wir bieten diskrete Verpackung und schnelle Lieferung. Alle Bestellungen sind verfolgbar und versichert.",
+                contactTitle: "📞 Kontakt",
+                contactText: "Hilfe nötig? Kontaktieren Sie uns auf Telegram.",
+                reviewsTitle: "Bewertungen",
+                reviewsSub: "Echte Bewertungen unserer Kunden",
+                addedToCart: "✅ Hinzugefügt!"
             },
             RU: {
                 welcome: "Добро пожаловать в El Jefe Shop",
@@ -798,44 +1159,99 @@
                 language: "Язык",
                 currency: "Валюта",
                 enter: "ВОЙТИ В МАГАЗИН",
-                products: "Премиум Товары",
-                cart: "Ваша Корзина",
-                empty: "Ваша корзина пуста",
-                total: "Итого",
-                checkout: "Оформить заказ"
+                headerSub: "Премиум Качество Напрямую • Доставка за 1 час!",
+                promo: "🔥 Мин. заказ 30€ + 10€ доставка | БЕСПЛАТНАЯ доставка и Подарки от 50€!",
+                giftDesc: "Зажигалка Clipper, бумаги и фильтры бесплатно в каждом заказе от 50€!",
+                categories: { all: "Все", weed: "🌿 Травка", vape: "💨 Вейпы", hash: "🟫 Гашиш", mushrooms: "🍄 Грибы", prerolls: "🚬 Джойнты", edibles: "🍬 Еда", special: "💎 Специальное" },
+                addToCart: "В корзину",
+                cartTitle: "🛒 Ваша Корзина",
+                emptyCart: "Ваша корзина пуста",
+                deliveryDetails: "📍 Детали Доставки",
+                city: "ГОРОД",
+                address: "АДРЕС",
+                zip: "ИНДЕКС",
+                payment: "💳 Способ Оплаты",
+                checkout: "ОФОРМИТЬ",
+                navMenu: "Меню",
+                navCart: "Корзина",
+                navInfo: "Инфо",
+                navReviews: "Отзывы",
+                contact: "Контакт",
+                warningTitle: "⚠️ ВАЖНО",
+                warningText: "Используя сервис, вы подтверждаете совершеннолетие. Мы не одобряем незаконную деятельность.",
+                shippingTitle: "🚚 Доставка",
+                shippingText: "Предлагаем дискретную упаковку и быструю доставку. Все заказы отслеживаются и застрахованы.",
+                contactTitle: "📞 Контакты",
+                contactText: "Нужна помощь? Свяжитесь с нами в Telegram.",
+                reviewsTitle: "Отзывы",
+                reviewsSub: "Реальные отзывы наших клиентов",
+                addedToCart: "✅ Добавлено!"
             }
         };
 
-        // Products data
+        // Products with REAL Catbox links
         const products = [
-            { id: 1, name: "Colombian Cocaine", category: "cocaine", price: 80, image: "https://files.catbox.moe/cocaine1.jpg", desc: "Pure Colombian fishscale" },
-            { id: 2, name: "Peruvian Flake", category: "cocaine", price: 90, image: "https://files.catbox.moe/cocaine2.jpg", desc: "Premium Peruvian" },
-            { id: 3, name: "Amnesia Haze", category: "weed", price: 12, image: "https://files.catbox.moe/weed1.jpg", desc: "Top shelf sativa" },
-            { id: 4, name: "OG Kush", category: "weed", price: 10, image: "https://files.catbox.moe/weed2.jpg", desc: "Classic indica" },
-            { id: 5, name: "Moroccan Hash", category: "hash", price: 8, image: "https://files.catbox.moe/hash1.jpg", desc: "Premium pollen" },
-            { id: 6, name: "Afghan Black", category: "hash", price: 9, image: "https://files.catbox.moe/hash2.jpg", desc: "Traditional charas" },
-            { id: 7, name: "Golden Teacher", category: "shrooms", price: 25, image: "https://files.catbox.moe/shrooms1.jpg", desc: "Psychedelic mushrooms" },
-            { id: 8, name: "LSD 200ug", category: "lsd", price: 15, image: "https://files.catbox.moe/lsd1.jpg", desc: "Pure LSD tabs" },
-            { id: 9, name: "MDMA Crystals", category: "mdma", price: 40, image: "https://files.catbox.moe/mdma1.jpg", desc: "Pure MDMA" },
-            { id: 10, name: "Ketamine", category: "ketamine", price: 60, image: "https://files.catbox.moe/ket1.jpg", desc: "Pharma grade" },
-            { id: 11, name: "Afghan Heroin", category: "heroin", price: 70, image: "https://files.catbox.moe/heroin1.jpg", desc: "Pure #4 heroin" },
-            { id: 12, name: "Blue Meth", category: "meth", price: 50, image: "https://files.catbox.moe/meth1.jpg", desc: "Crystal clear" },
-            { id: 13, name: "Crack Rocks", category: "crack", price: 45, image: "https://files.catbox.moe/crack1.jpg", desc: "Ready to smoke" },
-            { id: 14, name: "XTC Pills", category: "pills", price: 20, image: "https://files.catbox.moe/pills1.jpg", desc: "250mg MDMA" },
-            { id: 15, name: "Oxycodone", category: "pills", price: 30, image: "https://files.catbox.moe/pills2.jpg", desc: "80mg OC" }
+            { id: 1, name: "Amnesia Vape", category: "vape", price: 35, image: "https://files.catbox.moe/k6utct.jpg", desc: "Premium THC vape cartridge" },
+            { id: 2, name: "Baby Jeeter Prerolls", category: "prerolls", price: 25, image: "https://files.catbox.moe/uzsqh3.jpg", desc: "5 pack infused prerolls" },
+            { id: 3, name: "Blue Dream Vape", category: "vape", price: 35, image: "https://files.catbox.moe/e42bu5.jpg", desc: "Sativa dominant vape" },
+            { id: 4, name: "Blue Dream", category: "weed", price: 12, image: "https://files.catbox.moe/l3rb72.jpg", desc: "Top shelf sativa" },
+            { id: 5, name: "Bubblegum Gusher", category: "weed", price: 13, image: "https://files.catbox.moe/q1vuzm.jpg", desc: "Sweet indica hybrid" },
+            { id: 6, name: "Cookies", category: "weed", price: 14, image: "https://files.catbox.moe/9cm291.jpg", desc: "Classic Cookies strain" },
+            { id: 7, name: "Crystal Meth Special", category: "special", price: 60, image: "https://files.catbox.moe/sg5khm.jpg", desc: "Premium quality crystal" },
+            { id: 8, name: "Frozen Sift Hash", category: "hash", price: 10, image: "https://files.catbox.moe/dwnep1.jpg", desc: "Cold extracted hash" },
+            { id: 9, name: "Gelato", category: "weed", price: 13, image: "https://files.catbox.moe/iuulm3.jpg", desc: "Sweet dessert strain" },
+            { id: 10, name: "Golden Teacher", category: "mushrooms", price: 30, image: "https://files.catbox.moe/4bcbhp.jpg", desc: "Psychedelic mushrooms" },
+            { id: 11, name: "Green Crack", category: "weed", price: 12, image: "https://files.catbox.moe/dpq2lc.jpg", desc: "Energetic sativa" },
+            { id: 12, name: "Lemon Cherry", category: "weed", price: 14, image: "https://files.catbox.moe/nkf4c3.jpg", desc: "Fruity hybrid" },
+            { id: 13, name: "LSD Liquid Special", category: "special", price: 50, image: "https://files.catbox.moe/upcbag.jpg", desc: "Pure LSD liquid" },
+            { id: 14, name: "MDMA Special", category: "special", price: 45, image: "https://files.catbox.moe/6xqi64.jpg", desc: "Pure MDMA crystals" },
+            { id: 15, name: "Moonrock", category: "weed", price: 20, image: "https://files.catbox.moe/i4nqr1.jpg", desc: "Covered in kief" },
+            { id: 16, name: "Moroccan Dry Hash", category: "hash", price: 8, image: "https://files.catbox.moe/kbbn9j.jpg", desc: "Traditional Moroccan" },
+            { id: 17, name: "Northern Lights", category: "weed", price: 11, image: "https://files.catbox.moe/jnv4ei.jpg", desc: "Classic indica" },
+            { id: 18, name: "Premium Hash", category: "hash", price: 12, image: "https://files.catbox.moe/wlsxrg.jpg", desc: "Top quality hash" },
+            { id: 19, name: "Premium Wholesale", category: "weed", price: 9, image: "https://files.catbox.moe/1ah9ve.jpg", desc: "Bulk pricing available" },
+            { id: 20, name: "Pure Cocaine", category: "special", price: 80, image: "https://files.catbox.moe/vghr7c.jpg", desc: "Fishscale quality" },
+            { id: 21, name: "Purple Mystic", category: "mushrooms", price: 30, image: "https://files.catbox.moe/qvzz3u.jpg", desc: "Magic mushrooms" },
+            { id: 22, name: "Purple Platinum", category: "weed", price: 14, image: "https://files.catbox.moe/p393wj.jpg", desc: "Purple indica" },
+            { id: 23, name: "Rainbow Zaza", category: "weed", price: 13, image: "https://files.catbox.moe/pbjgn1.jpg", desc: "Colorful hybrid" },
+            { id: 24, name: "Runtz Vape", category: "vape", price: 38, image: "https://files.catbox.moe/pjj7h1.jpg", desc: "Premium disposable" },
+            { id: 25, name: "Runtz", category: "weed", price: 15, image: "https://files.catbox.moe/xxeqh7.jpg", desc: "Sweet candy strain" },
+            { id: 26, name: "Snowcone", category: "weed", price: 13, image: "https://files.catbox.moe/3m3tdq.jpg", desc: "Icy hybrid" },
+            { id: 27, name: "Sour Diesel", category: "weed", price: 12, image: "https://files.catbox.moe/pk12h0.jpg", desc: "Classic sativa" },
+            { id: 28, name: "Standard Prerolls", category: "prerolls", price: 18, image: "https://files.catbox.moe/9tu5hx.jpg", desc: "7 pack classic joints" },
+            { id: 29, name: "THC Edibles 40mg", category: "edibles", price: 15, image: "https://files.catbox.moe/wlkvg0.jpg", desc: "Gummies 40mg THC" },
+            { id: 30, name: "THC Edibles 60mg", category: "edibles", price: 20, image: "https://files.catbox.moe/8ymlq9.jpg", desc: "Gummies 60mg THC" },
+            { id: 31, name: "White Widow", category: "weed", price: 11, image: "https://files.catbox.moe/dux0y2.jpg", desc: "Balanced hybrid" },
+            { id: 32, name: "Zkittlez Vape", category: "vape", price: 36, image: "https://files.catbox.moe/chrkoa.jpg", desc: "Fruit flavored vape" }
         ];
 
-        // Language selection
+        // Sample reviews
+        const reviews = [
+            { name: "Marco D.", rating: "⭐⭐⭐⭐⭐", text: "Consegna super veloce, prodotto top quality!", lang: "IT" },
+            { name: "John S.", rating: "⭐⭐⭐⭐⭐", text: "Fast delivery, great product. Will order again!", lang: "EN" },
+            { name: "Pierre L.", rating: "⭐⭐⭐⭐⭐", text: "Excellent service, emballage discret. Merci!", lang: "FR" },
+            { name: "Hans M.", rating: "⭐⭐⭐⭐⭐", text: "Sehr gute Qualität, schnelle Lieferung!", lang: "DE" },
+            { name: "Alex K.", rating: "⭐⭐⭐⭐⭐", text: "Отличное качество, быстрая доставка!", lang: "RU" }
+        ];
+
+        // Welcome page functions
         function selectLanguage(lang) {
             currentLang = lang;
-            
-            // Update buttons
-            document.querySelectorAll('.lang-btn').forEach(btn => {
+            document.querySelectorAll('.welcome-screen .lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
-            
-            // Update welcome text
-            const t = translations[lang];
+            updateWelcomeText();
+        }
+
+        function selectCurrency(curr) {
+            currentCurrency = curr;
+            document.querySelectorAll('.currency-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.currency === curr);
+            });
+        }
+
+        function updateWelcomeText() {
+            const t = translations[currentLang];
             document.getElementById('welcomeTitle').textContent = t.welcome;
             document.getElementById('welcomeSubtitle').textContent = t.subtitle;
             document.getElementById('langTitle').textContent = t.language;
@@ -843,78 +1259,108 @@
             document.getElementById('enterBtn').textContent = t.enter;
         }
 
-        // Currency selection
-        function selectCurrency(curr) {
-            currentCurrency = curr;
-            
-            document.querySelectorAll('.currency-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.currency === curr);
-            });
-        }
-
-        // Enter shop
         function enterShop() {
             document.getElementById('welcomeScreen').classList.add('hidden');
             document.getElementById('appContainer').classList.add('visible');
-            
-            // Set header currency
             document.getElementById('headerCurrency').value = currentCurrency;
-            
-            // Update products title
-            document.getElementById('productsTitle').textContent = translations[currentLang].products;
-            
-            // Load products
+            updateAppLanguage();
             renderProducts();
-            
-            // Notify Telegram
+            renderReviews();
             tg.HapticFeedback.impactOccurred('medium');
         }
 
-        // Change currency from header
+        // Main app functions
+        function changeLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.top-controls-bar .lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent === lang);
+            });
+            updateAppLanguage();
+            renderProducts();
+            updateCart();
+        }
+
         function changeCurrency(curr) {
             currentCurrency = curr;
             renderProducts();
             updateCart();
         }
 
-        // Format price
-        function formatPrice(eurPrice) {
-            const converted = (eurPrice * rates[currentCurrency]).toFixed(2);
+        function updateAppLanguage() {
+            const t = translations[currentLang];
+            
+            // Update all text elements
+            document.getElementById('headerSub').textContent = t.headerSub;
+            document.getElementById('promoBanner').textContent = t.promo;
+            document.getElementById('giftDesc').textContent = t.giftDesc;
+            document.getElementById('cartTitle').textContent = t.cartTitle;
+            document.getElementById('emptyCartText').textContent = t.emptyCart;
+            document.getElementById('deliveryDetails').textContent = t.deliveryDetails;
+            document.getElementById('lblCity').textContent = t.city;
+            document.getElementById('lblAddress').textContent = t.address;
+            document.getElementById('lblZip').textContent = t.zip;
+            document.getElementById('paymentTitle').textContent = t.payment;
+            document.getElementById('btnCheckout').textContent = t.checkout;
+            document.getElementById('navMenu').textContent = t.navMenu;
+            document.getElementById('navCart').textContent = t.navCart;
+            document.getElementById('navInfo').textContent = t.navInfo;
+            document.getElementById('navReviews').textContent = t.navReviews;
+            document.getElementById('contactBtnText').textContent = t.contact;
+            
+            // Info section
+            document.getElementById('warningTitle').textContent = t.warningTitle;
+            document.getElementById('warningText').textContent = t.warningText;
+            document.getElementById('shippingTitle').textContent = t.shippingTitle;
+            document.getElementById('shippingText').textContent = t.shippingText;
+            document.getElementById('contactTitle').textContent = t.contactTitle;
+            document.getElementById('contactText').textContent = t.contactText;
+            
+            // Reviews
+            document.getElementById('reviewsTitle').textContent = t.reviewsTitle;
+            document.getElementById('reviewsSub').textContent = t.reviewsSub;
+            
+            // Update categories
+            const catButtons = document.querySelectorAll('.category-btn');
+            const cats = ['all', 'weed', 'vape', 'hash', 'mushrooms', 'prerolls', 'edibles', 'special'];
+            catButtons.forEach((btn, i) => {
+                if (cats[i]) btn.textContent = t.categories[cats[i]];
+            });
+        }
+
+        function formatPrice(price) {
+            const converted = (price * rates[currentCurrency]).toFixed(2);
             return `${symbols[currentCurrency]}${converted}`;
         }
 
-        // Render products
         function renderProducts(category = 'all') {
+            const t = translations[currentLang];
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
             
-            const filtered = category === 'all' 
-                ? products 
-                : products.filter(p => p.category === category);
+            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
             
             filtered.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <img src="${product.image}" class="product-image" alt="${product.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 150%22><rect fill=%22%23333%22 width=%22200%22 height=%22150%22/><text fill=%22%23D4AF37%22 y=%2280%22 x=%22100%22 text-anchor=%22middle%22>${product.name}</text></svg>'">
+                    <img src="${product.image}" class="product-image" alt="${product.name}" onclick="openLightbox('${product.image}')">
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
+                        <div class="product-desc">${product.desc}</div>
                         <div class="product-price">${formatPrice(product.price)}</div>
-                        <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">${t.addToCart}</button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // Filter category
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+        function filterProducts(cat, btn) {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             renderProducts(cat);
         }
 
-        // Add to cart
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             const existing = cart.find(item => item.id === productId);
@@ -926,103 +1372,141 @@
             }
             
             updateCart();
+            showToast(translations[currentLang].addedToCart);
             tg.HapticFeedback.impactOccurred('light');
         }
 
-        // Update cart display
         function updateCart() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').textContent = count;
+            const t = translations[currentLang];
+            const container = document.getElementById('cartItemsContainer');
+            const badge = document.getElementById('navCartBadge');
+            const checkoutForm = document.getElementById('checkoutForm');
             
-            const cartItems = document.getElementById('cartItems');
-            const cartFooter = document.getElementById('cartFooter');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalItems;
+            badge.style.display = totalItems > 0 ? 'flex' : 'none';
             
             if (cart.length === 0) {
-                cartItems.innerHTML = `
+                container.innerHTML = `
                     <div class="empty-cart">
                         <div class="empty-cart-icon">🛒</div>
-                        <p>${translations[currentLang].empty}</p>
+                        <p>${t.emptyCart}</p>
                     </div>
                 `;
-                cartFooter.style.display = 'none';
+                checkoutForm.style.display = 'none';
             } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <img src="${item.image}" class="cart-item-image" alt="${item.name}">
-                        <div class="cart-item-details">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${formatPrice(item.price)}</div>
-                            <div class="quantity-controls">
-                                <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                                <span>${item.quantity}</span>
-                                <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                                <button class="remove-item" onclick="removeFromCart(${item.id})">Remove</button>
+                let html = '';
+                let total = 0;
+                
+                cart.forEach(item => {
+                    total += item.price * item.quantity;
+                    html += `
+                        <div class="cart-item">
+                            <img src="${item.image}" class="cart-item-image" alt="${item.name}">
+                            <div class="cart-item-details">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">${formatPrice(item.price)}</div>
+                                <div class="quantity-controls">
+                                    <button class="qty-btn" onclick="updateQty(${item.id}, -1)">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="qty-btn" onclick="updateQty(${item.id}, 1)">+</button>
+                                    <button class="remove-item" onclick="removeFromCart(${item.id})">✕</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `).join('');
+                    `;
+                });
                 
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                document.getElementById('cartTotal').textContent = formatPrice(total);
-                cartFooter.style.display = 'block';
+                html += `
+                    <div style="background: var(--dark-gray); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; color: var(--gold);">
+                            <span>TOTAL:</span>
+                            <span>${formatPrice(total)}</span>
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML = html;
+                checkoutForm.style.display = 'block';
             }
         }
 
-        // Update quantity
-        function updateQuantity(productId, delta) {
+        function updateQty(productId, delta) {
             const item = cart.find(i => i.id === productId);
             if (item) {
                 item.quantity += delta;
                 if (item.quantity <= 0) {
-                    removeFromCart(productId);
-                } else {
-                    updateCart();
+                    cart = cart.filter(i => i.id !== productId);
                 }
+                updateCart();
             }
         }
 
-        // Remove from cart
         function removeFromCart(productId) {
             cart = cart.filter(item => item.id !== productId);
             updateCart();
         }
 
-        // Open cart
-        function openCart() {
-            document.getElementById('cartModal').classList.add('visible');
+        function showView(viewName, btn) {
+            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+            document.getElementById(`view-${viewName}`).classList.add('active');
+            
+            document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if (viewName === 'cart') {
+                updateCart();
+            }
         }
 
-        // Close cart
-        function closeCart() {
-            document.getElementById('cartModal').classList.remove('visible');
-        }
-
-        // Checkout
         function checkout() {
             if (cart.length === 0) return;
             
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const items = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
             
             tg.sendData(JSON.stringify({
                 action: 'checkout',
                 items: cart,
                 total: total,
-                currency: currentCurrency
+                currency: currentCurrency,
+                lang: currentLang
             }));
             
             tg.close();
         }
 
-        // Navigation
-        function showSection(section, btn) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            btn.classList.add('active');
+        function renderReviews() {
+            const container = document.getElementById('reviewsContainer');
+            container.innerHTML = reviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">${review.name}</span>
+                        <span class="review-rating">${review.rating}</span>
+                    </div>
+                    <div class="review-text">${review.text}</div>
+                </div>
+            `).join('');
         }
 
-        // Initialize
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('visible');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('visible');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // Init
         document.addEventListener('DOMContentLoaded', () => {
-            // Welcome screen is shown by default
+            updateWelcomeText();
         });
     </script>
 </body>
