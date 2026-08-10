@@ -197,7 +197,6 @@
             font-size: 14px;
             cursor: pointer;
             min-width: 100px;
-            /* FIX BUG 13: rimozione outline di default */
             outline: none;
         }
 
@@ -327,6 +326,8 @@
             border: 1px solid var(--medium-gray);
             transition: all 0.3s ease;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-card:hover {
@@ -343,6 +344,9 @@
 
         .product-info {
             padding: 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-name {
@@ -356,28 +360,82 @@
             font-size: 12px;
             color: var(--light-gray);
             margin-bottom: 10px;
+            min-height: 30px;
         }
 
         .product-price {
             font-size: 18px;
             font-weight: 700;
             color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        /* Grid Quantity Controls */
+        .grid-qty-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+            margin-top: auto;
+        }
+
+        .grid-qty-btn {
+            background: var(--medium-gray);
+            border: none;
+            color: var(--white);
+            width: 28px;
+            height: 28px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .grid-qty-val {
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
         }
 
         .add-to-cart {
-            width: 100%;
+            flex: 1;
             background: var(--gold);
             border: none;
             color: var(--black);
-            padding: 12px;
-            margin-top: 10px;
+            padding: 10px;
             border-radius: 8px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 13px;
         }
 
         .add-to-cart:hover {
+            background: var(--gold-light);
+        }
+
+        /* Edibles Specific Buttons */
+        .edibles-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .edible-btn {
+            background: var(--gold);
+            border: none;
+            color: var(--black);
+            padding: 10px 5px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .edible-btn:hover {
             background: var(--gold-light);
         }
 
@@ -421,7 +479,6 @@
             font-weight: 500;
         }
 
-        /* FIX BUG 4: wrapper relativo per il badge carrello */
         .cart-icon-wrapper {
             position: relative;
             display: inline-flex;
@@ -563,7 +620,6 @@
             letter-spacing: 1px;
         }
 
-        /* FIX BUG 13: outline rimosso di default su input e select */
         .form-group input, .form-group select {
             width: 100%;
             background: var(--medium-gray);
@@ -827,7 +883,6 @@
                 <option value="RUB">RUB (₽)</option>
             </select>
             
-            <!-- FIX BUG 3: aggiunto data-lang a ogni pulsante nella top bar -->
             <div class="lang-selector">
                 <button class="lang-btn active" data-lang="EN" onclick="changeLang('EN')">EN</button>
                 <button class="lang-btn" data-lang="IT" onclick="changeLang('IT')">IT</button>
@@ -956,7 +1011,6 @@
                 <span class="icon">🌿</span>
                 <span id="navMenu">Menu</span>
             </button>
-            <!-- FIX BUG 4: badge posizionato dentro wrapper relativo sull'icona -->
             <button class="nav-tab" onclick="showView('cart', this)">
                 <span class="cart-icon-wrapper">
                     <span class="icon">🛒</span>
@@ -975,7 +1029,6 @@
         </nav>
 
         <!-- Floating Contact -->
-        <!-- FIX BUG 12: sostituito SVG icona "info" con il corretto logo Telegram -->
         <button class="floating-contact" onclick="window.open('https://t.me/eljefeshop', '_blank')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
@@ -1003,8 +1056,8 @@
         let currentLang = 'EN';
         let currentCurrency = 'EUR';
         let cart = [];
-        // FIX BUG 2: variabile di stato per la categoria attiva
         let currentCategory = 'all';
+        let gridQuantities = {};
 
         // Exchange rates
         const rates = {
@@ -1035,7 +1088,7 @@
                 promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
                 giftDesc: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
                 categories: { all: "All", weed: "🌿 Weed", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", edibles: "🍬 Edibles", special: "💎 Special" },
-                addToCart: "Add to Cart",
+                addToCart: "Add",
                 cartTitle: "🛒 Your Cart",
                 emptyCart: "Your cart is empty",
                 deliveryDetails: "📍 Delivery Details",
@@ -1056,7 +1109,6 @@
                 reviewsTitle: "Reviews",
                 reviewsSub: "Real reviews from our customers",
                 addedToCart: "✅ Added to cart!",
-                // FIX BUG 6: testi per validazione ordine minimo
                 minOrderError: "⚠️ Minimum order is 30€",
                 fillFieldsError: "⚠️ Please fill in all delivery fields"
             },
@@ -1070,7 +1122,7 @@
                 promo: "🔥 Ordine min. 30€ + 10€ spedizione | Spedizione GRATIS e Regali da 50€!",
                 giftDesc: "Accendino Clipper, cartine e filtri inclusi gratis in ogni ordine da 50€!",
                 categories: { all: "Tutti", weed: "🌿 Erba", vape: "💨 Vaporizzatori", hash: "🟫 Hash", mushrooms: "🍄 Funghi", prerolls: "🚬 Preroll", edibles: "🍬 Edibili", special: "💎 Speciali" },
-                addToCart: "Aggiungi al Carrello",
+                addToCart: "Aggiungi",
                 cartTitle: "🛒 Il tuo Carrello",
                 emptyCart: "Il tuo carrello è vuoto",
                 deliveryDetails: "📍 Dettagli Consegna",
@@ -1104,7 +1156,7 @@
                 promo: "🔥 Commande min. 30€ + 10€ livraison | Livraison GRATUITE et Cadeaux dès 50€!",
                 giftDesc: "Briquet Clipper, feuilles et filtres inclus gratuitement dans chaque commande de 50€!",
                 categories: { all: "Tout", weed: "🌿 Herbe", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Champignons", prerolls: "🚬 Prerolls", edibles: "🍬 Comestibles", special: "💎 Spécial" },
-                addToCart: "Ajouter au Panier",
+                addToCart: "Ajouter",
                 cartTitle: "🛒 Votre Panier",
                 emptyCart: "Votre panier est vide",
                 deliveryDetails: "📍 Détails Livraison",
@@ -1138,7 +1190,7 @@
                 promo: "🔥 Min. Bestellung 30€ + 10€ Versand | GRATIS Versand & Geschenke ab 50€!",
                 giftDesc: "Clipper Feuerzeug, Blättchen und Filter gratis in jeder Bestellung ab 50€!",
                 categories: { all: "Alle", weed: "🌿 Gras", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Pilze", prerolls: "🚬 Prerolls", edibles: "🍬 Esswaren", special: "💎 Spezial" },
-                addToCart: "In den Warenkorb",
+                addToCart: "Hinzufügen",
                 cartTitle: "🛒 Ihr Warenkorb",
                 emptyCart: "Ihr Warenkorb ist leer",
                 deliveryDetails: "📍 Lieferdetails",
@@ -1172,7 +1224,7 @@
                 promo: "🔥 Мин. заказ 30€ + 10€ доставка | БЕСПЛАТНАЯ доставка и Подарки от 50€!",
                 giftDesc: "Зажигалка Clipper, бумаги и фильтры бесплатно в каждом заказе от 50€!",
                 categories: { all: "Все", weed: "🌿 Травка", vape: "💨 Вейпы", hash: "🟫 Гашиш", mushrooms: "🍄 Грибы", prerolls: "🚬 Джойнты", edibles: "🍬 Еда", special: "💎 Специальное" },
-                addToCart: "В корзину",
+                addToCart: "Добавить",
                 cartTitle: "🛒 Ваша Корзина",
                 emptyCart: "Ваша корзина пуста",
                 deliveryDetails: "📍 Детали Доставки",
@@ -1198,40 +1250,40 @@
             }
         };
 
-        // Products with REAL Catbox links
+        // Products with UPDATED PRICES
         const products = [
-            { id: 1, name: "Amnesia Vape", category: "vape", price: 35, image: "https://files.catbox.moe/k6utct.jpg", desc: "Premium THC vape cartridge" },
-            { id: 2, name: "Baby Jeeter Prerolls", category: "prerolls", price: 25, image: "https://files.catbox.moe/uzsqh3.jpg", desc: "5 pack infused prerolls" },
-            { id: 3, name: "Blue Dream Vape", category: "vape", price: 35, image: "https://files.catbox.moe/e42bu5.jpg", desc: "Sativa dominant vape" },
+            { id: 1, name: "Amnesia Vape", category: "vape", price: 70, image: "https://files.catbox.moe/k6utct.jpg", desc: "Premium THC vape cartridge" },
+            { id: 2, name: "Baby Jeeter Prerolls", category: "prerolls", price: 30, image: "https://files.catbox.moe/uzsqh3.jpg", desc: "5 pack infused prerolls" },
+            { id: 3, name: "Blue Dream Vape", category: "vape", price: 70, image: "https://files.catbox.moe/e42bu5.jpg", desc: "Sativa dominant vape" },
             { id: 4, name: "Blue Dream", category: "weed", price: 12, image: "https://files.catbox.moe/l3rb72.jpg", desc: "Top shelf sativa" },
-            { id: 5, name: "Bubblegum Gusher", category: "weed", price: 13, image: "https://files.catbox.moe/q1vuzm.jpg", desc: "Sweet indica hybrid" },
-            { id: 6, name: "Cookies", category: "weed", price: 14, image: "https://files.catbox.moe/9cm291.jpg", desc: "Classic Cookies strain" },
+            { id: 5, name: "Bubblegum Gusher", category: "weed", price: 12, image: "https://files.catbox.moe/q1vuzm.jpg", desc: "Sweet indica hybrid" },
+            { id: 6, name: "Cookies", category: "weed", price: 12, image: "https://files.catbox.moe/9cm291.jpg", desc: "Classic Cookies strain" },
             { id: 7, name: "Crystal Meth Special", category: "special", price: 60, image: "https://files.catbox.moe/sg5khm.jpg", desc: "Premium quality crystal" },
-            { id: 8, name: "Frozen Sift Hash", category: "hash", price: 10, image: "https://files.catbox.moe/dwnep1.jpg", desc: "Cold extracted hash" },
-            { id: 9, name: "Gelato", category: "weed", price: 13, image: "https://files.catbox.moe/iuulm3.jpg", desc: "Sweet dessert strain" },
-            { id: 10, name: "Golden Teacher", category: "mushrooms", price: 30, image: "https://files.catbox.moe/4bcbhp.jpg", desc: "Psychedelic mushrooms" },
+            { id: 8, name: "Frozen Sift Hash", category: "hash", price: 15, image: "https://files.catbox.moe/dwnep1.jpg", desc: "Cold extracted hash" },
+            { id: 9, name: "Gelato", category: "weed", price: 12, image: "https://files.catbox.moe/iuulm3.jpg", desc: "Sweet dessert strain" },
+            { id: 10, name: "Golden Teacher", category: "mushrooms", price: 40, image: "https://files.catbox.moe/4bcbhp.jpg", desc: "Psychedelic mushrooms" },
             { id: 11, name: "Green Crack", category: "weed", price: 12, image: "https://files.catbox.moe/dpq2lc.jpg", desc: "Energetic sativa" },
-            { id: 12, name: "Lemon Cherry", category: "weed", price: 14, image: "https://files.catbox.moe/nkf4c3.jpg", desc: "Fruity hybrid" },
+            { id: 12, name: "Lemon Cherry", category: "weed", price: 12, image: "https://files.catbox.moe/nkf4c3.jpg", desc: "Fruity hybrid" },
             { id: 13, name: "LSD Liquid Special", category: "special", price: 50, image: "https://files.catbox.moe/upcbag.jpg", desc: "Pure LSD liquid" },
-            { id: 14, name: "MDMA Special", category: "special", price: 45, image: "https://files.catbox.moe/6xqi64.jpg", desc: "Pure MDMA crystals" },
+            { id: 14, name: "MDMA Special", category: "special", price: 65, image: "https://files.catbox.moe/6xqi64.jpg", desc: "Pure MDMA crystals" },
             { id: 15, name: "Moonrock", category: "weed", price: 20, image: "https://files.catbox.moe/i4nqr1.jpg", desc: "Covered in kief" },
             { id: 16, name: "Moroccan Dry Hash", category: "hash", price: 8, image: "https://files.catbox.moe/kbbn9j.jpg", desc: "Traditional Moroccan" },
-            { id: 17, name: "Northern Lights", category: "weed", price: 11, image: "https://files.catbox.moe/jnv4ei.jpg", desc: "Classic indica" },
+            { id: 17, name: "Northern Lights", category: "weed", price: 12, image: "https://files.catbox.moe/jnv4ei.jpg", desc: "Classic indica" },
             { id: 18, name: "Premium Hash", category: "hash", price: 12, image: "https://files.catbox.moe/wlsxrg.jpg", desc: "Top quality hash" },
-            { id: 19, name: "Premium Wholesale", category: "weed", price: 9, image: "https://files.catbox.moe/1ah9ve.jpg", desc: "Bulk pricing available" },
-            { id: 20, name: "Pure Cocaine", category: "special", price: 80, image: "https://files.catbox.moe/vghr7c.jpg", desc: "Fishscale quality" },
-            { id: 21, name: "Purple Mystic", category: "mushrooms", price: 30, image: "https://files.catbox.moe/qvzz3u.jpg", desc: "Magic mushrooms" },
-            { id: 22, name: "Purple Platinum", category: "weed", price: 14, image: "https://files.catbox.moe/p393wj.jpg", desc: "Purple indica" },
-            { id: 23, name: "Rainbow Zaza", category: "weed", price: 13, image: "https://files.catbox.moe/pbjgn1.jpg", desc: "Colorful hybrid" },
-            { id: 24, name: "Runtz Vape", category: "vape", price: 38, image: "https://files.catbox.moe/pjj7h1.jpg", desc: "Premium disposable" },
-            { id: 25, name: "Runtz", category: "weed", price: 15, image: "https://files.catbox.moe/xxeqh7.jpg", desc: "Sweet candy strain" },
-            { id: 26, name: "Snowcone", category: "weed", price: 13, image: "https://files.catbox.moe/3m3tdq.jpg", desc: "Icy hybrid" },
+            { id: 19, name: "Premium Wholesale", category: "weed", price: 7.5, image: "https://files.catbox.moe/1ah9ve.jpg", desc: "Bulk pricing available" },
+            { id: 20, name: "Pure Cocaine", category: "special", price: 120, image: "https://files.catbox.moe/vghr7c.jpg", desc: "Fishscale quality" },
+            { id: 21, name: "Purple Mystic", category: "mushrooms", price: 45, image: "https://files.catbox.moe/qvzz3u.jpg", desc: "Magic mushrooms" },
+            { id: 22, name: "Purple Platinum", category: "weed", price: 12, image: "https://files.catbox.moe/p393wj.jpg", desc: "Purple indica" },
+            { id: 23, name: "Rainbow Zaza", category: "weed", price: 12, image: "https://files.catbox.moe/pbjgn1.jpg", desc: "Colorful hybrid" },
+            { id: 24, name: "Runtz Vape", category: "vape", price: 70, image: "https://files.catbox.moe/pjj7h1.jpg", desc: "Premium disposable" },
+            { id: 25, name: "Runtz", category: "weed", price: 12, image: "https://files.catbox.moe/xxeqh7.jpg", desc: "Sweet candy strain" },
+            { id: 26, name: "Snowcone", category: "weed", price: 12, image: "https://files.catbox.moe/3m3tdq.jpg", desc: "Icy hybrid" },
             { id: 27, name: "Sour Diesel", category: "weed", price: 12, image: "https://files.catbox.moe/pk12h0.jpg", desc: "Classic sativa" },
-            { id: 28, name: "Standard Prerolls", category: "prerolls", price: 18, image: "https://files.catbox.moe/9tu5hx.jpg", desc: "7 pack classic joints" },
-            { id: 29, name: "THC Edibles 40mg", category: "edibles", price: 15, image: "https://files.catbox.moe/wlkvg0.jpg", desc: "Gummies 40mg THC" },
-            { id: 30, name: "THC Edibles 60mg", category: "edibles", price: 20, image: "https://files.catbox.moe/8ymlq9.jpg", desc: "Gummies 60mg THC" },
-            { id: 31, name: "White Widow", category: "weed", price: 11, image: "https://files.catbox.moe/dux0y2.jpg", desc: "Balanced hybrid" },
-            { id: 32, name: "Zkittlez Vape", category: "vape", price: 36, image: "https://files.catbox.moe/chrkoa.jpg", desc: "Fruit flavored vape" }
+            { id: 28, name: "Standard Prerolls", category: "prerolls", price: 15, image: "https://files.catbox.moe/9tu5hx.jpg", desc: "7 pack classic joints" },
+            { id: 29, name: "THC Edibles 40mg", category: "edibles", price: 40, image: "https://files.catbox.moe/wlkvg0.jpg", desc: "Gummies 40mg THC" },
+            { id: 30, name: "THC Edibles 60mg", category: "edibles", price: 60, image: "https://files.catbox.moe/8ymlq9.jpg", desc: "Gummies 60mg THC" },
+            { id: 31, name: "White Widow", category: "weed", price: 12, image: "https://files.catbox.moe/dux0y2.jpg", desc: "Balanced hybrid" },
+            { id: 32, name: "Zkittlez Vape", category: "vape", price: 70, image: "https://files.catbox.moe/chrkoa.jpg", desc: "Fruit flavored vape" }
         ];
 
         // Sample reviews
@@ -1275,26 +1327,22 @@
             updateAppLanguage();
             renderProducts(currentCategory);
             renderReviews();
-            // FIX BUG 9: HapticFeedback protetto con optional chaining
             tg.HapticFeedback?.impactOccurred('medium');
         }
 
         // Main app functions
         function changeLang(lang) {
             currentLang = lang;
-            // FIX BUG 3: confronto tramite data-lang invece di textContent
             document.querySelectorAll('.top-controls-bar .lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
             updateAppLanguage();
-            // FIX BUG 2: passa la categoria attiva corrente
             renderProducts(currentCategory);
             updateCart();
         }
 
         function changeCurrency(curr) {
             currentCurrency = curr;
-            // FIX BUG 2: passa la categoria attiva corrente
             renderProducts(currentCategory);
             updateCart();
         }
@@ -1344,28 +1392,67 @@
         }
 
         function renderProducts(category = 'all') {
-            // FIX BUG 2: aggiorna la variabile di stato della categoria
             currentCategory = category;
             const t = translations[currentLang];
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
             
-            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+            let filtered = category === 'all' ? [...products] : products.filter(p => p.category === category);
+            
+            if (category === 'all') {
+                filtered.sort((a, b) => {
+                    if (a.category === 'weed' && b.category !== 'weed') return -1;
+                    if (a.category !== 'weed' && b.category === 'weed') return 1;
+                    return 0;
+                });
+            }
             
             filtered.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
+                
+                if (!gridQuantities[product.id]) gridQuantities[product.id] = 1;
+                
+                let footerHtml = '';
+                if (product.category === 'edibles') {
+                    footerHtml = `
+                        <div class="edibles-btns">
+                            <button class="edible-btn" onclick="addToCart(${product.id}, 5)">+5</button>
+                            <button class="edible-btn" onclick="addToCart(${product.id}, 10)">+10</button>
+                        </div>
+                    `;
+                } else {
+                    footerHtml = `
+                        <div class="grid-qty-controls">
+                            <button class="grid-qty-btn" onclick="updateGridQty(${product.id}, -1, event)">-</button>
+                            <span class="grid-qty-val" id="grid-qty-${product.id}">${gridQuantities[product.id]}</span>
+                            <button class="grid-qty-btn" onclick="updateGridQty(${product.id}, 1, event)">+</button>
+                            <button class="add-to-cart" onclick="addToCart(${product.id})">${t.addToCart}</button>
+                        </div>
+                    `;
+                }
+
                 card.innerHTML = `
                     <img src="${product.image}" class="product-image" alt="${product.name}" onclick="openLightbox('${product.image}', event)">
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
                         <div class="product-desc">${product.desc}</div>
                         <div class="product-price">${formatPrice(product.price)}</div>
-                        <button class="add-to-cart" onclick="addToCart(${product.id})">${t.addToCart}</button>
+                        ${footerHtml}
                     </div>
                 `;
                 grid.appendChild(card);
             });
+        }
+
+        function updateGridQty(productId, delta, event) {
+            if (event) event.stopPropagation();
+            if (!gridQuantities[productId]) gridQuantities[productId] = 1;
+            gridQuantities[productId] += delta;
+            if (gridQuantities[productId] < 1) gridQuantities[productId] = 1;
+            
+            const el = document.getElementById(`grid-qty-${productId}`);
+            if (el) el.textContent = gridQuantities[productId];
         }
 
         function filterProducts(cat, btn) {
@@ -1374,19 +1461,20 @@
             renderProducts(cat);
         }
 
-        function addToCart(productId) {
+        function addToCart(productId, specificQty = null) {
             const product = products.find(p => p.id === productId);
             const existing = cart.find(item => item.id === productId);
             
+            let qtyToAdd = specificQty || gridQuantities[productId] || 1;
+            
             if (existing) {
-                existing.quantity++;
+                existing.quantity += qtyToAdd;
             } else {
-                cart.push({ ...product, quantity: 1 });
+                cart.push({ ...product, quantity: qtyToAdd });
             }
             
             updateCart();
             showToast(translations[currentLang].addedToCart);
-            // FIX BUG 9: HapticFeedback protetto con optional chaining
             tg.HapticFeedback?.impactOccurred('light');
         }
 
@@ -1473,20 +1561,17 @@
             }
         }
 
-        // FIX BUG 1 + BUG 5 + BUG 6: checkout con lettura form, validazione campi e controllo minimo ordine
         function checkout() {
             if (cart.length === 0) return;
 
             const t = translations[currentLang];
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-            // FIX BUG 6: verifica ordine minimo (30€ in EUR base)
             if (total < 30) {
                 showToast(t.minOrderError);
                 return;
             }
 
-            // FIX BUG 1 + BUG 5: lettura e validazione dei campi di consegna
             const city = document.getElementById('inputCity').value.trim();
             const address = document.getElementById('inputAddress').value.trim();
             const zip = document.getElementById('inputZip').value.trim();
@@ -1496,7 +1581,6 @@
                 return;
             }
 
-            // FIX BUG 10: tg.sendData protetto con try/catch e fallback
             try {
                 tg.sendData(JSON.stringify({
                     action: 'checkout',
@@ -1508,7 +1592,6 @@
                 }));
                 tg.close();
             } catch (e) {
-                // Fallback: apre il canale Telegram se non in ambiente WebApp
                 window.open('https://t.me/eljefeshop', '_blank');
             }
         }
@@ -1526,7 +1609,6 @@
             `).join('');
         }
 
-        // FIX BUG 8: aggiunto event.stopPropagation() per evitare propagazione al product-card
         function openLightbox(src, event) {
             if (event) event.stopPropagation();
             document.getElementById('lightbox-img').src = src;
