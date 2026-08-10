@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#0b0b0e">
     <title>El Jefe Premium Shop</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -11,3134 +10,1020 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
 
         :root {
-            --bg-dark: #0b0b0e;
-            --bg-card: #16161e;
-            --primary-neon: #ffb700;
-            --secondary-neon: #ff3b30;
-            --accent-purple: #9d4edd;
-            --text-main: #ffffff;
-            --text-hint: #8e8e93;
-            --danger: #ff3b30;
-            --warning: #ffcc00;
-            --success: #00ff66;
-            --paymento-blue: #0052ff;
+            --gold: #D4AF37;
+            --gold-light: #F4D03F;
+            --black: #0a0a0a;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #2a2a2a;
+            --light-gray: #888;
+            --white: #ffffff;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--black);
+            color: var(--white);
             min-height: 100vh;
-            padding-bottom: 120px;
             overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
         }
 
-        /* Header */
-        .brand-header {
-            padding: 20px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(255, 59, 48, 0.15) 0%, transparent 100%);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .main-logo-container {
-            width: 85px; 
-            height: 85px; 
-            margin: 0 auto 12px; 
-            border-radius: 50%; 
-            padding: 2px;
-            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
-            box-shadow: 0 0 20px rgba(255, 183, 0, 0.4); 
-            overflow: hidden; 
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .main-logo-container:active { transform: scale(0.95); }
-        .main-logo-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-
-        .brand-header h1 { 
-            font-size: 32px; 
-            font-weight: 800; 
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Top Controls */
-        .top-controls-bar {
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding: 10px 15px; 
-            background: rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .currency-select {
-            background: #1c1c24; 
-            color: var(--primary-neon); 
-            border: 1px solid #3a3a44;
-            border-radius: 8px; 
-            padding: 8px 12px; 
-            font-size: 13px; 
-            font-weight: bold; 
-            outline: none;
-            cursor: pointer;
-        }
-
-        .lang-selector { display: flex; gap: 5px; }
-        .lang-btn {
-            background: #1c1c24; 
-            border: 1px solid #3a3a44; 
-            border-radius: 6px;
-            padding: 6px 10px; 
-            font-size: 11px; 
-            cursor: pointer; 
-            color: white; 
-            font-weight: bold;
-            transition: all 0.2s ease;
-        }
-        .lang-btn.active { 
-            border-color: var(--primary-neon); 
-            background: rgba(255,183,0,0.15);
-            color: var(--primary-neon);
-        }
-
-        /* Banners */
-        .promo-banner {
-            background: linear-gradient(90deg, #ff3b30, #ffb700);
-            margin: 15px; 
-            padding: 15px; 
-            border-radius: 12px;
-            font-weight: 700; 
-            text-align: center; 
-            font-size: 14px;
-            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.9; } }
-        
-        .gift-banner {
-            background: rgba(255, 59, 48, 0.1); 
-            border: 1px solid var(--secondary-neon);
-            margin: 0 15px 15px 15px; 
-            padding: 12px; 
-            border-radius: 12px;
-            display: flex; 
-            align-items: center; 
-            gap: 12px;
-        }
-
-        .gift-thumb { 
-            width: 60px; 
-            height: 60px; 
-            object-fit: cover; 
-            border-radius: 8px; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            cursor: pointer; 
-        }
-
-        /* Categories */
-        .categories-scroller {
-            position: sticky; 
-            top: 60px; 
-            z-index: 100;
-            background: rgba(11, 11, 14, 0.98); 
-            backdrop-filter: blur(10px);
-            padding: 15px 0; 
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .categories-list {
-            display: flex; 
-            overflow-x: auto; 
-            padding: 0 15px; 
-            gap: 10px;
-            scrollbar-width: none;
-        }
-        .categories-list::-webkit-scrollbar { display: none; }
-
-        .cat-card {
-            flex-shrink: 0; 
-            padding: 12px 20px; 
-            background: var(--bg-card);
-            border: 1px solid #2c2c35; 
-            border-radius: 25px; 
-            color: var(--text-main);
-            font-size: 14px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .cat-card:active { transform: scale(0.95); }
-        .cat-card.active {
-            background: linear-gradient(135deg, var(--primary-neon), #cc9200);
-            color: #000; 
-            border-color: var(--primary-neon);
-            box-shadow: 0 4px 12px rgba(255, 183, 0, 0.25);
-        }
-
-        /* Views */
-        .app-view { display: none; padding: 15px; animation: fadeIn 0.3s ease; }
-        .app-view.active { display: block; }
-        
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-
-        /* Products Grid */
-        .products-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
-            margin-top: 5px; 
-        }
-
-        .product-card {
-            background: var(--bg-card); 
-            border-radius: 20px; 
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05); 
-            display: flex; 
-            flex-direction: column;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .product-card:active { 
-            transform: scale(0.98); 
-            box-shadow: 0 4px 20px rgba(255,183,0,0.1); 
-        }
-
-        .product-img { 
-            width: 100%; 
-            height: 140px; 
-            object-fit: cover; 
-            background: #222; 
-            cursor: pointer; 
-        }
-
-        .product-info { 
-            padding: 12px; 
-            display: flex; 
-            flex-direction: column; 
-            flex-grow: 1; 
-        }
-
-        .product-name { 
-            font-size: 14px; 
-            font-weight: 700; 
-            margin-bottom: 4px; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-        }
-
-        .product-desc { 
-            font-size: 11px; 
-            color: var(--text-hint); 
-            height: 32px; 
-            overflow: hidden; 
-            line-height: 1.3; 
-            margin-bottom: 10px; 
-        }
-
-        /* Gram Selector */
-        .gram-selector-fluid {
-            margin-top: auto;
-            background: #222;
-            border-radius: 12px;
-            padding: 8px;
-        }
-
-        .gram-display {
-            text-align: center;
-            font-weight: 800;
-            font-size: 18px;
-            color: var(--primary-neon);
-            margin-bottom: 8px;
-            text-shadow: 0 0 10px rgba(255, 183, 0, 0.3);
-        }
-
-        .gram-input-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .gram-input {
-            width: 60px;
-            padding: 8px;
-            background: #333;
-            border: 1px solid #444;
-            border-radius: 8px;
-            color: var(--primary-neon);
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .gram-btn-large {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--primary-neon), #cc9200);
-            border: none;
-            border-radius: 8px;
-            color: #000;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .gram-btn-large:active { transform: scale(0.95); }
-
-        .gram-quick-buttons {
-            display: flex;
-            gap: 4px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .gram-quick-btn {
-            background: #333;
-            border: 1px solid #444;
-            color: white;
-            border-radius: 6px;
-            padding: 5px 10px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            min-width: 36px;
-        }
-
-        .gram-quick-btn:active { transform: scale(0.95); }
-        .gram-quick-btn.active {
-            background: var(--primary-neon);
-            color: #000;
-            border-color: var(--primary-neon);
-            box-shadow: 0 2px 8px rgba(255, 183, 0, 0.3);
-        }
-
-        /* Info Sections */
-        .info-section { 
-            background: var(--bg-card); 
-            padding: 20px; 
-            border-radius: 18px; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            margin-bottom: 15px; 
-        }
-
-        .info-section h3 { 
-            color: var(--secondary-neon); 
-            margin-bottom: 10px; 
-            font-size: 18px; 
-        }
-
-        .info-section p { 
-            font-size: 14px; 
-            color: #d1d1d6; 
-            line-height: 1.6; 
-            margin-bottom: 10px; 
-        }
-
-        .alert-section { 
-            border-left: 4px solid var(--danger); 
-            background: rgba(255, 59, 48, 0.05); 
-        }
-
-        .tg-link-btn { 
-            display: block; 
-            text-align: center; 
-            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon)); 
-            color: #000; 
-            padding: 14px; 
-            border-radius: 12px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            margin-top: 10px; 
-            font-size: 15px; 
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(255, 183, 0, 0.3);
-        }
-
-        .tg-link-btn:active { 
-            transform: scale(0.98); 
-            box-shadow: 0 2px 8px rgba(255, 183, 0, 0.2);
-        }
-
-        /* Checkout Form */
-        .checkout-form { 
-            background: var(--bg-card); 
-            padding: 20px; 
-            border-radius: 18px; 
-            margin-top: 20px; 
-            border: 1px solid #333; 
-        }
-
-        .form-group { 
-            margin-bottom: 15px; 
-        }
-
-        .form-group label { 
-            display: block; 
-            font-size: 13px; 
-            color: var(--text-hint); 
-            margin-bottom: 6px; 
-            font-weight: 600; 
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input, .form-group select { 
-            width: 100%; 
-            padding: 14px; 
-            background: #222; 
-            border: 1px solid #444; 
-            border-radius: 12px; 
-            color: white; 
-            font-size: 15px; 
-            transition: all 0.2s;
-        }
-
-        .form-group input:focus, .form-group select:focus { 
-            border-color: var(--primary-neon); 
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 183, 0, 0.1);
-        }
-
-        /* Delivery Check */
-        .inline-check-box { 
-            background: #1c1c24; 
-            border: 1px solid #333; 
-            padding: 15px; 
-            border-radius: 12px; 
-            margin-bottom: 20px; 
-        }
-
-        .inline-check-box label { 
-            display: block; 
-            font-size: 13px; 
-            color: var(--primary-neon); 
-            margin-bottom: 10px; 
-            font-weight: bold; 
-        }
-
-        .inline-input-group { 
-            display: flex; 
-            gap: 10px; 
-        }
-
-        .inline-input-group input { 
-            flex: 1; 
-            padding: 12px; 
-            background: #222; 
-            border: 1px solid #444; 
-            border-radius: 10px; 
-            color: white; 
-            font-size: 15px; 
-        }
-
-        .inline-input-group button { 
-            padding: 12px 20px; 
-            background: rgba(255,183,0,0.1); 
-            color: var(--primary-neon); 
-            border: 1px solid var(--primary-neon); 
-            border-radius: 10px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: all 0.2s; 
-        }
-
-        .inline-input-group button:active { 
-            transform: scale(0.95); 
-            background: rgba(255,183,0,0.2); 
-        }
-
-        .inline-status { 
-            display: none; 
-            margin-top: 12px; 
-            font-size: 13px; 
-            line-height: 1.5; 
-            padding: 12px; 
-            border-radius: 10px; 
-            animation: slideDown 0.3s ease; 
-        }
-
-        @keyframes slideDown { 
-            from { opacity: 0; transform: translateY(-10px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-
-        /* Payment Options */
-        .pay-option { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 15px; 
-            background: #222; 
-            border: 2px solid transparent; 
-            border-radius: 12px; 
-            margin-bottom: 10px; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-        }
-
-        .pay-option:active { transform: scale(0.98); }
-        .pay-option.active { 
-            border-color: var(--secondary-neon); 
-            background: rgba(255,59,48,0.05); 
-        }
-
-        .pay-option-content {
-            display: flex; 
-            align-items: center; 
-            flex: 1;
-        }
-
-        .pay-logo {
-            width: 40px;
-            height: 40px;
-            margin-right: 12px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: bold;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .pay-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .pay-badge { 
-            font-size: 10px; 
-            padding: 4px 8px; 
-            border-radius: 6px; 
-            font-weight: 700; 
-        }
-
-        .badge-crypto { background: #ffb700; color: #000; }
-        .badge-card { background: #0052ff; color: #fff; }
-        .badge-off { background: #555; color: #aaa; }
-
-        /* Reviews */
-        .review-card { 
-            background: var(--bg-card); 
-            padding: 18px; 
-            border-radius: 16px; 
-            margin-bottom: 12px; 
-            border-left: 4px solid var(--primary-neon);
-            transition: transform 0.2s ease; 
-        }
-
-        .review-card:active { transform: scale(0.98); }
-
-        .review-stars { 
-            color: var(--warning); 
-            font-size: 16px; 
-            margin-bottom: 8px; 
-            letter-spacing: 2px;
-        }
-
-        .review-text { 
-            font-size: 15px; 
-            color: var(--text-main); 
-            line-height: 1.5; 
-            margin-bottom: 10px; 
-        }
-
-        .review-user { 
-            font-size: 13px; 
-            color: var(--text-hint); 
-            font-weight: 600; 
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            width: 100vw;
-            background: rgba(22, 22, 30, 0.98); 
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255,255,255,0.08); 
-            display: flex; 
-            justify-content: space-around; 
-            padding: 12px 0; 
-            z-index: 999;
-            padding-bottom: env(safe-area-inset-bottom, 12px);
-        }
-
-        .nav-tab {
-            background: none; 
-            border: none; 
-            color: var(--text-hint); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            font-size: 12px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            position: relative; 
-            width: 25%;
-            transition: all 0.2s ease;
-            padding: 5px;
-        }
-
-        .nav-tab:active { transform: scale(0.9); }
-        .nav-tab .icon { 
-            font-size: 24px; 
-            margin-bottom: 4px; 
-            transition: transform 0.2s; 
-        }
-
-        .nav-tab.active { color: var(--primary-neon); }
-        .nav-tab.active .icon { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(255,183,0,0.5)); }
-
-        .badge-cart-count { 
-            position: absolute; 
-            top: -5px; 
-            right: 15px; 
-            background: var(--danger); 
-            color: white; 
-            border-radius: 50%; 
-            width: 20px; 
-            height: 20px; 
-            font-size: 11px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            animation: popIn 0.3s ease; 
-            font-weight: bold;
-        }
-
-        @keyframes popIn { 
-            0% { transform: scale(0); } 
-            80% { transform: scale(1.2); } 
-            100% { transform: scale(1); } 
-        }
-
-        /* Cart Summary */
-        .cart-summary-floating { 
-            background: linear-gradient(135deg, var(--primary-neon), #cc9200); 
-            color: #000; 
-            font-weight: 800; 
-            padding: 16px; 
-            text-align: center; 
-            border-radius: 14px; 
-            margin-top: 20px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            width: 100%; 
-            border: none; 
-            transition: all 0.2s ease; 
-            box-shadow: 0 4px 20px rgba(255, 183, 0, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .cart-summary-floating:active { 
-            transform: scale(0.98); 
-            box-shadow: 0 2px 10px rgba(255, 183, 0, 0.3); 
-        }
-
-        .cart-summary-floating:disabled {
-            background: #444;
-            color: #888;
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-
-        /* Cart Items */
-        .cart-item { 
-            background: var(--bg-card); 
-            padding: 15px; 
-            border-radius: 12px; 
-            margin-bottom: 10px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border: 1px solid #2c2c35; 
-            transition: all 0.2s ease; 
-        }
-
-        .cart-item:active { transform: scale(0.98); }
-
-        .cart-qty-btn { 
-            background: #333; 
-            border: none; 
-            font-weight: bold; 
-            cursor: pointer; 
-            width: 32px; 
-            height: 32px; 
-            border-radius: 8px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            transition: all 0.15s; 
-            font-size: 16px;
-        }
-
-        .cart-qty-btn:active { 
-            background: #444; 
-            transform: scale(0.9); 
-        }
-
-        /* Lightbox */
-        .lightbox-modal {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh; 
-            background: rgba(0, 0, 0, 0.95); 
-            z-index: 100000;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            opacity: 0; 
-            pointer-events: none; 
-            transition: opacity 0.3s ease;
-        }
-
-        .lightbox-modal.active { 
-            opacity: 1; 
-            pointer-events: auto; 
-        }
-
-        .lightbox-content { 
-            max-width: 90%; 
-            max-height: 80%; 
-            border-radius: 12px; 
-            box-shadow: 0 0 30px rgba(255,255,255,0.1); 
-            transform: scale(0.9); 
-            transition: transform 0.3s ease; 
-        }
-
-        .lightbox-modal.active .lightbox-content { transform: scale(1); }
-
-        .lightbox-close { 
-            position: absolute; 
-            top: 20px; 
-            right: 20px; 
-            font-size: 36px; 
-            color: white; 
-            cursor: pointer; 
-            font-weight: bold;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.2s;
-        }
-
-        .lightbox-close:active { 
-            background: rgba(255,255,255,0.2);
-            transform: scale(0.9); 
-        }
-
-        /* Success Message */
-        .success-message {
-            background: linear-gradient(135deg, rgba(255, 183, 0, 0.15), rgba(255, 59, 48, 0.1));
-            border: 2px solid var(--primary-neon);
-            color: var(--primary-neon);
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-            margin-bottom: 20px;
-            display: none;
-            animation: slideDown 0.4s ease;
-        }
-
-        .success-message h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: var(--primary-neon);
-        }
-
-        /* Toast */
-        .toast-notification {
-            position: fixed; 
-            top: 20px; 
-            left: 50%; 
-            transform: translateX(-50%) translateY(-100px);
-            background: var(--primary-neon); 
-            color: #000; 
-            padding: 14px 28px; 
-            border-radius: 30px;
-            font-weight: bold; 
-            font-size: 15px; 
-            z-index: 100001; 
-            box-shadow: 0 4px 25px rgba(255,183,0,0.5);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            pointer-events: none;
-            max-width: 90%; 
-            text-align: center;
-        }
-
-        .toast-notification.show { transform: translateX(-50%) translateY(0); }
-
-        /* Floating Contact */
-        .floating-contact {
-            position: fixed;
-            bottom: 100px;
-            right: 15px;
-            z-index: 998;
-            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
-            color: #000;
-            border: none;
-            border-radius: 50px;
-            padding: 14px 22px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 25px rgba(255, 183, 0, 0.5);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .floating-contact:active {
-            transform: scale(0.95);
-            box-shadow: 0 2px 15px rgba(255, 183, 0, 0.4);
-        }
-
-        /* Buttons */
-        .new-order-btn {
-            background: var(--primary-neon);
-            color: #000;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            font-size: 15px;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .new-order-btn.secondary {
-            background: transparent;
-            border: 2px solid var(--primary-neon);
-            color: var(--primary-neon);
-        }
-
-        .new-order-btn:active {
-            transform: scale(0.95);
-            opacity: 0.9;
-        }
-
-        /* Price Display */
-        .price-tag {
-            font-size: 15px;
-            font-weight: bold;
-            color: var(--primary-neon);
-            margin-top: 10px;
-            text-align: center;
-            padding: 8px;
-            background: rgba(255, 183, 0, 0.05);
-            border-radius: 8px;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0,0,0,0.3);
-            border-radius: 50%;
-            border-top-color: #000;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Responsive */
-        @media (max-width: 380px) {
-            .products-grid { grid-template-columns: 1fr; }
-            .gram-quick-btn { padding: 4px 8px; font-size: 10px; }
-        }
-
-        /* Reviews Header */
-        .reviews-header { margin-bottom: 25px; }
-        .reviews-header h2 { 
-            margin-bottom: 8px; 
-            font-size: 24px;
-        }
-        .reviews-header p { 
-            font-size: 14px; 
-            color: var(--text-hint); 
-            margin-bottom: 15px; 
-        }
-
-        /* Discount Badge */
-        .discount-row {
-            background: rgba(255, 183, 0, 0.08);
-            border: 1px dashed var(--primary-neon);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .discount-row span {
-            color: var(--primary-neon);
-            font-weight: bold;
-        }
-
-        /* Shipping Row */
-        .shipping-row {
-            border: 1px solid #444;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .shipping-row .free {
-            color: var(--primary-neon);
-            font-weight: bold;
-        }
-
-        /* Gift Row */
-        .gift-row {
-            background: rgba(255, 59, 48, 0.08);
-            border: 1px dashed var(--secondary-neon);
-            padding: 12px;
-            border-radius: 10px;
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--secondary-neon);
-            font-size: 13px;
-        }
-
-        /* Total Row */
-        .total-row {
-            margin-top: 15px;
-            padding: 15px;
-            text-align: right;
-            font-size: 20px;
-            font-weight: 800;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-        }
-
-        .total-row span {
-            color: var(--primary-neon);
-            font-size: 24px;
-        }
-
-        /* Error Message */
-        .error-message {
-            margin-top: 15px;
-            padding: 14px;
-            border-radius: 12px;
-            background: rgba(255, 59, 48, 0.1);
-            border: 1px solid var(--danger);
-            text-align: center;
-            color: var(--danger);
-            font-weight: bold;
-            font-size: 14px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-            animation: shake 0.5s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        /* Order Text Preview */
-        .order-preview {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
-            text-align: left;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .order-preview pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            color: #ccc;
-            line-height: 1.4;
-        }
-
-        .order-preview-label {
-            font-size: 11px;
-            color: var(--text-hint);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* PAYMENTO INTEGRATION STYLES */
-        .payment-container {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 20px;
-            border: 2px solid var(--paymento-blue);
-            box-shadow: 0 0 30px rgba(0, 82, 255, 0.2);
-        }
-
-        .payment-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .payment-header h2 {
-            color: var(--paymento-blue);
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .payment-timer {
-            background: rgba(255, 59, 48, 0.1);
-            border: 2px solid var(--danger);
-            color: var(--danger);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .payment-amount-box {
-            background: rgba(0, 82, 255, 0.1);
-            border: 1px solid var(--paymento-blue);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .payment-amount-label {
-            font-size: 12px;
-            color: var(--text-hint);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .payment-amount-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--paymento-blue);
-            margin-bottom: 5px;
-        }
-
-        .payment-amount-crypto {
-            font-size: 14px;
-            color: var(--text-hint);
-            font-family: 'Courier New', monospace;
-        }
-
-        .payment-address-box {
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .payment-address-label {
-            font-size: 11px;
-            color: var(--text-hint);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .payment-address-value {
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            color: var(--text-main);
-            word-break: break-all;
-            background: #0d0d0d;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #333;
-        }
-
-        .copy-btn {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--paymento-blue);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .payment-status {
-            text-align: center;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .payment-status.pending {
-            background: rgba(255, 183, 0, 0.1);
-            border: 1px solid var(--primary-neon);
-            color: var(--primary-neon);
-        }
-
-        .payment-status.paid {
-            background: rgba(0, 255, 102, 0.1);
-            border: 1px solid var(--success);
-            color: var(--success);
-        }
-
-        .payment-status.expired {
-            background: rgba(255, 59, 48, 0.1);
-            border: 1px solid var(--danger);
-            color: var(--danger);
-        }
-
-        .payment-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .payment-btn {
-            flex: 1;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
-
-        .payment-btn.primary {
-            background: var(--paymento-blue);
-            color: white;
-        }
-
-        .payment-btn.secondary {
-            background: transparent;
-            border: 2px solid #444;
-            color: var(--text-main);
-        }
-
-        .payment-btn:active {
-            transform: scale(0.98);
-        }
-
-        .qr-code-container {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px auto;
-            width: fit-content;
-            text-align: center;
-        }
-
-        .qr-code-container img {
-            width: 200px;
-            height: 200px;
-        }
-
-        .payment-method-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-        }
-
-        .payment-method-btn {
-            background: #222;
-            border: 2px solid #333;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .payment-method-btn.active {
-            border-color: var(--paymento-blue);
-            background: rgba(0, 82, 255, 0.1);
-            color: var(--paymento-blue);
-        }
-
-        .payment-method-btn img {
-            width: 20px;
-            height: 20px;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-
-        .loading-overlay {
+        /* WELCOME SCREEN */
+        .welcome-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 99999;
-            display: none;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 50%, var(--black) 100%);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 20px;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .welcome-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .welcome-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.5));
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 10px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .welcome-subtitle {
+            font-size: 16px;
+            color: var(--light-gray);
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+            line-height: 1.5;
+        }
+
+        .welcome-section {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 25px;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .welcome-section-title {
+            font-size: 14px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .language-selector {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: var(--medium-gray);
+            border: 2px solid transparent;
+            color: var(--white);
+            padding: 12px 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--dark-gray);
+            border-color: var(--gold);
+        }
+
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        .currency-selector {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .currency-btn {
+            background: var(--medium-gray);
+            border: 2px solid transparent;
+            color: var(--white);
+            padding: 12px 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .currency-btn:hover {
+            background: var(--dark-gray);
+            border-color: var(--gold);
+        }
+
+        .currency-btn.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        .enter-shop-btn {
+            width: 100%;
+            max-width: 400px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--black);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            animation: fadeInUp 0.8s ease 0.8s both;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .enter-shop-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        .enter-shop-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MAIN APP STYLES */
+        .app-container {
+            display: none;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .app-container.visible {
+            display: block;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: linear-gradient(180deg, var(--dark-gray) 0%, transparent 100%);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-small {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-small img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .logo-small span {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .currency-select {
+            background: var(--medium-gray);
+            border: 1px solid var(--gold);
+            color: var(--white);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .cart-btn {
+            background: var(--gold);
+            border: none;
+            color: var(--black);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            font-size: 18px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-tab {
+            background: var(--medium-gray);
+            border: 2px solid transparent;
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover {
+            background: var(--dark-gray);
+            border-color: var(--gold);
+        }
+
+        .category-tab.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .product-card {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--medium-gray);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background: var(--medium-gray);
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--white);
+            line-height: 1.3;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: var(--gold);
+            border: none;
+            color: var(--black);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: var(--gold-light);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark-gray);
+            border-top: 1px solid var(--medium-gray);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 20px;
+            cursor: pointer;
+            color: var(--light-gray);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+
+        .nav-item span {
+            font-size: 20px;
+        }
+
+        .nav-item label {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
             flex-direction: column;
         }
 
-        .loading-overlay.active {
+        .cart-modal.visible {
             display: flex;
         }
 
-        .loading-text {
-            margin-top: 20px;
-            color: white;
+        .cart-header {
+            background: var(--dark-gray);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .cart-header h2 {
+            color: var(--gold);
+            font-size: 20px;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            background: var(--dark-gray);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .qty-btn {
+            background: var(--medium-gray);
+            border: none;
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
             font-size: 16px;
+        }
+
+        .remove-item {
+            background: #ff4444;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .cart-footer {
+            background: var(--dark-gray);
+            padding: 20px;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            border: none;
+            color: var(--black);
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--light-gray);
+        }
+
+        .empty-cart-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner" style="width: 50px; height: 50px; border-width: 5px;"></div>
-        <div class="loading-text" id="loadingText">Creating payment...</div>
-    </div>
-
-    <!-- Toast -->
-    <div class="toast-notification" id="toast">✅ Ordine copiato!</div>
-
-    <!-- Lightbox -->
-    <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom" onclick="event.stopPropagation()">
-    </div>
-
-    <!-- Top Controls -->
-    <div class="top-controls-bar">
-        <select class="currency-select" id="currencySelect" onchange="changeCurrency(this.value)">
-            <option value="EUR">EUR (€)</option>
-            <option value="USD">USD ($)</option>
-            <option value="GBP">GBP (£)</option>
-            <option value="JPY">JPY (¥)</option>
-            <option value="RUB">RUB (₽)</option>
-        </select>
-
-        <div class="lang-selector">
-            <button class="lang-btn active" id="lang-btn-en" onclick="setLanguage('en')">EN</button>
-            <button class="lang-btn" id="lang-btn-it" onclick="setLanguage('it')">IT</button>
-            <button class="lang-btn" id="lang-btn-fr" onclick="setLanguage('fr')">FR</button>
-            <button class="lang-btn" id="lang-btn-de" onclick="setLanguage('de')">DE</button>
-            <button class="lang-btn" id="lang-btn-ru" onclick="setLanguage('ru')">RU</button>
+    <!-- WELCOME SCREEN -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-logo">
+            <img src="https://files.catbox.moe/logo.png" alt="El Jefe Logo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>'">
         </div>
-    </div>
-
-    <!-- Header -->
-    <div class="brand-header">
-        <div class="main-logo-container" onclick="openLightbox('https://files.catbox.moe/w9w6hz.jpg')">
-            <img src="https://files.catbox.moe/w9w6hz.jpg" alt="El Jefe">
-        </div>
-        <h1>EL JEFE</h1>
-        <p id="txt-header-sub">Premium Quality Direct • Delivery in 1 hour!</p>
-    </div>
-
-    <!-- Promo Banner -->
-    <div class="promo-banner" id="txt-promo">
-        🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!
-    </div>
-
-    <!-- Gift Banner -->
-    <div class="gift-banner">
-        <img class="gift-thumb" src="https://files.catbox.moe/9tu5hx.jpg" alt="Gifts" onclick="openLightbox(this.src)">
-        <div>
-            <strong id="gift-title" style="color: var(--secondary-neon); display: block; margin-bottom: 5px;">🎁 FREE GIFTS</strong>
-            <span id="gift-desc" style="font-size: 13px; color: var(--text-hint);">Clipper lighter, rolling papers and filters included free in every order from 50€!</span>
-        </div>
-    </div>
-
-    <!-- Menu View -->
-    <div id="view-menu" class="app-view active">
-        <div class="categories-scroller">
-            <div class="categories-list" id="catList"></div>
-        </div>
-        <div id="productsDisplay"></div>
-    </div>
-
-    <!-- Cart View -->
-    <div id="view-chat" class="app-view">
-        <h2 id="txt-cart-title" style="margin-bottom:20px; font-size: 24px;">🛒 Your Cart</h2>
+        <h1 class="welcome-title" id="welcomeTitle">Welcome to El Jefe Shop</h1>
+        <p class="welcome-subtitle" id="welcomeSubtitle">Please select your Language and Currency</p>
         
-        <div class="success-message" id="orderSuccessMsg"></div>
-        <div class="error-message" id="errorMsg"></div>
-        
-        <div id="cartItemsContainer"></div>
-        
-        <div class="checkout-form" id="checkoutFormBlock" style="display:none;">
-            <h3 id="txt-delivery-details" style="margin-bottom:20px; color:var(--primary-neon); font-size: 18px;">📍 Delivery Details</h3>
+        <div class="welcome-section">
+            <div class="welcome-section-title" id="langTitle">Language</div>
+            <div class="language-selector">
+                <button class="lang-btn active" data-lang="EN" onclick="selectLanguage('EN')">EN</button>
+                <button class="lang-btn" data-lang="IT" onclick="selectLanguage('IT')">IT</button>
+                <button class="lang-btn" data-lang="FR" onclick="selectLanguage('FR')">FR</button>
+                <button class="lang-btn" data-lang="DE" onclick="selectLanguage('DE')">DE</button>
+                <button class="lang-btn" data-lang="RU" onclick="selectLanguage('RU')">RU</button>
+            </div>
+        </div>
 
-            <!-- Delivery Check -->
-            <div class="inline-check-box">
-                <label id="lbl-check-cov">📍 CHECK INSTANT DELIVERY COVERAGE</label>
-                <div class="inline-input-group">
-                    <input type="text" id="inlineGateCity" placeholder="e.g. Rome, Milan, London...">
-                    <button id="btn-inline-check" onclick="checkInlineDelivery()">CHECK</button>
+        <div class="welcome-section">
+            <div class="welcome-section-title" id="currTitle">Currency</div>
+            <div class="currency-selector">
+                <button class="currency-btn active" data-currency="EUR" onclick="selectCurrency('EUR')">EUR</button>
+                <button class="currency-btn" data-currency="USD" onclick="selectCurrency('USD')">USD</button>
+                <button class="currency-btn" data-currency="GBP" onclick="selectCurrency('GBP')">GBP</button>
+                <button class="currency-btn" data-currency="JPY" onclick="selectCurrency('JPY')">JPY</button>
+                <button class="currency-btn" data-currency="RUB" onclick="selectCurrency('RUB')">RUB</button>
+            </div>
+        </div>
+
+        <button class="enter-shop-btn" id="enterBtn" onclick="enterShop()">ENTER SHOP</button>
+    </div>
+
+    <!-- MAIN APP -->
+    <div class="app-container" id="appContainer">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-controls">
+                <div class="logo-small">
+                    <img src="https://files.catbox.moe/logo.png" alt="El Jefe" onerror="this.style.display='none'">
+                    <span>EL JEFE</span>
                 </div>
-                <div id="inlineDeliveryStatus" class="inline-status"></div>
+                <div class="header-actions">
+                    <select class="currency-select" id="headerCurrency" onchange="changeCurrency(this.value)">
+                        <option value="EUR">EUR €</option>
+                        <option value="USD">USD $</option>
+                        <option value="GBP">GBP £</option>
+                        <option value="JPY">JPY ¥</option>
+                        <option value="RUB">RUB ₽</option>
+                    </select>
+                    <button class="cart-btn" onclick="openCart()">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label id="lbl-city">CITY</label>
-                <input type="text" id="input-city" placeholder="">
+            <div class="category-tabs">
+                <button class="category-tab active" onclick="filterCategory('all', this)">All</button>
+                <button class="category-tab" onclick="filterCategory('cocaine', this)">❄️ Cocaine</button>
+                <button class="category-tab" onclick="filterCategory('weed', this)">🌿 Weed</button>
+                <button class="category-tab" onclick="filterCategory('pills', this)">💊 Pills</button>
+                <button class="category-tab" onclick="filterCategory('hash', this)">🟫 Hash</button>
+                <button class="category-tab" onclick="filterCategory('shrooms', this)">🍄 Shrooms</button>
+                <button class="category-tab" onclick="filterCategory('lsd', this)">🧬 LSD</button>
+                <button class="category-tab" onclick="filterCategory('mdma', this)">✨ MDMA</button>
+                <button class="category-tab" onclick="filterCategory('ketamine', this)">🔮 Ketamine</button>
+                <button class="category-tab" onclick="filterCategory('heroin', this)">🌙 Heroin</button>
+                <button class="category-tab" onclick="filterCategory('meth', this)">💎 Meth</button>
+                <button class="category-tab" onclick="filterCategory('crack', this)">⚡ Crack</button>
             </div>
-            
-            <div class="form-group">
-                <label id="lbl-address">ADDRESS</label>
-                <input type="text" id="input-address" placeholder="">
-            </div>
-            
-            <div class="form-group">
-                <label id="lbl-cap">ZIP CODE</label>
-                <input type="text" id="input-cap" placeholder="">
-            </div>
-            
-            <div class="form-group">
-                <label id="lbl-time">PREFERRED DELIVERY TIME</label>
-                <select id="select-time">
-                    <option value="ASAP" id="opt-asap">As soon as possible / ASAP</option>
-                    <option value="Express Shipping 24/48h" id="opt-ship">Express Shipping 24/48h (Wholesale Prices)</option>
-                    <option value="Specific" id="opt-spec">Specific Time Slot (Write below)</option>
-                </select>
-                <input type="text" id="input-time-spec" placeholder="" style="margin-top:10px; display:none;">
-            </div>
-
-            <h3 id="txt-pay-title" style="margin-top:25px; margin-bottom:15px; color:var(--secondary-neon); font-size: 18px;">💳 Payment Method</h3>
-            
-            <div class="pay-option active" id="pay-opt-crypto" onclick="setPaymentMethod('crypto')">
-                <div class="pay-option-content">
-                    <div class="pay-logo badge-crypto">₿</div>
-                    <div>
-                        <strong style="display:block; font-size: 15px;">Crypto (BTC, USDT, LTC, ETH)</strong>
-                        <small id="txt-crypto-sub" style="color: var(--text-hint); font-size: 12px;">Receive direct payment address in chat</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-crypto">CRYPTO</span>
-            </div>
-
-            <div class="pay-option" id="pay-opt-moonpay" onclick="setPaymentMethod('moonpay')">
-                <div class="pay-option-content">
-                    <div class="pay-logo badge-card">💳</div>
-                    <div>
-                        <strong style="display:block; font-size: 15px;">Credit / Debit Card (MoonPay)</strong>
-                        <small id="txt-moonpay-sub" style="color: var(--text-hint); font-size: 12px;">We will guide you to buy Bitcoin instantly with card</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-card">CARD</span>
-            </div>
-
-            <div class="pay-option" id="pay-opt-paypal" onclick="setPaymentMethod('paypal')">
-                <div class="pay-option-content">
-                    <div class="pay-logo" style="background:#003087; color:white; font-size: 18px;">P</div>
-                    <div>
-                        <strong style="display:block; font-size: 15px; color:#aaa;" id="txt-paypal-head">PayPal</strong>
-                        <small id="txt-paypal-sub" style="color:#777; font-size: 12px;">Not always available. Ask in chat for approval</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-off" id="badge-req">REQUEST</span>
-            </div>
-
-            <div class="pay-option" id="pay-opt-revolut" onclick="setPaymentMethod('revolut')">
-                <div class="pay-option-content">
-                    <div class="pay-logo" style="background:linear-gradient(135deg, #00d4aa, #0077ff); color:white; font-size: 11px; font-weight:bold;">REV</div>
-                    <div>
-                        <strong style="display:block; font-size: 15px;">Revolut Crypto</strong>
-                        <small id="txt-revolut-sub" style="color: var(--text-hint); font-size: 12px;">Pay instantly with your Revolut crypto wallet</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-crypto">REVOLUT</span>
-            </div>
-
-            <div class="pay-option" id="pay-opt-bitpanda" onclick="setPaymentMethod('bitpanda')">
-                <div class="pay-option-content">
-                    <div class="pay-logo" style="background:#00a4e0; display: flex; align-items: center; justify-content: center;">
-                        <span style="color: white; font-size: 10px; font-weight: bold;">BIT</span>
-                    </div>
-                    <div>
-                        <strong style="display:block; font-size: 15px;">Bitpanda Crypto</strong>
-                        <small id="txt-bitpanda-sub" style="color: var(--text-hint); font-size: 12px;">Send from your Bitpanda brokerage account</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-crypto">BITPANDA</span>
-            </div>
-
-            <div class="pay-option" id="pay-opt-binance" onclick="setPaymentMethod('binance')">
-                <div class="pay-option-content">
-                    <div class="pay-logo" style="background:#f0b90b; display: flex; align-items: center; justify-content: center;">
-                        <span style="color: #000; font-size: 10px; font-weight: bold;">BNB</span>
-                    </div>
-                    <div>
-                        <strong style="display:block; font-size: 15px;">Binance Crypto</strong>
-                        <small id="txt-binance-sub" style="color: var(--text-hint); font-size: 12px;">Transfer from your Binance wallet via P2P or direct</small>
-                    </div>
-                </div>
-                <span class="pay-badge badge-crypto">BINANCE</span>
-            </div>
-
-            <button class="cart-summary-floating" id="btn-submit-order" onclick="processOrderWithPayment()">
-                PAY NOW WITH CRYPTO
-            </button>
-            
-            <button class="cart-summary-floating" style="margin-top: 10px; background: #333; color: #888;" onclick="processOrderManual()">
-                OR SEND ORDER MANUALLY (No Auto-Pay)
-            </button>
         </div>
+
+        <!-- Products -->
+        <div class="products-section">
+            <h2 class="section-title" id="productsTitle">Premium Products</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="showSection('shop', this)">
+                <span>🏪</span>
+                <label>Shop</label>
+            </div>
+            <div class="nav-item" onclick="showSection('orders', this)">
+                <span>📦</span>
+                <label>Orders</label>
+            </div>
+            <div class="nav-item" onclick="showSection('profile', this)">
+                <span>👤</span>
+                <label>Profile</label>
+            </div>
+            <div class="nav-item" onclick="showSection('support', this)">
+                <span>💬</span>
+                <label>Support</label>
+            </div>
+        </nav>
     </div>
 
-    <!-- Payment View (Paymento Integration) -->
-    <div id="view-payment" class="app-view">
-        <div class="payment-container">
-            <div class="payment-header">
-                <h2>⚡ Complete Payment</h2>
-                <p style="color: var(--text-hint); font-size: 14px;">Pay securely with Paymento</p>
-            </div>
-
-            <div class="payment-timer" id="paymentTimer">15:00</div>
-
-            <div class="payment-method-selector" id="cryptoSelector">
-                <button class="payment-method-btn active" onclick="selectCrypto('BTC')">
-                    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC"> Bitcoin
-                </button>
-                <button class="payment-method-btn" onclick="selectCrypto('ETH')">
-                    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH"> Ethereum
-                </button>
-                <button class="payment-method-btn" onclick="selectCrypto('USDT')">
-                    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT"> USDT
-                </button>
-                <button class="payment-method-btn" onclick="selectCrypto('LTC')">
-                    <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.png" alt="LTC"> Litecoin
-                </button>
-            </div>
-
-            <div class="payment-amount-box">
-                <div class="payment-amount-label">Amount to Pay</div>
-                <div class="payment-amount-value" id="paymentAmountFiat">€0.00</div>
-                <div class="payment-amount-crypto" id="paymentAmountCrypto">0.00000000 BTC</div>
-            </div>
-
-            <div class="qr-code-container" id="qrCodeContainer" style="display: none;">
-                <img id="qrCodeImg" src="" alt="Payment QR Code">
-                <p style="color: #333; margin-top: 10px; font-size: 12px;">Scan with your wallet</p>
-            </div>
-
-            <div class="payment-address-box">
-                <div class="payment-address-label">Payment Address</div>
-                <div class="payment-address-value" id="paymentAddress">Waiting for payment creation...</div>
-                <button class="copy-btn" onclick="copyPaymentAddress()">COPY</button>
-            </div>
-
-            <div class="payment-status pending" id="paymentStatus">
-                ⏳ Waiting for payment...
-            </div>
-
-            <div class="payment-actions">
-                <button class="payment-btn primary" onclick="openPaymentoLink()">
-                    Open Paymento
-                </button>
-                <button class="payment-btn secondary" onclick="cancelPayment()">
-                    Cancel
-                </button>
-            </div>
-
-            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; font-size: 12px; color: var(--text-hint); text-align: center;">
-                <p>🔒 Payment powered by Paymento.io</p>
-                <p style="margin-top: 5px;">Order ID: <span id="paymentOrderId" style="color: var(--primary-neon);">-</span></p>
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>🛒 Your Cart</h2>
+            <button class="close-cart" onclick="closeCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
+                <p>Your cart is empty</p>
             </div>
         </div>
-    </div>
-
-    <!-- Info View -->
-    <div id="view-info" class="app-view">
-        <div class="info-section alert-section">
-            <h3 style="color:var(--danger);" id="info-p0-t"></h3>
-            <p id="info-p0-d" style="color:#fff; font-weight: 500; line-height: 1.7;"></p>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">€0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Checkout</button>
         </div>
-        
-        <div class="info-section">
-            <h3 id="info-p1-t"></h3>
-            <p id="info-p1-d"></p>
-        </div>
-        
-        <div class="info-section">
-            <h3 id="info-p2-t"></h3>
-            <p id="info-p2-d"></p>
-            <img class="papers-hosted-img" src="https://files.catbox.moe/9tu5hx.jpg" alt="Accessories" onclick="openLightbox(this.src)" style="width: 100%; border-radius: 12px; margin-top: 15px;">
-        </div>
-        
-        <div class="info-section">
-            <h3 id="info-p3-t"></h3>
-            <p id="info-p3-d"></p>
-            <a href="https://t.me/eljefeshop" target="_blank" class="tg-link-btn" id="btn-contact-tg"></a>
-        </div>
-    </div>
-
-    <!-- Reviews View -->
-    <div id="view-reviews" class="app-view">
-        <div class="reviews-header">
-            <h2 id="txt-rev-title">Reviews</h2>
-            <p id="txt-rev-sub">Real reviews from our customers</p>
-            <a href="https://t.me/+dWYBdbc2_WgwMDJk" target="_blank" class="tg-link-btn" id="btn-group-rev">Join Reviews Channel</a>
-        </div>
-        <div id="reviewsContainer"></div>
-    </div>
-
-    <!-- Floating Contact -->
-    <button class="floating-contact" id="floatingContactBtn" onclick="openContact()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-        </svg>
-        <span id="contactBtnText">Contact</span>
-    </button>
-
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <button class="nav-tab active" id="tab-btn-menu" onclick="switchTab('menu')">
-            <span class="icon">🌿</span>
-            <span id="tab-menu">Menu</span>
-        </button>
-        <button class="nav-tab" id="tab-btn-chat" onclick="switchTab('chat')">
-            <span class="icon">🛒</span>
-            <span id="tab-cart">Cart</span>
-            <span class="badge-cart-count" id="cartBadge" style="display:none;">0</span>
-        </button>
-        <button class="nav-tab" id="tab-btn-info" onclick="switchTab('info')">
-            <span class="icon">ℹ️</span>
-            <span id="tab-info">Info</span>
-        </button>
-        <button class="nav-tab" id="tab-btn-reviews" onclick="switchTab('reviews')">
-            <span class="icon">⭐</span>
-            <span id="tab-reviews">Reviews</span>
-        </button>
     </div>
 
     <script>
-        // ==========================================
-        // CONFIGURAZIONE PAYMENTO.IO
-        // ==========================================
-        const PAYMENTO_CONFIG = {
-            enabled: true, // Metti true per attivare Paymento, false per solo copia manuale
-            apiKey: 'pk_live_YOUR_API_KEY_HERE', // Inserisci qui la tua API Key pubblica
-            secretKey: 'sk_live_YOUR_SECRET_KEY_HERE', // ⚠️ Per produzione usa un backend proxy!
-            storeId: 'eljefeshop',
-            apiUrl: 'https://api.paymento.io/v1', // Verifica endpoint corretto su docs.paymento.io
-            webhookSecret: 'your_webhook_secret', // Per verifica firme webhook (opzionale)
-            
-            // Configurazione sicura: se true, usa solo il metodo "copia manuale" (consigliato se non hai backend)
-            // Se hai un backend proxy (es. Cloudflare Worker), inserisci l'URL qui:
-            proxyUrl: '' // Es: 'https://your-worker.yourdomain.com/paymento'
+        // Telegram WebApp init
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+
+        // State
+        let currentLang = 'EN';
+        let currentCurrency = 'EUR';
+        let cart = [];
+        
+        // Exchange rates (relative to EUR)
+        const rates = {
+            EUR: 1,
+            USD: 1.08,
+            GBP: 0.85,
+            JPY: 162,
+            RUB: 92
         };
 
-        // ==========================================
-        // CONFIGURAZIONE APP
-        // ==========================================
-        const STORAGE_KEY = 'eljefe_cart_v1';
-        const API_ENDPOINT = 'https://your-server.com/api/orders';
-        
-        let cart = {};
-        let currentLang = 'en';
-        let currentSelectedPayment = 'crypto';
-        let activeCategoryFilter = 'all';
-        let activeCurrency = 'EUR';
-        
-        // Variabili Paymento
-        let currentInvoice = null;
-        let paymentCheckInterval = null;
-        let selectedCrypto = 'BTC';
-
-        // Telegram WebApp Init
-        const tg = window.Telegram?.WebApp;
-        if (tg) { 
-            tg.expand(); 
-            tg.ready();
-            tg.enableClosingConfirmation();
-            tg.setHeaderColor('#0b0b0e');
-            tg.setBackgroundColor('#0b0b0e');
-        }
-
-        // Currency Config
-        const currencyConfig = {
-            EUR: { symbol: '€', rate: 1.0 },
-            USD: { symbol: '$', rate: 1.08 },
-            GBP: { symbol: '£', rate: 0.85 },
-            JPY: { symbol: '¥', rate: 168.5 },
-            RUB: { symbol: '₽', rate: 98.2 }
+        const symbols = {
+            EUR: '€',
+            USD: '$',
+            GBP: '£',
+            JPY: '¥',
+            RUB: '₽'
         };
 
-        // Translations (Aggiornate con stringhe Paymento)
-        const i18n = {
-            en: {
-                all: "All Strains",
-                checkCovTitle: "📍 CHECK INSTANT DELIVERY COVERAGE",
-                btnCheck: "CHECK",
-                gateAlertErr: "Please enter your city name!",
-                gateStatusOk: "✅ DELIVERY AVAILABLE! Our instant network is fully operational in your area. Guaranteed delivery within 20-30 minutes from order confirmation.",
-                gateStatusErr: "❌ DELIVERY NOT AVAILABLE! The city name entered seems invalid or not covered by our rapid rider distribution network. Please check the spelling.",
-                sub: "Premium Quality Direct • Delivery in 1 hour!",
-                promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!",
-                cart: "Cart", info: "Info", reviews: "Reviews", menu: "Menu",
-                empty: "Your cart is empty. Add products from the Menu!",
-                city: "CITY", address: "ADDRESS", cap: "ZIP CODE", time: "PREFERRED DELIVERY TIME",
-                pay: "Payment Method", confirm: "PAY NOW WITH CRYPTO",
-                manualConfirm: "OR SEND ORDER MANUALLY (No Auto-Pay)",
-                giftT: "🎁 FREE GIFTS",
-                giftD: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
-                asap: "As soon as possible / ASAP",
-                ship: "Express Shipping 24/48h (Wholesale Prices)",
-                spec: "Specific Time Slot (Write below)",
-                p_city: "e.g. Rome, Milan, London...",
-                p_address: "Street Name and Number",
-                p_cap: "e.g. 00100, 20121...",
-                p_spec: "e.g. Between 14:00 and 16:00",
-                delDetails: "📍 Delivery Details",
-                cryptoSub: "Receive direct payment address in chat",
-                cardSub: "We will guide you to buy Bitcoin instantly with card",
-                ppSub: "Not always available. Ask in chat for approval",
-                reqAvail: "REQUEST",
-                revSub: "Pay instantly with your Revolut crypto wallet",
-                bitSub: "Send from your Bitpanda brokerage account",
-                binSub: "Transfer from your Binance wallet via P2P or direct",
-                infT0: "⚠️ NO CASH ACCEPTED",
-                infD0: "We work exclusively with fully anonymous riders whom we prepay in crypto. We do not know their identities, and they arrive randomly to pick up your package and securely deliver it near your coordinates.\n\nWhen the rider reaches the spot, they will contact you directly to guide you to the precise hideout (e.g., behind a pillar, under a car wheel, or a specific discrete point). This airtight process ensures that even if law enforcement is around, nothing can be connected to you or the rider.\n\nDo not insist on cash payments. We make absolutely zero exceptions. No upfront payment, no order.",
-                infT1: "📦 Delivery Process & Wholesale",
-                infD1: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.\n\n💡 WHOLESALE NOTICE: Orders selected with 24/48h Express Shipping operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.",
-                infT2: "💳 Accepted Payments",
-                infD2: "We operate a fully secure network via protected transactions. We accept all major Cryptocurrencies via Paymento.io secure gateway.",
-                infT3: "🌿 Premium Accessories",
-                infD3: "We selected only the highest grade ultra-thin unbleached rolling papers and organic filters for our community, included as a standard asset in our distribution catalog.",
-                infT4: "💬 Direct Contact & Support",
-                infD4: "Need help or have questions before ordering? Get in touch with our live operator on Telegram immediately.",
-                btnContact: "💬 Contact @eljefeshop",
-                revTitle: "Verified Customer Reviews",
-                revSub: "Real reviews from our trusted community.",
-                btnGroupRev: "⭐️ Join Reviews Channel",
-                actPromo: "🎉 Min. Order met!",
-                totEff: "Total Price",
-                free: "FREE",
-                shippingCostText: "Shipping",
-                minOrderErr: "Minimum order is 30€! Please add more items.",
-                fieldErr: "Please fill City, Address and ZIP code fields!",
-                discountTxt: "Quantity Discount",
-                orderSuccess: "✅ Order copied to clipboard!",
-                copySuccess: "✅ Order copied! Paste it to @eljefeshop",
-                contact: "Contact",
-                newOrder: "🛒 New Order",
-                orderTitle: "📦 ORDER EL JEFE",
-                totalLabel: "TOTAL",
-                discountLabel: "Discount",
-                paymentLabel: "PAYMENT",
-                deliveryLabel: "DELIVERY",
-                customerLabel: "CUSTOMER",
-                giftLabel: "🎁 Gift: Lighter + Papers + Filters",
-                pasteInstructions: "Order copied to clipboard!",
-                openTelegramInstructions: "Open Telegram and paste this message to @eljefeshop to complete your order.",
-                openChatBtn: "Open @eljefeshop Chat",
-                manualCopyTitle: "Copy the order manually",
-                manualCopyInstructions: "Select and copy the text below, then send it to @eljefeshop:",
-                orderPreview: "Order Preview:",
-                // Paymento specific
-                paymentWaiting: "⏳ Waiting for payment...",
-                paymentSuccess: "✅ Payment received! Order confirmed.",
-                paymentExpired: "❌ Payment expired. Please try again.",
-                paymentCanceled: "Payment canceled",
-                openPaymento: "Open Paymento",
-                copyAddress: "COPY",
-                paymentTimer: "Time remaining",
-                payNow: "PAY NOW WITH CRYPTO",
-                payManual: "OR SEND ORDER MANUALLY",
-                cats: {
-                    flowers: "🌿 Weed",
-                    hash: "🍯 Hash",
-                    edibles: "🍫 Edibles",
-                    vapes: "💨 Vapes",
-                    mushrooms: "🍄 Mushrooms",
-                    prerolls: "🚬 Prerolls",
-                    special: "🔥 Special"
-                },
-                revs: [
-                    {text: "Just received my order from yesterday. The product quality exceeded my expectations - perfectly cured, sticky and dense. The aroma is incredible with sweet citrus notes. Delivery was stealthy and arrived right on time. Will definitely be a returning customer!", user: "@alex_martinez92 - 2 hours ago"},
-                    {text: "Third purchase this month and consistently impressed. The packaging is always professional and discreet. Customer service is responsive and helpful. The product itself is top shelf - exactly as described. 10/10 experience!", user: "@sophie.london - 4 hours ago"},
-                    {text: "Express shipping option is amazing! Ordered Monday morning, arrived Wednesday afternoon. The stealth packaging was so clever I almost couldn't find my own order! Product quality is unmatched in this price range.", user: "@max_runner - 6 hours ago"},
-                    {text: "First time buyer here and I'm blown away by the quality. The buds are fresh, not dry at all, and the effects are exactly what I was looking for. The free gifts included were a nice surprise. Highly recommend!", user: "@emma_johnson88 - yesterday"},
-                    {text: "Been ordering weekly for the past 3 months. Never had a single issue. Delivery is always on time, product is consistent, and the support team is friendly. This is how online shopping should be!", user: "@david_chen - yesterday"}
-                ]
+        // Translations
+        const translations = {
+            EN: {
+                welcome: "Welcome to El Jefe Shop",
+                subtitle: "Please select your Language and Currency",
+                language: "Language",
+                currency: "Currency",
+                enter: "ENTER SHOP",
+                products: "Premium Products",
+                cart: "Your Cart",
+                empty: "Your cart is empty",
+                total: "Total",
+                checkout: "Checkout"
             },
-            it: {
-                all: "Tutte",
-                checkCovTitle: "📍 CONTROLLO COPERTURA CONSEGNA",
-                btnCheck: "VERIFICA",
-                gateAlertErr: "Inserisci il nome della tua città!",
-                gateStatusOk: "✅ CONSEGNA DISPONIBILE! La nostra rete istantanea è completamente operativa nella tua zona. Consegna garantita entro 20-30 minuti dalla conferma dell'ordine.",
-                gateStatusErr: "❌ CONSEGNA NON DISPONIBILE! Il nome della città inserito sembra non valido o non coperto dalla nostra rete di distribuzione. Controlla l'ortografia.",
-                sub: "Qualità Premium Diretta • Consegna in 1 ora!",
-                promo: "🔥 Ordine Minimo 30€ + 10€ Spedizione | Consegna GRATIS da 50€!",
-                cart: "Carrello", info: "Info", reviews: "Recensioni", menu: "Menu",
-                empty: "Il tuo carrello è vuoto. Aggiungi prodotti dal Menu!",
-                city: "CITTÀ", address: "INDIRIZZO", cap: "CAP", time: "ORARIO CONSEGNA",
-                pay: "Metodo di Pagamento", confirm: "PAGA ORA CON CRYPTO",
-                manualConfirm: "O INVIA ORDINE MANUALMENTE (Senza Auto-Pay)",
-                giftT: "🎁 REGALO COMPRESO",
-                giftD: "Accendino Clipper, Cartine e Filtri inclusi gratis per ordini da 50€!",
-                asap: "Appena possibile / ASAP",
-                ship: "Spedizione Express 24/48h (Prezzi Ingrosso)",
-                spec: "Fascia Oraria Specifica",
-                p_city: "Es: Milano, Roma, Napoli...",
-                p_address: "Via e Numero Civico",
-                p_cap: "Es: 00100, 20121...",
-                p_spec: "Es: Tra le 14:00 e le 16:00",
-                delDetails: "📍 Dati Consegna",
-                cryptoSub: "Ricevi l'indirizzo di pagamento in chat",
-                cardSub: "Ti guideremo su MoonPay per acquistare Bitcoin",
-                ppSub: "Non sempre disponibile. Chiedi in chat",
-                reqAvail: "RICHIESTA",
-                revSub: "Paga istantaneamente con il tuo wallet Revolut",
-                bitSub: "Invia dal tuo conto Bitpanda",
-                binSub: "Trasferisci dal tuo wallet Binance via P2P",
-                infT0: "⚠️ NESSUN PAGAMENTO IN CONTANTI",
-                infD0: "Lavoriamo esclusivamente con rider anonimi prepagati in crypto. Non conosciamo le loro identità. Quando il rider arriva, ti contatterà per guidarti al nascondiglio preciso (es. dietro un pilastro, sotto una ruota).\n\nQuesto processo garantisce che nulla possa essere ricollegato a te o al rider.\n\nNon insistere per i pagamenti in contanti. Nessuna eccezione. Nessun pagamento anticipato, nessun ordine.",
-                infT1: "📦 Processo di Consegna & Ingrosso",
-                infD1: "Garantiamo spedizioni flash e consegne ultrariservate. Ogni confezione è sigillata sotto vuoto, inodore e senza branding.\n\n💡 NOTA INGROSSO: Gli ordini con Spedizione Express 24/48h hanno tariffe ingrosso drasticamente inferiori. Scrivici in privato per dettagli.",
-                infT2: "💳 Metodi di Pagamento",
-                infD2: "Accettiamo tutte le principali Criptovalute tramite gateway sicuro Paymento.io.",
-                infT3: "🌿 Accessori Premium",
-                infD3: "Abbiamo selezionato cartine ultra sottili non sbiancate e filtri organici di altissima qualità, inclusi nel catalogo.",
-                infT4: "💬 Contatto Diretto",
-                infD4: "Hai bisogno di aiuto? Contatta immediatamente il nostro operatore su Telegram.",
-                btnContact: "💬 Contatta @eljefeshop",
-                revTitle: "Recensioni Verificate",
-                revSub: "Recensioni reali dalla nostra community.",
-                btnGroupRev: "⭐️ Unisciti al Canale",
-                actPromo: "🎉 Minimo raggiunto!",
-                totEff: "Totale",
-                free: "GRATIS",
-                shippingCostText: "Spedizione",
-                minOrderErr: "L'ordine minimo è di 30€!",
-                fieldErr: "Compila Città, Indirizzo e CAP!",
-                discountTxt: "Sconto Quantità",
-                orderSuccess: "✅ Ordine copiato negli appunti!",
-                copySuccess: "✅ Ordine copiato! Incollalo su @eljefeshop",
-                contact: "Contatta",
-                newOrder: "🛒 Nuovo Ordine",
-                orderTitle: "📦 ORDINE EL JEFE",
-                totalLabel: "TOTALE",
-                discountLabel: "Sconto",
-                paymentLabel: "PAGAMENTO",
-                deliveryLabel: "CONSEGNA",
-                customerLabel: "CLIENTE",
-                giftLabel: "🎁 Regalo: Accendino+Cartine+Filtri",
-                pasteInstructions: "Ordine copiato negli appunti!",
-                openTelegramInstructions: "Apri Telegram e incolla questo messaggio a @eljefeshop per completare l'ordine.",
-                openChatBtn: "Apri chat @eljefeshop",
-                manualCopyTitle: "Copia l'ordine manualmente",
-                manualCopyInstructions: "Seleziona e copia il testo qui sotto, poi invialo a @eljefeshop:",
-                orderPreview: "Anteprima Ordine:",
-                // Paymento
-                paymentWaiting: "⏳ In attesa di pagamento...",
-                paymentSuccess: "✅ Pagamento ricevuto! Ordine confermato.",
-                paymentExpired: "❌ Pagamento scaduto. Riprova.",
-                paymentCanceled: "Pagamento annullato",
-                openPaymento: "Apri Paymento",
-                copyAddress: "COPIA",
-                paymentTimer: "Tempo rimanente",
-                payNow: "PAGA ORA CON CRYPTO",
-                payManual: "O INVIA MANUALMENTE",
-                cats: {
-                    flowers: "🌿 Weed",
-                    hash: "🍯 Hash",
-                    edibles: "🍫 Edibles",
-                    vapes: "💨 Vapes",
-                    mushrooms: "🍄 Mushrooms",
-                    prerolls: "🚬 Prerolls",
-                    special: "🔥 Special"
-                },
-                revs: [
-                    {text: "Appena ricevuto il mio ordine di ieri. La qualità del prodotto ha superato le mie aspettative - perfettamente curato, appiccicoso e denso. Consegna stealth e puntuale. Tornerò sicuramente!", user: "@alex_martinez92 - 2 ore fa"},
-                    {text: "Terzo acquisto questo mese e sempre impressionato. Il packaging è sempre professionale e discreto. Servizio clienti disponibile. Prodotto top - esattamente come descritto. Esperienza 10/10!", user: "@sophie.london - 4 ore fa"},
-                    {text: "L'opzione spedizione express è fantastica! Ordinato lunedì mattina, arrivato mercoledì pomeriggio.", user: "@max_runner - 6 ore fa"},
-                    {text: "Prima volta che acquisto e sono stupito dalla qualità. Consigliatissimo!", user: "@emma_johnson88 - ieri"},
-                    {text: "Ordino settimanalmente da 3 mesi. Mai avuto un problema. Così dovrebbe essere lo shopping online!", user: "@david_chen - ieri"}
-                ]
+            IT: {
+                welcome: "Benvenuto in El Jefe Shop",
+                subtitle: "Seleziona la tua Lingua e Valuta",
+                language: "Lingua",
+                currency: "Valuta",
+                enter: "ENTRA NEL NEGOZIO",
+                products: "Prodotti Premium",
+                cart: "Il tuo Carrello",
+                empty: "Il tuo carrello è vuoto",
+                total: "Totale",
+                checkout: "Checkout"
             },
-            fr: {
-                all: "Toutes", checkCovTitle: "📍 VÉRIFIER COUVERTURE", btnCheck: "VÉRIFIER",
-                gateAlertErr: "Écrivez le nom de votre ville!",
-                gateStatusOk: "✅ LIVRAISON DISPONIBLE! Notre réseau est opérationnel. Livraison en 20-30 min.",
-                gateStatusErr: "❌ LIVRAISON NON DISPONIBLE! Ville invalide ou non couverte.",
-                sub: "Qualité Premium Directe • Livraison en 1h!",
-                promo: "🔥 Min. 30€ + 10€ Expédition | GRATUIT dès 50€!",
-                cart: "Panier", info: "Infos", reviews: "Avis", menu: "Menu",
-                empty: "Votre panier est vide!",
-                city: "VILLE", address: "ADRESSE", cap: "CODE POSTAL", time: "HEURE LIVRAISON",
-                pay: "Mode de paiement", confirm: "PAYER MAINTENANT",
-                manualConfirm: "OU ENVOYER MANUELLEMENT",
-                giftT: "🎁 CADEAUX GRATUITS",
-                giftD: "Briquet Clipper, feuilles et filtres inclus dès 50€!",
-                asap: "Aussitôt que possible",
-                ship: "Livraison Express 24/48h (Prix de gros)",
-                spec: "Créneau spécifique",
-                p_city: "Ex: Paris, Lyon...",
-                p_address: "Rue et Numéro",
-                p_cap: "Ex: 75001...",
-                p_spec: "Ex: Entre 14h et 16h",
-                delDetails: "📍 Détails Livraison",
-                cryptoSub: "Recevez l'adresse en chat",
-                cardSub: "Nous vous guidons sur MoonPay",
-                ppSub: "Pas toujours dispo. Demandez en chat",
-                reqAvail: "DEMANDE",
-                revSub: "Payez instantanément avec Revolut",
-                bitSub: "Envoyez depuis Bitpanda",
-                binSub: "Transférez depuis Binance",
-                infT0: "⚠️ AUCUN PAIEMENT ESPÈCES",
-                infD0: "Nous travaillons avec des livreurs anonymes prépayés en crypto. Ils vous contacteront pour le drop discret.\n\nN'insistez pas pour espèces. Aucune exception.",
-                infT1: "📦 Livraison & Prix de Gros",
-                infD1: "Colis scellés sous vide, sans odeur. Express 24/48h = tarifs de gros.",
-                infT2: "💳 Paiements Acceptés",
-                infD2: "Crypto-monnaies acceptées via Paymento.io.",
-                infT3: "🌿 Feuilles Premium",
-                infD3: "Feuilles ultrafines non blanchies et filtres organiques inclus.",
-                infT4: "💬 Contact",
-                infD4: "Besoin d'aide? Contactez @eljefeshop.",
-                btnContact: "💬 Contacter @eljefeshop",
-                revTitle: "Avis Vérifiés",
-                revSub: "Vrais avis de nos clients.",
-                btnGroupRev: "⭐️ Rejoindre le Canal",
-                actPromo: "🎉 Min. atteint!",
-                totEff: "Prix Total",
-                free: "GRATUIT",
-                shippingCostText: "Expédition",
-                minOrderErr: "Commande minimum: 30€!",
-                fieldErr: "Remplissez tous les champs!",
-                discountTxt: "Remise quantité",
-                orderSuccess: "✅ Commande copiée!",
-                copySuccess: "✅ Commande copiée! Collez-la sur @eljefeshop",
-                contact: "Contacter",
-                newOrder: "🛒 Nouvelle Commande",
-                orderTitle: "📦 COMMANDE EL JEFE",
-                totalLabel: "TOTAL",
-                discountLabel: "Réduction",
-                paymentLabel: "PAIEMENT",
-                deliveryLabel: "LIVRAISON",
-                customerLabel: "CLIENT",
-                giftLabel: "🎁 Cadeau: Briquet+Papiers+Filtres",
-                pasteInstructions: "Commande copiée!",
-                openTelegramInstructions: "Ouvrez Telegram et collez ce message à @eljefeshop.",
-                openChatBtn: "Ouvrir @eljefeshop",
-                manualCopyTitle: "Copiez la commande manuellement",
-                manualCopyInstructions: "Sélectionnez et copiez le texte ci-dessous:",
-                orderPreview: "Aperçu Commande:",
-                paymentWaiting: "⏳ En attente de paiement...",
-                paymentSuccess: "✅ Paiement reçu! Commande confirmée.",
-                paymentExpired: "❌ Paiement expiré. Réessayez.",
-                openPaymento: "Ouvrir Paymento",
-                copyAddress: "COPIER",
-                paymentTimer: "Temps restant",
-                payNow: "PAYER MAINTENANT",
-                payManual: "OU ENVOYER MANUELLEMENT",
-                cats: {
-                    flowers: "🌿 Weed",
-                    hash: "🍯 Hash",
-                    edibles: "🍫 Edibles",
-                    vapes: "💨 Vapes",
-                    mushrooms: "🍄 Mushrooms",
-                    prerolls: "🚬 Prerolls",
-                    special: "🔥 Special"
-                },
-                revs: [
-                    {text: "Commande reçue d'hier, la qualité a dépassé mes attentes. Livraison discrète et ponctuelle. Je reviendrai!", user: "@alex_martinez92 - il y a 2 heures"},
-                    {text: "Troisième achat ce mois et toujours impressionné. Emballage professionnel. Expérience 10/10!", user: "@sophie.london - il y a 4 heures"},
-                    {text: "Option livraison express incroyable! Commandé lundi, arrivé mercredi.", user: "@max_runner - il y a 6 heures"},
-                    {text: "Première fois et impressionné par la qualité. Recommandé!", user: "@emma_johnson88 - hier"},
-                    {text: "Je commande chaque semaine depuis 3 mois. Jamais eu de problème.", user: "@david_chen - hier"}
-                ]
+            FR: {
+                welcome: "Bienvenue chez El Jefe Shop",
+                subtitle: "Veuillez sélectionner votre Langue et Devise",
+                language: "Langue",
+                currency: "Devise",
+                enter: "ENTRER DANS LA BOUTIQUE",
+                products: "Produits Premium",
+                cart: "Votre Panier",
+                empty: "Votre panier est vide",
+                total: "Total",
+                checkout: "Payer"
             },
-            de: {
-                all: "Alle",
-                checkCovTitle: "📍 PRÜFEN",
-                btnCheck: "PRÜFEN",
-                gateAlertErr: "Stadtname eingeben!",
-                gateStatusOk: "✅ LIEFERUNG VERFÜGBAR! Netzwerk aktiv. Lieferung in 20-30 Min.",
-                gateStatusErr: "❌ NICHT VERFÜGBAR! Stadt nicht im Netzwerk.",
-                sub: "Premium Qualität Direkt • Lieferung in 1 Std!",
-                promo: "🔥 Mindestbestellwert 30€ + 10€ Versand | KOSTENLOS ab 50€!",
-                cart: "Warenkorb", info: "Info", reviews: "Bewertungen", menu: "Menü",
-                empty: "Ihr Warenkorb ist leer!",
-                city: "STADT", address: "ADRESSE", cap: "PLZ", time: "LIEFERZEIT",
-                pay: "Zahlungsmethode", confirm: "JETZT BEZAHLEN",
-                manualConfirm: "ODER MANUELL SENDEN",
-                giftT: "🎁 GRATIS GESCHENKE",
-                giftD: "Clipper Feuerzeug, Blättchen und Filter ab 50€!",
-                asap: "Schnellstmöglich",
-                ship: "Expressversand 24/48h (Großhandel)",
-                spec: "Spezifisches Zeitfenster",
-                p_city: "z.B. Berlin, München...",
-                p_address: "Straße und Hausnummer",
-                p_cap: "z.B. 10115...",
-                p_spec: "z.B. Zwischen 14:00 und 16:00",
-                delDetails: "📍 Lieferdetails",
-                cryptoSub: "Zahlungsadresse im Chat",
-                cardSub: "Wir zeigen MoonPay",
-                ppSub: "Nicht immer verfügbar. Fragen Sie im Chat",
-                reqAvail: "ANFRAGE",
-                revSub: "Sofort mit Revolut bezahlen",
-                bitSub: "Von Bitpanda senden",
-                binSub: "Von Binance überweisen",
-                infT0: "⚠️ KEINE BARZAHLUNG",
-                infD0: "Wir arbeiten mit anonymen, vorab bezahlten Fahrern. Sie kontaktieren Sie für den diskreten Drop.\n\nKeine Barzahlung. Keine Ausnahmen.",
-                infT1: "📦 Lieferung & Großhandel",
-                infD1: "Pakete vakuumversiegelt, geruchslos. Express 24/48h = Großhandelspreise.",
-                infT2: "💳 Zahlungen",
-                infD2: "Kryptowährungen akzeptiert via Paymento.io.",
-                infT3: "🌿 Premium Blättchen",
-                infD3: "Ultradünne, ungebleichte Blättchen und Bio-Filter inklusive.",
-                infT4: "💬 Kontakt",
-                infD4: "Hilfe nötig? Kontaktieren Sie @eljefeshop.",
-                btnContact: "💬 Kontakt @eljefeshop",
-                revTitle: "Kundenbewertungen",
-                revSub: "Echte Bewertungen.",
-                btnGroupRev: "⭐️ Kanal Beitreten",
-                actPromo: "🎉 Min. erreicht!",
-                totEff: "Gesamtpreis",
-                free: "KOSTENLOS",
-                shippingCostText: "Versand",
-                minOrderErr: "Mindestbestellwert 30€!",
-                fieldErr: "Alle Felder ausfüllen!",
-                discountTxt: "Mengenrabatt",
-                orderSuccess: "✅ Bestellung kopiert!",
-                copySuccess: "✅ Bestellung kopiert! Fügen Sie sie bei @eljefeshop ein",
-                contact: "Kontakt",
-                newOrder: "🛒 Neue Bestellung",
-                orderTitle: "📦 BESTELLUNG EL JEFE",
-                totalLabel: "GESAMT",
-                discountLabel: "Rabatt",
-                paymentLabel: "ZAHLUNG",
-                deliveryLabel: "LIEFERUNG",
-                customerLabel: "KUNDE",
-                giftLabel: "🎁 Geschenk: Feuerzeug+Blättchen+Filter",
-                pasteInstructions: "Bestellung kopiert!",
-                openTelegramInstructions: "Öffnen Sie Telegram und fügen Sie diese Nachricht bei @eljefeshop ein.",
-                openChatBtn: "@eljefeshop öffnen",
-                manualCopyTitle: "Bestellung manuell kopieren",
-                manualCopyInstructions: "Wählen und kopieren Sie den Text:",
-                orderPreview: "Bestellvorschau:",
-                paymentWaiting: "⏳ Warte auf Zahlung...",
-                paymentSuccess: "✅ Zahlung erhalten! Bestellung bestätigt.",
-                paymentExpired: "❌ Zahlung abgelaufen. Erneut versuchen.",
-                openPaymento: "Paymento öffnen",
-                copyAddress: "KOPIEREN",
-                paymentTimer: "Verbleibende Zeit",
-                payNow: "JETZT BEZAHLEN",
-                payManual: "ODER MANUELL SENDEN",
-                cats: {
-                    flowers: "🌿 Weed",
-                    hash: "🍯 Hash",
-                    edibles: "🍫 Edibles",
-                    vapes: "💨 Vapes",
-                    mushrooms: "🍄 Mushrooms",
-                    prerolls: "🚬 Prerolls",
-                    special: "🔥 Special"
-                },
-                revs: [
-                    {text: "Bestellung von gestern erhalten, Qualität hat Erwartungen übertroffen. Diskrete und pünktliche Lieferung. Komme wieder!", user: "@alex_martinez92 - vor 2 Stunden"},
-                    {text: "Dritter Kauf diesen Monat und immer beeindruckt. Professionelle Verpackung. 10/10 Erfahrung!", user: "@sophie.london - vor 4 Stunden"},
-                    {text: "Expressversand ist erstaunlich! Montag bestellt, Mittwoch angekommen.", user: "@max_runner - vor 6 Stunden"},
-                    {text: "Erstmaliger Käufer und beeindruckt von der Qualität. Empfohlen!", user: "@emma_johnson88 - gestern"},
-                    {text: "Bestelle seit 3 Monaten wöchentlich. Nie ein Problem gehabt.", user: "@david_chen - gestern"}
-                ]
+            DE: {
+                welcome: "Willkommen bei El Jefe Shop",
+                subtitle: "Bitte wählen Sie Ihre Sprache und Währung",
+                language: "Sprache",
+                currency: "Währung",
+                enter: "LADEN BETRETEN",
+                products: "Premium Produkte",
+                cart: "Ihr Warenkorb",
+                empty: "Ihr Warenkorb ist leer",
+                total: "Gesamt",
+                checkout: "Zur Kasse"
             },
-            ru: {
-                all: "Все",
-                checkCovTitle: "📍 ПРОВЕРКА ДОСТАВКИ",
-                btnCheck: "ПРОВЕРИТЬ",
-                gateAlertErr: "Напишите название города!",
-                gateStatusOk: "✅ ДОСТАВКА ДОСТУПНА! Сеть активна. Доставка за 20-30 мин.",
-                gateStatusErr: "❌ ДОСТАВКА НЕДОСТУПНА! Город не поддерживается.",
-                sub: "Премиум Качество Напрямую • Доставка за 1 час!",
-                promo: "🔥 Мин. заказ 30€ + 10€ Доставка | БЕСПЛАТНО от 50€!",
-                cart: "Корзина", info: "Инфо", reviews: "Отзывы", menu: "Меню",
-                empty: "Ваша корзина пуста!",
-                city: "ГОРОД", address: "АДРЕС", cap: "ИНДЕКС", time: "ВРЕМЯ ДОСТАВКИ",
-                pay: "Способ оплаты", confirm: "ОПЛАТИТЬ СЕЙЧАС",
-                manualConfirm: "ИЛИ ОТПРАВИТЬ ВРУЧНУЮ",
-                giftT: "🎁 БЕСПЛАТНЫЕ ПОДАРКИ",
-                giftD: "Зажигалка Clipper, бумага и фильтры от 50€!",
-                asap: "Как можно скорее",
-                ship: "Экспресс 24/48ч (Оптовые цены)",
-                spec: "Указать время",
-                p_city: "Пример: Москва, СПБ...",
-                p_address: "Улица и номер дома",
-                p_cap: "Пример: 101000...",
-                p_spec: "Пример: Между 14:00 и 16:00",
-                delDetails: "📍 Данные доставки",
-                cryptoSub: "Адрес для оплаты в чате",
-                cardSub: "Поможем купить через MoonPay",
-                ppSub: "Не всегда доступно. Уточняйте в чате",
-                reqAvail: "ПО ЗАПРОСУ",
-                revSub: "Оплатите мгновенно с Revolut",
-                bitSub: "Отправьте со счета Bitpanda",
-                binSub: "Перевод с Binance через P2P",
-                infT0: "⚠️ НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ",
-                infD0: "Работаем с анонимными курьерами, оплаченными заранее. Свяжутся с вами для точки.\n\nНе настаивайте на наличных. Без предоплаты — нет заказа.",
-                infT1: "📦 Доставка и опт",
-                infD1: "Посылки в вакууме, без запаха. Экспресс 24/48ч = оптовые цены.",
-                infT2: "💳 Оплата",
-                infD2: "Принимаем криптовалюты через Paymento.io.",
-                infT3: "🌿 Бумага премиум",
-                infD3: "Ультратонкая неотбеленная бумага и органические фильтры.",
-                infT4: "💬 Контакт",
-                infD4: "Нужна помощь? Пишите @eljefeshop в Telegram.",
-                btnContact: "💬 Связаться @eljefeshop",
-                revTitle: "Отзывы клиентов",
-                revSub: "Реальные отзывы.",
-                btnGroupRev: "⭐️ Присоединиться к каналу",
-                actPromo: "🎉 Мин. заказ достигнут!",
-                totEff: "Итоговая цена",
-                free: "БЕСПЛАТНО",
-                shippingCostText: "Доставка",
-                minOrderErr: "Минимальный заказ 30€!",
-                fieldErr: "Заполните все поля!",
-                discountTxt: "Скидка за количество",
-                orderSuccess: "✅ Заказ скопирован!",
-                copySuccess: "✅ Заказ скопирован! Вставьте его @eljefeshop",
-                contact: "Связаться",
-                newOrder: "🛒 Новый Заказ",
-                orderTitle: "📦 ЗАКАЗ EL JEFE",
-                totalLabel: "ИТОГО",
-                discountLabel: "Скидка",
-                paymentLabel: "ОПЛАТА",
-                deliveryLabel: "ДОСТАВКА",
-                customerLabel: "КЛИЕНТ",
-                giftLabel: "🎁 Подарок: Зажигалка+Бумага+Фильтры",
-                pasteInstructions: "Заказ скопирован в буфер обмена!",
-                openTelegramInstructions: "Откройте Telegram и вставьте это сообщение @eljefeshop.",
-                openChatBtn: "Открыть @eljefeshop",
-                manualCopyTitle: "Скопируйте заказ вручную",
-                manualCopyInstructions: "Выберите и скопируйте текст ниже:",
-                orderPreview: "Предпросмотр заказа:",
-                paymentWaiting: "⏳ Ожидание оплаты...",
-                paymentSuccess: "✅ Оплата получена! Заказ подтвержден.",
-                paymentExpired: "❌ Срок оплаты истек. Попробуйте снова.",
-                openPaymento: "Открыть Paymento",
-                copyAddress: "КОПИРОВАТЬ",
-                paymentTimer: "Осталось времени",
-                payNow: "ОПЛАТИТЬ СЕЙЧАС",
-                payManual: "ИЛИ ОТПРАВИТЬ ВРУЧНУЮ",
-                cats: {
-                    flowers: "🌿 Weed",
-                    hash: "🍯 Hash",
-                    edibles: "🍫 Edibles",
-                    vapes: "💨 Vapes",
-                    mushrooms: "🍄 Mushrooms",
-                    prerolls: "🚬 Prerolls",
-                    special: "🔥 Special"
-                },
-                revs: [
-                    {text: "Только что получил заказ. Качество превзошло ожидания. Доставка скрытная и точно в срок. Обязательно вернусь!", user: "@alex_martinez92 - 2 часа назад"},
-                    {text: "Третья покупка в этом месяце и постоянно впечатлен. Упаковка всегда профессиональная. Опыт 10/10!", user: "@sophie.london - 4 часа назад"},
-                    {text: "Экспресс-доставка потрясающая! Заказал утром понедельника, пришло средой.", user: "@max_runner - 6 часов назад"},
-                    {text: "Первый раз покупаю и впечатлен качеством. Настоятельно рекомендую!", user: "@emma_johnson88 - вчера"},
-                    {text: "Заказываю еженедельно уже 3 месяца. Никогда не было проблем.", user: "@david_chen - вчера"}
-                ]
+            RU: {
+                welcome: "Добро пожаловать в El Jefe Shop",
+                subtitle: "Пожалуйста, выберите язык и валюту",
+                language: "Язык",
+                currency: "Валюта",
+                enter: "ВОЙТИ В МАГАЗИН",
+                products: "Премиум Товары",
+                cart: "Ваша Корзина",
+                empty: "Ваша корзина пуста",
+                total: "Итого",
+                checkout: "Оформить заказ"
             }
         };
 
-        // Products Data
-        const productsData = [
-            { id: "f1", name: "Gelato", category: "flowers", price: 12, img: "https://files.catbox.moe/iuulm3.jpg", desc: "Premium Indoor • 27% THC • Sweet & Creamy", isGramAsset: true },
-            { id: "f2", name: "Runtz", category: "flowers", price: 12, img: "https://files.catbox.moe/xxeqh7.jpg", desc: "Premium Indoor • 26% THC • Fruity & Potent", isGramAsset: true },
-            { id: "f3", name: "Snow Cone", category: "flowers", price: 12, img: "https://files.catbox.moe/3m3tdq.jpg", desc: "Premium Indoor • 25% THC • Frosty & Fresh", isGramAsset: true },
-            { id: "f4", name: "Purple Platinum", category: "flowers", price: 12, img: "https://files.catbox.moe/p393wj.jpg", desc: "Premium Indoor • 28% THC • Grape & Berry", isGramAsset: true },
-            { id: "f5", name: "Moonrock", category: "flowers", price: 12, img: "https://files.catbox.moe/i4nqr1.jpg", desc: "Premium Indoor • 29% THC • Ultra Potent", isGramAsset: true },
-            { id: "f6", name: "Cookies", category: "flowers", price: 12, img: "https://files.catbox.moe/9cm291.jpg", desc: "Premium Indoor • 26% THC • Sweet & Earthy", isGramAsset: true },
-            { id: "f7", name: "Green Crack", category: "flowers", price: 12, img: "https://files.catbox.moe/dpq2lc.jpg", desc: "Premium Indoor • 25% THC • Energetic", isGramAsset: true },
-            { id: "f8", name: "White Widow", category: "flowers", price: 12, img: "https://files.catbox.moe/dux0y2.jpg", desc: "Premium Indoor • 26% THC • Classic", isGramAsset: true },
-            { id: "f9", name: "Lemon Cherry", category: "flowers", price: 12, img: "https://files.catbox.moe/nkf4c3.jpg", desc: "Premium Indoor • 27% THC • Citrus", isGramAsset: true },
-            { id: "f10", name: "Blue Dream", category: "flowers", price: 12, img: "https://files.catbox.moe/l3rb72.jpg", desc: "Premium Indoor • 25% THC • Berry", isGramAsset: true },
-            { id: "f11", name: "Northern Lights", category: "flowers", price: 12, img: "https://files.catbox.moe/jnv4ei.jpg", desc: "Premium Indoor • 26% THC • Spicy", isGramAsset: true },
-            { id: "f12", name: "Sour Diesel", category: "flowers", price: 12, img: "https://files.catbox.moe/pk12h0.jpg", desc: "Premium Indoor • 27% THC • Pungent", isGramAsset: true },
-            { id: "f13", name: "Rainbow Zaza", category: "flowers", price: 12, img: "https://files.catbox.moe/pbjgn1.jpg", desc: "Premium Indoor • 28% THC • Colorful", isGramAsset: true },
-            { id: "f14", name: "Bubblegum Gusher", category: "flowers", price: 12, img: "https://files.catbox.moe/q1vuzm.jpg", desc: "Premium Indoor • 26% THC • Candy", isGramAsset: true },
-            { id: "f15", name: "Premium Selection (Wholesale)", category: "flowers", price: 4000, img: "https://files.catbox.moe/1ah9ve.jpg", desc: "Starts at 4000€ • Ask for Strain", isGramAsset: false, unit: "kg" },
-            { id: "h1", name: "Moroccan Dry", category: "hash", price: 10, img: "https://files.catbox.moe/kbbn9j.jpg", desc: "Traditional Sift • 35% THC • Classic", isGramAsset: true },
-            { id: "h2", name: "Frozen Sift FB", category: "hash", price: 15, img: "https://files.catbox.moe/dwnep1.jpg", desc: "Full Bubble • 50% THC • Melting", isGramAsset: true },
-            { id: "h3", name: "Premium Hash Selection", category: "hash", price: 10, img: "https://files.catbox.moe/wlsxrg.jpg", desc: "Various Imports • Ask stock", isGramAsset: true },
-            { id: "e1", name: "THC Edibles 40mg", category: "edibles", price: 40, img: "https://files.catbox.moe/wlkvg0.jpg", desc: "Lab-Dosed • 40mg THC total", isGramAsset: false },
-            { id: "e2", name: "THC Edibles 60mg", category: "edibles", price: 60, img: "https://files.catbox.moe/8ymlq9.jpg", desc: "High Potency • 60mg THC", isGramAsset: false },
-            { id: "v1", name: "Zkittlez Vape", category: "vapes", price: 65, img: "https://files.catbox.moe/chrkoa.jpg", desc: "0.5ml • 85% THC • Premium", isGramAsset: false },
-            { id: "v2", name: "Runtz Vape", category: "vapes", price: 65, img: "https://files.catbox.moe/pjj7h1.jpg", desc: "0.5ml • 85% THC • Creamy", isGramAsset: false },
-            { id: "v3", name: "Blue Dream Vape", category: "vapes", price: 65, img: "https://files.catbox.moe/e42bu5.jpg", desc: "0.5ml • 85% THC • Smooth", isGramAsset: false },
-            { id: "v4", name: "Amnesia Vape", category: "vapes", price: 65, img: "https://files.catbox.moe/k6utct.jpg", desc: "0.5ml • 85% THC • Pure", isGramAsset: false },
-            { id: "m1", name: "Golden Teacher", category: "mushrooms", price: 8, img: "https://files.catbox.moe/4bcbhp.jpg", desc: "Psilocybin • Dry • Potent", isGramAsset: true },
-            { id: "m2", name: "Purple Mystic", category: "mushrooms", price: 8, img: "https://files.catbox.moe/qvzz3u.jpg", desc: "Psilocybin • High Quality", isGramAsset: true },
-            { id: "p1", name: "Standard Prerolls", category: "prerolls", price: 15, img: "https://files.catbox.moe/9tu5hx.jpg", desc: "Moon Rocket / Cali Woods", isGramAsset: false },
-            { id: "p2", name: "Baby Jeeter Infused", category: "prerolls", price: 30, img: "https://files.catbox.moe/uzsqh3.jpg", desc: "Kief Infused • Premium", isGramAsset: false },
-            { id: "s1", name: "❄️ Cocaine Pure", category: "special", price: 80, img: "https://files.catbox.moe/vghr7c.jpg", desc: "Pure Fishscale • Colombian 1g", isGramAsset: true },
-            { id: "s2", name: "🧪 LSD Liquid", category: "special", price: 90, img: "https://files.catbox.moe/upcbag.jpg", desc: "Liquid Dropper • 1ml • 200µg", isGramAsset: false },
-            { id: "s3", name: "💎 Crystal Meth", category: "special", price: 50, img: "https://files.catbox.moe/sg5khm.jpg", desc: "Glass Ice • Purity Tested 1g", isGramAsset: true },
-            { id: "s4", name: "💊 MDMA", category: "special", price: 60, img: "https://files.catbox.moe/6xqi64.jpg", desc: "High Purity Dutch MDMA", isGramAsset: false }
+        // Products data
+        const products = [
+            { id: 1, name: "Colombian Cocaine", category: "cocaine", price: 80, image: "https://files.catbox.moe/cocaine1.jpg", desc: "Pure Colombian fishscale" },
+            { id: 2, name: "Peruvian Flake", category: "cocaine", price: 90, image: "https://files.catbox.moe/cocaine2.jpg", desc: "Premium Peruvian" },
+            { id: 3, name: "Amnesia Haze", category: "weed", price: 12, image: "https://files.catbox.moe/weed1.jpg", desc: "Top shelf sativa" },
+            { id: 4, name: "OG Kush", category: "weed", price: 10, image: "https://files.catbox.moe/weed2.jpg", desc: "Classic indica" },
+            { id: 5, name: "Moroccan Hash", category: "hash", price: 8, image: "https://files.catbox.moe/hash1.jpg", desc: "Premium pollen" },
+            { id: 6, name: "Afghan Black", category: "hash", price: 9, image: "https://files.catbox.moe/hash2.jpg", desc: "Traditional charas" },
+            { id: 7, name: "Golden Teacher", category: "shrooms", price: 25, image: "https://files.catbox.moe/shrooms1.jpg", desc: "Psychedelic mushrooms" },
+            { id: 8, name: "LSD 200ug", category: "lsd", price: 15, image: "https://files.catbox.moe/lsd1.jpg", desc: "Pure LSD tabs" },
+            { id: 9, name: "MDMA Crystals", category: "mdma", price: 40, image: "https://files.catbox.moe/mdma1.jpg", desc: "Pure MDMA" },
+            { id: 10, name: "Ketamine", category: "ketamine", price: 60, image: "https://files.catbox.moe/ket1.jpg", desc: "Pharma grade" },
+            { id: 11, name: "Afghan Heroin", category: "heroin", price: 70, image: "https://files.catbox.moe/heroin1.jpg", desc: "Pure #4 heroin" },
+            { id: 12, name: "Blue Meth", category: "meth", price: 50, image: "https://files.catbox.moe/meth1.jpg", desc: "Crystal clear" },
+            { id: 13, name: "Crack Rocks", category: "crack", price: 45, image: "https://files.catbox.moe/crack1.jpg", desc: "Ready to smoke" },
+            { id: 14, name: "XTC Pills", category: "pills", price: 20, image: "https://files.catbox.moe/pills1.jpg", desc: "250mg MDMA" },
+            { id: 15, name: "Oxycodone", category: "pills", price: 30, image: "https://files.catbox.moe/pills2.jpg", desc: "80mg OC" }
         ];
 
-        // ==========================================
-        // PAYMENTO INTEGRATION FUNCTIONS
-        // ==========================================
-
-        async function createPaymentoInvoice(orderData) {
-            try {
-                showLoading(true, 'Creating secure payment...');
-                
-                // Se hai un proxy backend (consigliato per sicurezza)
-                if (PAYMENTO_CONFIG.proxyUrl) {
-                    const response = await fetch(`${PAYMENTO_CONFIG.proxyUrl}/create-invoice`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            amount: orderData.total,
-                            currency: 'EUR',
-                            description: `El Jefe Order - ${orderData.customer}`,
-                            metadata: {
-                                telegram_user: orderData.username,
-                                delivery_address: orderData.address,
-                                items: orderData.items,
-                                order_id: orderData.id
-                            }
-                        })
-                    });
-                    
-                    if (!response.ok) throw new Error('Proxy error');
-                    const data = await response.json();
-                    return data;
-                }
-                
-                // Chiamata diretta (meno sicura, espone API key)
-                // NOTA: Paymento potrebbe richiedere header diversi, adatta secondo la loro docs
-                const response = await fetch(`${PAYMENTO_CONFIG.apiUrl}/stores/${PAYMENTO_CONFIG.storeId}/invoices`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${PAYMENTO_CONFIG.apiKey}`,
-                        'X-Secret-Key': PAYMENTO_CONFIG.secretKey
-                    },
-                    body: JSON.stringify({
-                        amount: orderData.total,
-                        currency: 'EUR',
-                        description: `El Jefe Order`,
-                        metadata: {
-                            telegram_username: orderData.username,
-                            delivery_address: orderData.address,
-                            city: orderData.city,
-                            zip: orderData.zip,
-                            items: orderData.items
-                        },
-                        success_url: window.location.href,
-                        cancel_url: window.location.href
-                    })
-                });
-                
-                if (!response.ok) {
-                    const error = await response.text();
-                    throw new Error(error);
-                }
-                
-                return await response.json();
-            } catch (error) {
-                console.error('Paymento Error:', error);
-                showToast('Payment creation failed. Using manual mode.');
-                return null;
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        async function checkPaymentStatus(invoiceId) {
-            try {
-                let url, headers;
-                
-                if (PAYMENTO_CONFIG.proxyUrl) {
-                    url = `${PAYMENTO_CONFIG.proxyUrl}/check-invoice/${invoiceId}`;
-                    headers = {};
-                } else {
-                    url = `${PAYMENTO_CONFIG.apiUrl}/invoices/${invoiceId}`;
-                    headers = {
-                        'Authorization': `Bearer ${PAYMENTO_CONFIG.apiKey}`,
-                        'X-Secret-Key': PAYMENTO_CONFIG.secretKey
-                    };
-                }
-                
-                const response = await fetch(url, { headers });
-                if (!response.ok) throw new Error('Check failed');
-                
-                const data = await response.json();
-                return data.status; // 'pending', 'paid', 'expired', 'confirmed'
-            } catch (error) {
-                console.error('Check status error:', error);
-                return 'error';
-            }
-        }
-
-        function showLoading(show, text = 'Loading...') {
-            const overlay = document.getElementById('loadingOverlay');
-            const loadingText = document.getElementById('loadingText');
-            if (show) {
-                loadingText.innerText = text;
-                overlay.classList.add('active');
-            } else {
-                overlay.classList.remove('active');
-            }
-        }
-
-        function selectCrypto(crypto) {
-            selectedCrypto = crypto;
-            document.querySelectorAll('.payment-method-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.innerText.includes(crypto)) btn.classList.add('active');
-            });
-            
-            // Se abbiamo già un invoice, aggiorna il QR/address per la crypto selezionata
-            if (currentInvoice && currentInvoice.addresses) {
-                updatePaymentDisplay();
-            }
-        }
-
-        function updatePaymentDisplay() {
-            if (!currentInvoice) return;
-            
-            const dict = i18n[currentLang];
-            const address = currentInvoice.addresses?.[selectedCrypto] || currentInvoice.address;
-            const amount = currentInvoice.amounts?.[selectedCrypto] || currentInvoice.amount;
-            
-            document.getElementById('paymentAddress').innerText = address || 'Loading...';
-            document.getElementById('paymentAmountFiat').innerText = `€${currentInvoice.amount_eur || currentInvoice.amount}`;
-            document.getElementById('paymentAmountCrypto').innerText = `${amount} ${selectedCrypto}`;
-            document.getElementById('paymentOrderId').innerText = currentInvoice.id || currentInvoice.invoice_id;
-            
-            // Genera QR code (usa API esterna o genera localmente se hai libreria)
-            const qrData = `${selectedCrypto.toLowerCase()}:${address}?amount=${amount}`;
-            document.getElementById('qrCodeImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
-            document.getElementById('qrCodeContainer').style.display = 'block';
-            
-            // Avvia timer
-            startPaymentTimer(900); // 15 minuti
-        }
-
-        function startPaymentTimer(seconds) {
-            const timerEl = document.getElementById('paymentTimer');
-            let remaining = seconds;
-            
-            if (paymentCheckInterval) clearInterval(paymentCheckInterval);
-            
-            paymentCheckInterval = setInterval(async () => {
-                remaining--;
-                
-                const mins = Math.floor(remaining / 60);
-                const secs = remaining % 60;
-                timerEl.innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
-                
-                // Controlla stato ogni 10 secondi
-                if (remaining % 10 === 0 && currentInvoice) {
-                    const status = await checkPaymentStatus(currentInvoice.id || currentInvoice.invoice_id);
-                    updatePaymentStatus(status);
-                    
-                    if (status === 'paid' || status === 'confirmed') {
-                        clearInterval(paymentCheckInterval);
-                        onPaymentSuccess();
-                    } else if (status === 'expired') {
-                        clearInterval(paymentCheckInterval);
-                    }
-                }
-                
-                if (remaining <= 0) {
-                    clearInterval(paymentCheckInterval);
-                    timerEl.innerText = "EXPIRED";
-                    updatePaymentStatus('expired');
-                }
-            }, 1000);
-        }
-
-        function updatePaymentStatus(status) {
-            const statusEl = document.getElementById('paymentStatus');
-            const dict = i18n[currentLang];
-            
-            statusEl.className = 'payment-status';
-            
-            switch(status) {
-                case 'paid':
-                case 'confirmed':
-                    statusEl.classList.add('paid');
-                    statusEl.innerText = dict.paymentSuccess;
-                    break;
-                case 'expired':
-                    statusEl.classList.add('expired');
-                    statusEl.innerText = dict.paymentExpired;
-                    break;
-                default:
-                    statusEl.classList.add('pending');
-                    statusEl.innerText = dict.paymentWaiting;
-            }
-        }
-
-        function onPaymentSuccess() {
-            const dict = i18n[currentLang];
-            showToast(dict.paymentSuccess);
-            
-            // Invia conferma a Telegram
-            sendPaymentConfirmation();
-            
-            // Torna al menu dopo 3 secondi
-            setTimeout(() => {
-                clearCart();
-                switchTab('menu');
-            }, 3000);
-        }
-
-        async function sendPaymentConfirmation() {
-            // Invia messaggio di conferma al bot
-            const text = `✅ PAYMENT RECEIVED!\n\nOrder: ${currentInvoice?.id}\nAmount: ${currentInvoice?.amount}€\n\nPlease confirm and process delivery.`;
-            
-            try {
-                await fetch(`https://api.telegram.org/bot${PAYMENTO_CONFIG.botToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: PAYMENTO_CONFIG.adminChatId,
-                        text: text
-                    })
-                });
-            } catch (e) {
-                console.log('Notification failed');
-            }
-        }
-
-        function copyPaymentAddress() {
-            const address = document.getElementById('paymentAddress').innerText;
-            navigator.clipboard.writeText(address).then(() => {
-                showToast('Address copied!');
-            });
-        }
-
-        function openPaymentoLink() {
-            if (currentInvoice && currentInvoice.payment_url) {
-                window.open(currentInvoice.payment_url, '_blank');
-            } else {
-                showToast('Payment link not available');
-            }
-        }
-
-        function cancelPayment() {
-            if (paymentCheckInterval) clearInterval(paymentCheckInterval);
-            currentInvoice = null;
-            switchTab('chat');
-        }
-
-        // ==========================================
-        // FUNZIONI ORDINE MODIFICATE
-        // ==========================================
-
-        async function processOrderWithPayment() {
-            const dict = i18n[currentLang];
-            
-            // Validazione
-            const metrics = calculateCartMetrics();
-            if (metrics.finalProductsTotalEur < 30) {
-                showError(dict.minOrderErr);
-                return;
-            }
-
-            const city = document.getElementById('input-city').value.trim();
-            const address = document.getElementById('input-address').value.trim();
-            const cap = document.getElementById('input-cap').value.trim();
-            
-            if (!city || !address || !cap) {
-                showError(dict.fieldErr);
-                return;
-            }
-
-            // Se Paymento non è configurato, usa metodo manuale
-            if (!PAYMENTO_CONFIG.enabled || PAYMENTO_CONFIG.apiKey.includes('YOUR_API_KEY')) {
-                showToast('Paymento not configured. Using manual mode.');
-                processOrderManual();
-                return;
-            }
-
-            // Prepara dati ordine
-            const orderData = {
-                id: 'ORD_' + Date.now(),
-                total: metrics.finalTotalEur,
-                customer: `${city}, ${address}`,
-                username: tg?.initDataUnsafe?.user?.username || 'Guest',
-                city: city,
-                address: address,
-                zip: cap,
-                items: Object.keys(cart).map(id => {
-                    const p = productsData.find(prod => prod.id === id);
-                    return `${p.name} x${cart[id]}`;
-                }).join(', ')
-            };
-
-            // Crea invoice Paymento
-            const invoice = await createPaymentoInvoice(orderData);
-            
-            if (invoice) {
-                currentInvoice = invoice;
-                updatePaymentDisplay();
-                switchTab('payment');
-            } else {
-                // Fallback a manuale
-                processOrderManual();
-            }
-        }
-
-        function processOrderManual() {
-            // Usa la funzione originale di copia negli appunti
-            processOrderSendLegacy();
-        }
-
-        // La vecchia funzione rinominata
-        async function processOrderSendLegacy() {
-            const metrics = calculateCartMetrics();
-            const dict = i18n[currentLang];
-
-            const citta = document.getElementById('input-city').value.trim();
-            const indirizzo = document.getElementById('input-address').value.trim();
-            const cap = document.getElementById('input-cap').value.trim();
-            let orario = document.getElementById('select-time').value;
-
-            if (orario === 'Specific') {
-                const specTime = document.getElementById('input-time-spec');
-                if (specTime && specTime.value.trim()) {
-                    orario = specTime.value.trim();
-                }
-            }
-
-            const userId = tg?.initDataUnsafe?.user?.id || '';
-            const username = tg?.initDataUnsafe?.user?.username || '';
-            const firstName = tg?.initDataUnsafe?.user?.first_name || '';
-            const lastName = tg?.initDataUnsafe?.user?.last_name || '';
-
-            let msg = `${dict.orderTitle}\n`;
-            msg += `═══════════════════════\n\n`;
-
-            const items = [];
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                if (!p) return;
-                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                const itemTotal = p.price * cart[id];
-                items.push(`• ${p.name}: ${cart[id]}${unitLabel} = ${getConvertedPriceStr(itemTotal)}`);
-            });
-
-            if (metrics.giftApplied) {
-                items.push(`• ${dict.giftLabel} = ${dict.free}`);
-            }
-
-            msg += items.join('\n');
-            msg += `\n\n`;
-
-            msg += `💰 ${dict.totalLabel}: ${getConvertedPriceStr(metrics.finalTotalEur)}\n`;
-            if (metrics.discountEur > 0) {
-                msg += `🏷️ ${dict.discountLabel}: -${getConvertedPriceStr(metrics.discountEur)}\n`;
-            }
-            if (metrics.shippingFeeEur > 0) {
-                msg += `🚚 ${dict.shippingCostText}: ${getConvertedPriceStr(metrics.shippingFeeEur)}\n`;
-            } else {
-                msg += `🚚 ${dict.shippingCostText}: ${dict.free}\n`;
-            }
-            msg += `💳 ${dict.paymentLabel}: ${currentSelectedPayment.toUpperCase()}\n\n`;
-
-            msg += `📍 ${dict.deliveryLabel}:\n`;
-            msg += `   ${dict.city}: ${citta}\n`;
-            msg += `   ${dict.address}: ${indirizzo}\n`;
-            msg += `   ${dict.cap}: ${cap}\n`;
-            msg += `   ${dict.time}: ${orario}\n\n`;
-
-            msg += `👤 ${dict.customerLabel}:`;
-            if (username) msg += ` @${username}`;
-            if (firstName) msg += ` ${firstName}`;
-            if (lastName) msg += ` ${lastName}`;
-            if (!username && !firstName) msg += ` Guest`;
-            msg += `\n`;
-            if (userId) msg += `   ID: ${userId}`;
-
-            // Copia negli appunti
-            let copied = false;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                try {
-                    await navigator.clipboard.writeText(msg);
-                    copied = true;
-                } catch (err) {
-                    copied = copyFallback(msg);
-                }
-            } else {
-                copied = copyFallback(msg);
-            }
-
-            showOrderSuccessLegacy(msg, dict, copied);
-        }
-
-        function copyFallback(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                const successful = document.execCommand('copy');
-                document.body.removeChild(textArea);
-                return successful;
-            } catch (err) {
-                document.body.removeChild(textArea);
-                return false;
-            }
-        }
-
-        function showOrderSuccessLegacy(orderText, dict, copied) {
-            if (tg && tg.HapticFeedback) {
-                tg.HapticFeedback.notificationOccurred('success');
-            }
-
-            const successDiv = document.getElementById('orderSuccessMsg');
-            
-            if (copied) {
-                successDiv.innerHTML = `
-                    <h3>✅ ${dict.pasteInstructions}</h3>
-                    <p style="margin: 15px 0; color: #ccc;">${dict.openTelegramInstructions}</p>
-                    <div style="margin-top: 20px;">
-                        <button class="new-order-btn" onclick="openElJefeChat()">
-                            📱 ${dict.openChatBtn}
-                        </button>
-                        <button class="new-order-btn secondary" onclick="resetForNewOrder()" style="margin-left: 10px;">
-                            🛒 ${dict.newOrder}
-                        </button>
-                    </div>
-                `;
-            } else {
-                successDiv.innerHTML = `
-                    <h3>⚠️ ${dict.manualCopyTitle}</h3>
-                    <div class="order-preview">
-                        <div class="order-preview-label">${dict.manualCopyInstructions}</div>
-                        <pre onclick="this.select()">${orderText.replace(/</g, '&lt;')}</pre>
-                    </div>
-                    <button class="new-order-btn" onclick="openElJefeChat()">
-                        📱 ${dict.openChatBtn}
-                    </button>
-                `;
-            }
-            
-            successDiv.style.display = 'block';
-            showToast(dict.copySuccess);
-            clearCart();
-            successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function openElJefeChat() {
-            const url = 'https://t.me/eljefeshop';
-            if (tg && tg.openTelegramLink) {
-                tg.openTelegramLink(url);
-            } else {
-                window.open(url, '_blank');
-            }
-        }
-
-        function resetForNewOrder() {
-            const successDiv = document.getElementById('orderSuccessMsg');
-            if (successDiv) successDiv.style.display = 'none';
-            
-            document.getElementById('input-city').value = '';
-            document.getElementById('input-address').value = '';
-            document.getElementById('input-cap').value = '';
-            document.getElementById('select-time').selectedIndex = 0;
-            document.getElementById('input-time-spec').value = '';
-            document.getElementById('input-time-spec').style.display = 'none';
-            
-            setPaymentMethod('crypto');
-            switchTab('menu');
-        }
-
-        // ==========================================
-        // FUNZIONI ESISTENTI (invariate)
-        // ==========================================
-
-        function loadCartFromStorage() {
-            try {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (saved) cart = JSON.parse(saved);
-            } catch (e) { cart = {}; }
-        }
-
-        function saveCartToStorage() {
-            try { 
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); 
-            } catch (e) { console.error('Error saving cart:', e); }
-        }
-
-        function clearCart() {
-            cart = {};
-            saveCartToStorage();
-            updateCartUI();
-            renderProducts(activeCategoryFilter);
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMsg');
-            errorDiv.innerText = message;
-            errorDiv.classList.add('show');
-            setTimeout(() => errorDiv.classList.remove('show'), 5000);
-        }
-
-        function openLightbox(src) {
-            const lb = document.getElementById('lightbox');
-            const lbImg = document.getElementById('lightbox-img');
-            lbImg.src = src;
-            lb.classList.add('active');
-            if (tg) tg.HapticFeedback.impactOccurred('light');
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
-
-        function openContact() {
-            const url = 'https://t.me/eljefeshop';
-            if (tg && tg.openTelegramLink) {
-                tg.openTelegramLink(url);
-            } else {
-                window.open(url, '_blank');
-            }
-        }
-
-        function changeCurrency(val) {
-            activeCurrency = val;
-            renderProducts(activeCategoryFilter);
-            renderCartPage();
-        }
-
-        function getConvertedPrice(baseEurPrice) {
-            return Math.round((baseEurPrice * currencyConfig[activeCurrency].rate) * 100) / 100;
-        }
-
-        function getConvertedPriceStr(baseEurPrice) {
-            const cfg = currencyConfig[activeCurrency];
-            return `${cfg.symbol}${getConvertedPrice(baseEurPrice).toFixed(2)}`;
-        }
-
-        function setLanguage(lang) {
+        // Language selection
+        function selectLanguage(lang) {
             currentLang = lang;
             
-            document.querySelectorAll('.lang-selector .lang-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`lang-btn-${lang}`).classList.add('active');
-
-            const dict = i18n[lang];
-            if (!dict) return;
-
-            const elements = {
-                'txt-header-sub': dict.sub,
-                'txt-promo': dict.promo,
-                'gift-title': dict.giftT,
-                'gift-desc': dict.giftD,
-                'tab-menu': dict.menu,
-                'tab-cart': dict.cart,
-                'tab-info': dict.info,
-                'tab-reviews': dict.reviews,
-                'txt-cart-title': `🛒 ${dict.cart}`,
-                'txt-delivery-details': dict.delDetails,
-                'lbl-city': dict.city,
-                'input-city': dict.p_city,
-                'lbl-address': dict.address,
-                'input-address': dict.p_address,
-                'lbl-cap': dict.cap,
-                'input-cap': dict.p_cap,
-                'lbl-time': dict.time,
-                'lbl-check-cov': dict.checkCovTitle,
-                'inlineGateCity': dict.p_city,
-                'btn-inline-check': dict.btnCheck,
-                'opt-asap': dict.asap,
-                'opt-ship': dict.ship,
-                'opt-spec': dict.spec,
-                'input-time-spec': dict.p_spec,
-                'txt-pay-title': `💳 ${dict.pay}`,
-                'txt-crypto-sub': dict.cryptoSub,
-                'txt-moonpay-sub': dict.cardSub,
-                'txt-paypal-sub': dict.ppSub,
-                'badge-req': dict.reqAvail,
-                'txt-revolut-sub': dict.revSub,
-                'txt-bitpanda-sub': dict.bitSub,
-                'txt-binance-sub': dict.binSub,
-                'info-p0-t': dict.infT0,
-                'info-p0-d': dict.infD0,
-                'info-p1-t': dict.infT1,
-                'info-p1-d': dict.infD1,
-                'info-p2-t': dict.infT2,
-                'info-p2-d': dict.infD2,
-                'btn-contact-tg': dict.btnContact,
-                'txt-rev-title': dict.revTitle,
-                'txt-rev-sub': dict.revSub,
-                'btn-group-rev': dict.btnGroupRev,
-                'contactBtnText': dict.contact,
-                'btn-submit-order': dict.confirm
-            };
-
-            // Aggiorna testi bottoni paymento
-            const manualBtn = document.querySelector('#btn-submit-order + button');
-            if (manualBtn) manualBtn.innerText = dict.manualConfirm;
-
-            for (const [id, text] of Object.entries(elements)) {
-                const el = document.getElementById(id);
-                if (el) {
-                    if (el.tagName === 'INPUT') el.placeholder = text;
-                    else if (id === 'info-p0-d' || id === 'info-p1-d' || id === 'info-p2-d') el.innerText = text;
-                    else el.innerText = text;
-                }
-            }
-
-            const statusBox = document.getElementById('inlineDeliveryStatus');
-            if (statusBox && statusBox.style.display === 'block') {
-                if (statusBox.innerHTML.includes('❌')) {
-                    statusBox.innerText = dict.gateStatusErr;
-                } else {
-                    statusBox.innerText = dict.gateStatusOk;
-                }
-            }
-
-            renderReviews(dict);
-            renderCategoryTabs();
-            renderProducts(activeCategoryFilter);
-            updateCartUI();
-        }
-
-        function renderReviews(dict) {
-            const revBlock = document.getElementById('reviewsContainer');
-            if (!revBlock) return;
-
-            revBlock.innerHTML = '';
-            if (dict.revs && Array.isArray(dict.revs)) {
-                dict.revs.forEach(r => {
-                    const reviewDiv = document.createElement('div');
-                    reviewDiv.className = 'review-card';
-                    reviewDiv.innerHTML = `
-                        <div class="review-stars">★★★★★</div>
-                        <div class="review-text">"${r.text}"</div>
-                        <div class="review-user">${r.user}</div>
-                    `;
-                    revBlock.appendChild(reviewDiv);
-                });
-            }
-        }
-
-        function renderCategoryTabs() {
-            const container = document.getElementById('catList');
-            if (!container) return;
-
-            container.innerHTML = '';
-
-            const dict = i18n[currentLang];
-            if (!dict || !dict.cats) return;
-
-            const allCard = document.createElement('div');
-            allCard.className = `cat-card ${activeCategoryFilter === 'all' ? 'active' : ''}`;
-            allCard.innerText = dict.all;
-            allCard.onclick = () => {
-                activeCategoryFilter = 'all';
-                renderCategoryTabs();
-                renderProducts('all');
-            };
-            container.appendChild(allCard);
-
-            Object.keys(dict.cats).forEach(key => {
-                const card = document.createElement('div');
-                card.className = `cat-card ${key === activeCategoryFilter ? 'active' : ''}`;
-                card.innerText = dict.cats[key];
-                card.onclick = () => {
-                    activeCategoryFilter = key;
-                    renderCategoryTabs();
-                    renderProducts(key);
-                };
-                container.appendChild(card);
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
             });
-        }
-
-        function updateGramQuantity(productId, value) {
-            const p = productsData.find(prod => prod.id === productId);
-            if (!p) return;
-
-            const qty = parseInt(value) || 0;
-
-            if (qty <= 0) {
-                delete cart[productId];
-            } else {
-                cart[productId] = qty;
-            }
-
-            saveCartToStorage();
-            updateCartUI();
-
-            const display = document.getElementById(`gram-display-${productId}`);
-            const input = document.getElementById(`qty-input-${productId}`);
-            const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
             
-            if (display) display.innerText = `${qty}${unitLabel}`;
-            if (input) input.value = qty;
+            // Update welcome text
+            const t = translations[lang];
+            document.getElementById('welcomeTitle').textContent = t.welcome;
+            document.getElementById('welcomeSubtitle').textContent = t.subtitle;
+            document.getElementById('langTitle').textContent = t.language;
+            document.getElementById('currTitle').textContent = t.currency;
+            document.getElementById('enterBtn').textContent = t.enter;
+        }
 
-            document.querySelectorAll(`#gram-quick-${productId} .gram-quick-btn`).forEach(btn => {
-                btn.classList.remove('active');
-                if (parseInt(btn.dataset.qty) === qty) {
-                    btn.classList.add('active');
-                }
+        // Currency selection
+        function selectCurrency(curr) {
+            currentCurrency = curr;
+            
+            document.querySelectorAll('.currency-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.currency === curr);
             });
-
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
         }
 
-        function changeQuantity(productId, delta) {
-            const currentQty = cart[productId] || 0;
-            const newQty = Math.max(0, currentQty + delta);
-            updateGramQuantity(productId, newQty);
+        // Enter shop
+        function enterShop() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('appContainer').classList.add('visible');
+            
+            // Set header currency
+            document.getElementById('headerCurrency').value = currentCurrency;
+            
+            // Update products title
+            document.getElementById('productsTitle').textContent = translations[currentLang].products;
+            
+            // Load products
+            renderProducts();
+            
+            // Notify Telegram
+            tg.HapticFeedback.impactOccurred('medium');
         }
 
-        function renderProducts(filterCategory) {
-            const container = document.getElementById('productsDisplay');
-            if (!container) return;
+        // Change currency from header
+        function changeCurrency(curr) {
+            currentCurrency = curr;
+            renderProducts();
+            updateCart();
+        }
 
-            container.innerHTML = '';
-            const grid = document.createElement('div');
-            grid.className = 'products-grid';
+        // Format price
+        function formatPrice(eurPrice) {
+            const converted = (eurPrice * rates[currentCurrency]).toFixed(2);
+            return `${symbols[currentCurrency]}${converted}`;
+        }
 
-            const sourceArray = filterCategory === 'all'
-                ? productsData
-                : productsData.filter(p => p.category === filterCategory);
-
-            sourceArray.forEach(p => {
-                const qty = cart[p.id] || 0;
-                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-
+        // Render products
+        function renderProducts(category = 'all') {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            const filtered = category === 'all' 
+                ? products 
+                : products.filter(p => p.category === category);
+            
+            filtered.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <img class="product-img" src="${p.img}" alt="${p.name}" onclick="openLightbox(this.src)" loading="lazy">
+                    <img src="${product.image}" class="product-image" alt="${product.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 150%22><rect fill=%22%23333%22 width=%22200%22 height=%22150%22/><text fill=%22%23D4AF37%22 y=%2280%22 x=%22100%22 text-anchor=%22middle%22>${product.name}</text></svg>'">
                     <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-desc">${p.desc}</div>
-                        <div class="gram-selector-fluid">
-                            <div class="gram-display" id="gram-display-${p.id}">${qty}${unitLabel}</div>
-                            <div class="gram-input-container">
-                                <button class="gram-btn-large" onclick="changeQuantity('${p.id}', -1)">−</button>
-                                <input type="number" 
-                                       class="gram-input" 
-                                       id="qty-input-${p.id}"
-                                       value="${qty}"
-                                       min="0"
-                                       onchange="updateGramQuantity('${p.id}', this.value)"
-                                       onfocus="this.select()">
-                                <button class="gram-btn-large" onclick="changeQuantity('${p.id}', 1)">+</button>
-                            </div>
-                            <div class="gram-quick-buttons" id="gram-quick-${p.id}">
-                                ${[1, 3, 5, 10, 20, 50, 100].map(num => `
-                                    <button class="gram-quick-btn ${qty === num ? 'active' : ''}" 
-                                            data-qty="${num}"
-                                            onclick="updateGramQuantity('${p.id}', ${num})">${num}</button>
-                                `).join('')}
-                            </div>
-                        </div>
-                        <div class="price-tag">${getConvertedPriceStr(p.price)}/${unitLabel}</div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">${formatPrice(product.price)}</div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
-            container.appendChild(grid);
         }
 
-        function calculateCartMetrics() {
-            let itemsCount = 0;
-            let baseProductsTotalEur = 0;
-            let totalWeedGrams = 0;
-
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                if (!p) return;
-
-                baseProductsTotalEur += (p.price * cart[id]);
-                itemsCount += cart[id];
-
-                if (p.category === 'flowers' && p.isGramAsset) {
-                    totalWeedGrams += cart[id];
-                }
-            });
-
-            let discountEur = 0;
-            let discountReason = '';
-            
-            if (totalWeedGrams >= 10) {
-                discountEur = totalWeedGrams * 3;
-                discountReason = `${totalWeedGrams}g Weed (-3€/g)`;
-            } else if (baseProductsTotalEur >= 150) {
-                discountEur = baseProductsTotalEur * 0.10;
-                discountReason = '10% Bulk Discount';
-            }
-
-            discountEur = Math.min(discountEur, baseProductsTotalEur);
-
-            let finalProductsTotalEur = baseProductsTotalEur - discountEur;
-            let shippingFeeEur = finalProductsTotalEur > 0 ? (finalProductsTotalEur >= 50 ? 0 : 10) : 0;
-
-            return {
-                itemsCount,
-                baseTotalEur: baseProductsTotalEur,
-                discountEur,
-                discountReason,
-                finalProductsTotalEur,
-                shippingFeeEur,
-                finalTotalEur: finalProductsTotalEur + shippingFeeEur,
-                giftApplied: finalProductsTotalEur >= 50,
-                totalWeedGrams
-            };
+        // Filter category
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts(cat);
         }
 
-        function updateCartUI() {
-            const metrics = calculateCartMetrics();
-            const badge = document.getElementById('cartBadge');
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
             
-            if (metrics.itemsCount > 0) {
-                badge.innerText = metrics.itemsCount;
-                badge.style.display = 'flex';
+            if (existing) {
+                existing.quantity++;
             } else {
-                badge.style.display = 'none';
+                cart.push({ ...product, quantity: 1 });
             }
             
-            renderCartPage();
+            updateCart();
+            tg.HapticFeedback.impactOccurred('light');
         }
 
-        function renderCartPage() {
-            const container = document.getElementById('cartItemsContainer');
-            const formBlock = document.getElementById('checkoutFormBlock');
-            const dict = i18n[currentLang];
-
-            if (!container || !formBlock) return;
-
-            if (Object.keys(cart).length === 0) {
-                container.innerHTML = `<p style="text-align:center; padding:40px; color:var(--text-hint); font-size: 16px;">${dict.empty}</p>`;
-                formBlock.style.display = 'none';
-                return;
-            }
-
-            formBlock.style.display = 'block';
-            let html = '';
-
-            Object.keys(cart).forEach(id => {
-                const p = productsData.find(prod => prod.id === id);
-                if (!p) return;
-
-                const qty = cart[id];
-                const unitLabel = p.unit ? p.unit : (p.isGramAsset ? 'g' : 'pz');
-                
-                html += `
+        // Update cart display
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+            
+            const cartItems = document.getElementById('cartItems');
+            const cartFooter = document.getElementById('cartFooter');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>${translations[currentLang].empty}</p>
+                    </div>
+                `;
+                cartFooter.style.display = 'none';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
                     <div class="cart-item">
-                        <div style="flex: 1;">
-                            <div style="font-weight: 700; margin-bottom: 4px;">${p.name}</div>
-                            <div style="display:inline-flex; align-items:center; gap:8px; background:#222; padding:4px 8px; border-radius:8px;">
-                                <button class="cart-qty-btn" style="color:var(--danger);" onclick="modifyQty('${p.id}', -1)">−</button>
-                                <span style="color:var(--primary-neon); font-weight:bold; min-width: 30px; text-align: center;">${qty}${unitLabel}</span>
-                                <button class="cart-qty-btn" style="color:var(--primary-neon);" onclick="modifyQty('${p.id}', 1)">+</button>
+                        <img src="${item.image}" class="cart-item-image" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${formatPrice(item.price)}</div>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                                <button class="remove-item" onclick="removeFromCart(${item.id})">Remove</button>
                             </div>
                         </div>
-                        <div style="font-weight: bold; color: var(--primary-neon);">${getConvertedPriceStr(p.price * qty)}</div>
-                    </div>`;
-            });
-
-            const metrics = calculateCartMetrics();
-
-            if (metrics.discountEur > 0) {
-                html += `
-                    <div class="discount-row">
-                        <span>🔥 ${dict.discountTxt} (${metrics.discountReason})</span>
-                        <span>-${getConvertedPriceStr(metrics.discountEur)}</span>
-                    </div>`;
-            }
-
-            html += `
-                <div class="shipping-row">
-                    <div>⚙️ <strong>${dict.shippingCostText}</strong></div>
-                    <div class="${metrics.shippingFeeEur === 0 ? 'free' : ''}" style="font-weight: bold;">
-                        ${metrics.shippingFeeEur === 0 ? dict.free : getConvertedPriceStr(metrics.shippingFeeEur)}
                     </div>
-                </div>`;
-
-            if (metrics.giftApplied) {
-                html += `
-                    <div class="gift-row">
-                        <span>🎁 ${dict.giftLabel}</span>
-                        <strong>${dict.free}</strong>
-                    </div>`;
-            }
-
-            if (metrics.finalProductsTotalEur < 30) {
-                html += `<div class="error-message show" style="display: block; margin-top: 15px;">⚠️ ${dict.minOrderErr}</div>`;
-            }
-
-            html += `
-                <div class="total-row">
-                    ${dict.totEff}: <span>${getConvertedPriceStr(metrics.finalTotalEur)}</span>
-                </div>`;
-
-            container.innerHTML = html;
-        }
-
-        function modifyQty(id, change) {
-            changeQuantity(id, change);
-        }
-
-        function setPaymentMethod(method) {
-            currentSelectedPayment = method;
-            document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
-            document.getElementById(`pay-opt-${method}`).classList.add('active');
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
-
-        function switchTab(tabId) {
-            const successMsg = document.getElementById('orderSuccessMsg');
-            const errorMsg = document.getElementById('errorMsg');
-            if (successMsg) successMsg.style.display = 'none';
-            if (errorMsg) errorMsg.classList.remove('show');
-
-            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-
-            document.getElementById(`view-${tabId}`).classList.add('active');
-            document.getElementById(`tab-btn-${tabId}`).classList.add('active');
-
-            if (tabId === 'chat') renderCartPage();
-            else if (tabId === 'menu') renderProducts(activeCategoryFilter);
-            else if (tabId === 'reviews') renderReviews(i18n[currentLang]);
-
-            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
-
-        function checkInlineDelivery() {
-            const cityInput = document.getElementById('inlineGateCity').value.trim();
-            const dict = i18n[currentLang];
-            const statusBox = document.getElementById('inlineDeliveryStatus');
-
-            if (!cityInput) {
-                showToast(dict.gateAlertErr);
-                return;
-            }
-
-            const lowerCity = cityInput.toLowerCase();
-            const genericGibberish = /^[bcdfghjklmnpqrstvwxyz]+$/i.test(lowerCity) || lowerCity.length < 3;
-
-            statusBox.style.display = 'block';
-            if (genericGibberish) {
-                statusBox.innerText = dict.gateStatusErr;
-                statusBox.style.background = 'rgba(255, 59, 48, 0.1)';
-                statusBox.style.border = '1px solid var(--danger)';
-                statusBox.style.color = '#fff';
-            } else {
-                statusBox.innerText = dict.gateStatusOk;
-                statusBox.style.background = 'rgba(255, 183, 0, 0.1)';
-                statusBox.style.border = '1px solid var(--primary-neon)';
-                statusBox.style.color = '#fff';
-                document.getElementById('input-city').value = cityInput.charAt(0).toUpperCase() + lowerCity.slice(1);
+                `).join('');
+                
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                document.getElementById('cartTotal').textContent = formatPrice(total);
+                cartFooter.style.display = 'block';
             }
         }
 
-        document.getElementById('select-time').addEventListener('change', function() {
-            const specInput = document.getElementById('input-time-spec');
-            const dict = i18n[currentLang];
-            const isSpecific = this.value === 'Specific';
-            specInput.style.display = isSpecific ? 'block' : 'none';
-            if (isSpecific) specInput.placeholder = dict.p_spec;
-        });
+        // Update quantity
+        function updateQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // Open cart
+        function openCart() {
+            document.getElementById('cartModal').classList.add('visible');
+        }
+
+        // Close cart
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('visible');
+        }
+
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) return;
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const items = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
+            
+            tg.sendData(JSON.stringify({
+                action: 'checkout',
+                items: cart,
+                total: total,
+                currency: currentCurrency
+            }));
+            
+            tg.close();
+        }
+
+        // Navigation
+        function showSection(section, btn) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            btn.classList.add('active');
+        }
 
         // Initialize
-        loadCartFromStorage();
-        renderProducts('all');
-        updateCartUI();
-        setLanguage('en');
-
-        // Prevent double tap zoom
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Welcome screen is shown by default
+        });
     </script>
 </body>
 </html>
