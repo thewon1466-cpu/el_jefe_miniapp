@@ -724,6 +724,17 @@
             font-weight: 600;
         }
 
+        .feedback-link {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--black);
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
         /* Reviews */
         .reviews-header {
             text-align: center;
@@ -992,7 +1003,13 @@
             <div class="info-section">
                 <h3 id="contactTitle">📞 Contact</h3>
                 <p id="contactText">Need help? Contact us on Telegram for support.</p>
-                <a href="https://t.me/eljefeshop" class="tg-link-btn">Contact on Telegram</a>
+                <a href="https://t.me/eljefeshop" class="tg-link-btn">Contact @eljefeshop</a>
+            </div>
+
+            <div class="info-section">
+                <h3 id="feedbackTitle">⭐ Feedback</h3>
+                <p id="feedbackText">Leave your review and feedback on our dedicated channel.</p>
+                <a href="https://t.me/eljefeshop_feedback" class="feedback-link">Leave Feedback</a>
             </div>
         </div>
 
@@ -1106,6 +1123,8 @@
                 shippingText: "We offer discreet packaging and fast delivery. All orders are tracked and insured.",
                 contactTitle: "📞 Contact",
                 contactText: "Need help? Contact us on Telegram for support.",
+                feedbackTitle: "⭐ Feedback",
+                feedbackText: "Leave your review and feedback on our dedicated channel.",
                 reviewsTitle: "Reviews",
                 reviewsSub: "Real reviews from our customers",
                 addedToCart: "✅ Added to cart!",
@@ -1140,6 +1159,8 @@
                 shippingText: "Offriamo imballaggio discreto e consegna veloce. Tutti gli ordini sono tracciati e assicurati.",
                 contactTitle: "📞 Contatti",
                 contactText: "Serve aiuto? Contattaci su Telegram per supporto.",
+                feedbackTitle: "⭐ Feedback",
+                feedbackText: "Lascia la tua recensione sul nostro canale dedicato.",
                 reviewsTitle: "Recensioni",
                 reviewsSub: "Recensioni reali dei nostri clienti",
                 addedToCart: "✅ Aggiunto al carrello!",
@@ -1174,6 +1195,8 @@
                 shippingText: "Nous offrons un emballage discret et une livraison rapide. Toutes les commandes sont suivies et assurées.",
                 contactTitle: "📞 Contact",
                 contactText: "Besoin d'aide? Contactez-nous sur Telegram.",
+                feedbackTitle: "⭐ Avis",
+                feedbackText: "Laissez votre avis sur notre canal dédié.",
                 reviewsTitle: "Avis",
                 reviewsSub: "Avis réels de nos clients",
                 addedToCart: "✅ Ajouté au panier!",
@@ -1208,6 +1231,8 @@
                 shippingText: "Wir bieten diskrete Verpackung und schnelle Lieferung. Alle Bestellungen sind verfolgbar und versichert.",
                 contactTitle: "📞 Kontakt",
                 contactText: "Hilfe nötig? Kontaktieren Sie uns auf Telegram.",
+                feedbackTitle: "⭐ Feedback",
+                feedbackText: "Hinterlassen Sie Ihre Bewertung auf unserem Kanal.",
                 reviewsTitle: "Bewertungen",
                 reviewsSub: "Echte Bewertungen unserer Kunden",
                 addedToCart: "✅ Hinzugefügt!",
@@ -1242,12 +1267,50 @@
                 shippingText: "Предлагаем дискретную упаковку и быструю доставку. Все заказы отслеживаются и застрахованы.",
                 contactTitle: "📞 Контакты",
                 contactText: "Нужна помощь? Свяжитесь с нами в Telegram.",
+                feedbackTitle: "⭐ Отзывы",
+                feedbackText: "Оставьте свой отзыв на нашем канале.",
                 reviewsTitle: "Отзывы",
                 reviewsSub: "Реальные отзывы наших клиентов",
                 addedToCart: "✅ Добавлено!",
                 minOrderError: "⚠️ Минимальный заказ 30€",
                 fillFieldsError: "⚠️ Заполните все поля доставки"
             }
+        };
+
+        // Product descriptions translations
+        const productDescTranslations = {
+            1: { EN: "Premium THC vape cartridge", IT: "Cartuccia vape THC premium", FR: "Cartouche vape THC premium", DE: "Premium THC Vape Kartusche", RU: "Премиум ТГК картридж" },
+            2: { EN: "5 pack infused prerolls", IT: "5 preroll infusi", FR: "5 prerolls infusés", DE: "5 infused Prerolls", RU: "5 инфузных джойнтов" },
+            3: { EN: "Sativa dominant vape", IT: "Vape sativa dominante", FR: "Vape sativa dominant", DE: "Sativa dominant Vape", RU: "Сатива доминант вейп" },
+            4: { EN: "Top shelf sativa", IT: "Sativa top quality", FR: "Sativa haut de gamme", DE: "Top Shelf Sativa", RU: "Топ сатива" },
+            5: { EN: "Sweet indica hybrid", IT: "Ibrido indica dolce", FR: "Hybride indica sucré", DE: "Süßer Indica Hybrid", RU: "Сладкий индика гибрид" },
+            6: { EN: "Classic Cookies strain", IT: "Strain Cookies classico", FR: "Strain Cookies classique", DE: "Klassische Cookies Sorte", RU: "Классический штамм Cookies" },
+            7: { EN: "Premium quality crystal", IT: "Cristallo qualità premium", FR: "Cristal qualité premium", DE: "Premium Qualität Kristall", RU: "Премиум кристалл" },
+            8: { EN: "Cold extracted hash", IT: "Hash estratto a freddo", FR: "Hash extrait à froid", DE: "Kalt extrahiertes Hash", RU: "Холодный гашиш" },
+            9: { EN: "Sweet dessert strain", IT: "Strain dolce da dessert", FR: "Strain dessert sucré", DE: "Süße Dessert Sorte", RU: "Сладкий десертный штамм" },
+            10: { EN: "Psychedelic mushrooms", IT: "Funghi psichedelici", FR: "Champignons psychédéliques", DE: "Psychedelische Pilze", RU: "Психоделические грибы" },
+            11: { EN: "Energetic sativa", IT: "Sativa energizzante", FR: "Sativa énergisante", DE: "Energetische Sativa", RU: "Энергичная сатива" },
+            12: { EN: "Fruity hybrid", IT: "Ibrido fruttato", FR: "Hybride fruité", DE: "Fruchtiger Hybrid", RU: "Фруктовый гибрид" },
+            13: { EN: "Pure LSD liquid", IT: "LSD liquido puro", FR: "LSD liquide pur", DE: "Reines LSD Liquid", RU: "Чистый жидкий ЛСД" },
+            14: { EN: "Pure MDMA crystals", IT: "Cristalli MDMA puri", FR: "Cristaux MDMA purs", DE: "Reine MDMA Kristalle", RU: "Чистые кристаллы МДМА" },
+            15: { EN: "Covered in kief", IT: "Ricoperto di kief", FR: "Couvert de kief", DE: "Mit Kief bedeckt", RU: "Покрыт кифом" },
+            16: { EN: "Traditional Moroccan", IT: "Marocchino tradizionale", FR: "Marocain traditionnel", DE: "Traditionelles Marokko", RU: "Традиционный марокканский" },
+            17: { EN: "Classic indica", IT: "Indica classica", FR: "Indica classique", DE: "Klassische Indica", RU: "Классическая индика" },
+            18: { EN: "Top quality hash", IT: "Hash top quality", FR: "Hash haute qualité", DE: "Top Qualität Hash", RU: "Топ качество гашиш" },
+            19: { EN: "Bulk pricing available", IT: "Prezzi all'ingrosso", FR: "Prix en gros disponibles", DE: "Großhandelspreise verfügbar", RU: "Оптовые цены" },
+            20: { EN: "Fishscale quality", IT: "Qualità fishscale", FR: "Qualité fishscale", DE: "Fishscale Qualität", RU: "Качество fishscale" },
+            21: { EN: "Magic mushrooms", IT: "Funghi magici", FR: "Champignons magiques", DE: "Magic Mushrooms", RU: "Волшебные грибы" },
+            22: { EN: "Purple indica", IT: "Indica viola", FR: "Indica violet", DE: "Lila Indica", RU: "Фиолетовая индика" },
+            23: { EN: "Colorful hybrid", IT: "Ibrido colorato", FR: "Hybride coloré", DE: "Bunter Hybrid", RU: "Разноцветный гибрид" },
+            24: { EN: "Premium disposable", IT: "Vape usa e getta premium", FR: "Jetable premium", DE: "Premium Einweg", RU: "Премиум одноразовый" },
+            25: { EN: "Sweet candy strain", IT: "Strain caramella dolce", FR: "Strain bonbon sucré", DE: "Süße Candy Sorte", RU: "Сладкий конфетный штамм" },
+            26: { EN: "Icy hybrid", IT: "Ibrido ghiacciato", FR: "Hybride glacé", DE: "Eisiger Hybrid", RU: "Ледяной гибрид" },
+            27: { EN: "Classic sativa", IT: "Sativa classica", FR: "Sativa classique", DE: "Klassische Sativa", RU: "Классическая сатива" },
+            28: { EN: "7 pack classic joints", IT: "7 joints classici", FR: "7 joints classiques", DE: "7 klassische Joints", RU: "7 классических джойнтов" },
+            29: { EN: "Gummies 40mg THC", IT: "Gummies 40mg THC", FR: "Gummies 40mg THC", DE: "Gummies 40mg THC", RU: "Жевательные конфеты 40мг ТГК" },
+            30: { EN: "Gummies 60mg THC", IT: "Gummies 60mg THC", FR: "Gummies 60mg THC", DE: "Gummies 60mg THC", RU: "Жевательные конфеты 60мг ТГК" },
+            31: { EN: "Balanced hybrid", IT: "Ibrido bilanciato", FR: "Hybride équilibré", DE: "Ausgewogener Hybrid", RU: "Сбалансированный гибрид" },
+            32: { EN: "Fruit flavored vape", IT: "Vape al frutto", FR: "Vape fruité", DE: "Fruchtiger Vape", RU: "Фруктовый вейп" }
         };
 
         // Products with UPDATED PRICES
@@ -1373,6 +1436,8 @@
             document.getElementById('shippingText').textContent = t.shippingText;
             document.getElementById('contactTitle').textContent = t.contactTitle;
             document.getElementById('contactText').textContent = t.contactText;
+            document.getElementById('feedbackTitle').textContent = t.feedbackTitle;
+            document.getElementById('feedbackText').textContent = t.feedbackText;
             
             // Reviews
             document.getElementById('reviewsTitle').textContent = t.reviewsTitle;
@@ -1389,6 +1454,11 @@
         function formatPrice(price) {
             const converted = (price * rates[currentCurrency]).toFixed(2);
             return `${symbols[currentCurrency]}${converted}`;
+        }
+
+        function getProductDescription(productId) {
+            const desc = productDescTranslations[productId];
+            return desc ? desc[currentLang] : products.find(p => p.id === productId)?.desc || '';
         }
 
         function renderProducts(category = 'all') {
@@ -1413,6 +1483,9 @@
                 
                 if (!gridQuantities[product.id]) gridQuantities[product.id] = 1;
                 
+                // Get translated description
+                const translatedDesc = getProductDescription(product.id);
+                
                 let footerHtml = '';
                 if (product.category === 'edibles') {
                     footerHtml = `
@@ -1436,7 +1509,7 @@
                     <img src="${product.image}" class="product-image" alt="${product.name}" onclick="openLightbox('${product.image}', event)">
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
-                        <div class="product-desc">${product.desc}</div>
+                        <div class="product-desc">${translatedDesc}</div>
                         <div class="product-price">${formatPrice(product.price)}</div>
                         ${footerHtml}
                     </div>
