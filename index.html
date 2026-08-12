@@ -964,6 +964,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: zoom-in;
         }
 
         .product-modal-info {
@@ -1341,7 +1342,7 @@
             <span class="product-modal-close" onclick="closeProductModal()">×</span>
             <div class="product-modal-body">
                 <div class="product-modal-image-container">
-                    <img id="modalProductImage" src="" alt="Product">
+                    <img id="modalProductImage" src="" alt="Product" onclick="openLightboxFromModal()">
                 </div>
                 <div class="product-modal-info">
                     <h2 id="modalProductName" class="product-modal-title"></h2>
@@ -1891,6 +1892,12 @@
             closeProductModal();
         }
 
+        function openLightboxFromModal() {
+            if (!currentModalProduct) return;
+            closeProductModal();
+            setTimeout(() => openLightbox(currentModalProduct.image), 300);
+        }
+
         function renderProducts(category = 'all') {
             currentCategory = category;
             const t = translations[currentLang] || translations['EN'];
@@ -1940,7 +1947,7 @@
                 }
 
                 card.innerHTML = `
-                    <img src="${product.image}" class="product-image" alt="${product.name}" loading="lazy">
+                    <img src="${product.image}" class="product-image" alt="${product.name}" loading="lazy" onclick="event.stopPropagation(); openLightbox('${product.image}', event)">
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
                         <div class="product-desc">${translatedDesc}</div>
@@ -2093,7 +2100,17 @@
                 return;
             }
 
+            // Cattura i dati del cliente direttamente da Telegram
+            let userInfo = "Sconosciuto (App aperta fuori da Telegram)";
+            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+                const user = tg.initDataUnsafe.user;
+                const username = user.username ? `@${user.username}` : "Nessun Username";
+                userInfo = `${user.first_name || ''} (${username}) [ID: ${user.id}]`;
+            }
+
+            // Costruisce il testo del messaggio che arriverà nel gruppo
             let orderText = `🛒 *NEW ORDER*\n`;
+            orderText += `👤 *CLIENTE:* ${userInfo}\n`;
             orderText += `------------------------\n`;
             cart.forEach(item => {
                 orderText += `${item.quantity}x ${item.name} (${formatPrice(item.price * item.quantity)})\n`;
@@ -2106,14 +2123,55 @@
             orderText += `ZIP: ${zip}\n\n`;
             orderText += `💳 *PAYMENT:* Crypto\n`;
 
-            const encodedMessage = encodeURIComponent(orderText);
-            const tgLink = `https://t.me/eljefeshop?text=${encodedMessage}`;
+            // CONFIGURAZIONE BOT E GRUPPO
+            const botToken = "8657521478:AAEtwCx-Rb8Sdc96oJG_iOWY0lXLdNsjXMs";
+            const chatId = "-5339862463";
             
-            if (tg.openTelegramLink) {
-                tg.openTelegramLink(tgLink);
-            } else {
-                window.open(tgLink, '_blank');
-            }
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            // Disabilita il bottone mentre carica
+            const btnCheckout = document.getElementById('btnCheckout');
+            const originalBtnText = btnCheckout.textContent;
+            btnCheckout.textContent = "SENDING...";
+            btnCheckout.disabled = true;
+
+            // Invia il messaggio in background tramite le API di Telegram
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: orderText,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Riabilita il bottone
+                btnCheckout.textContent = originalBtnText;
+                btnCheckout.disabled = false;
+                
+                if (data.ok) {
+                    showToast("✅ Order sent successfully!");
+                    cart = [];
+                    document.getElementById('inputCity').value = '';
+                    document.getElementById('inputAddress').value = '';
+                    document.getElementById('inputZip').value = '';
+                    forceCartFullRender();
+                    showView('menu', document.querySelectorAll('.nav-tab')[0]);
+                } else {
+                    showToast("❌ Error sending order.");
+                    console.error("Telegram API Error:", data);
+                }
+            })
+            .catch(error => {
+                btnCheckout.textContent = originalBtnText;
+                btnCheckout.disabled = false;
+                showToast("❌ Connection error.");
+                console.error("Fetch Error:", error);
+            });
         }
 
         function renderReviews() {
