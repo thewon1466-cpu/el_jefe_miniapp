@@ -55,7 +55,6 @@
             pointer-events: none;
         }
 
-        /* NUOVO STILE PER L'AVVISO CASH */
         .welcome-warning {
             background: rgba(255, 68, 68, 0.08);
             border: 1px solid rgba(255, 68, 68, 0.4);
@@ -352,6 +351,7 @@
             height: 150px;
             object-fit: cover;
             background: var(--medium-gray);
+            cursor: pointer;
         }
 
         .product-info {
@@ -735,7 +735,7 @@
             font-size: 14px;
         }
 
-        .tg-link-btn, .feedback-link {
+        .tg-link-btn {
             display: inline-block;
             padding: 15px 25px;
             border-radius: 25px;
@@ -744,10 +744,43 @@
             font-weight: 600;
             text-align: center;
             width: 100%;
+            background: #0088cc; 
+            color: white; 
+        }
+
+        /* NO CASH SECTION - Nuovo Design */
+        .no-cash-box {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
         
-        .tg-link-btn { background: #0088cc; color: white; }
-        .feedback-link { background: var(--gold); color: var(--black); }
+        .no-cash-box h3 {
+            color: var(--danger);
+            text-align: center;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .no-cash-box p {
+            color: #ffcccc;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
+        .no-cash-box strong {
+            display: block;
+            text-align: center;
+            color: var(--danger);
+            font-size: 16px;
+            font-weight: 900;
+        }
 
         /* Reviews */
         .reviews-header {
@@ -762,6 +795,7 @@
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 15px;
+            border-left: 4px solid var(--gold);
         }
 
         .review-header {
@@ -770,9 +804,9 @@
             margin-bottom: 10px;
         }
 
-        .reviewer-name { font-weight: 600; color: var(--gold); }
-        .review-rating { color: var(--gold); }
-        .review-text { color: var(--light-gray); font-size: 14px; line-height: 1.5; }
+        .reviewer-name { font-weight: 600; color: var(--white); }
+        .review-rating { color: var(--gold); letter-spacing: 2px;}
+        .review-text { color: var(--light-gray); font-size: 14px; line-height: 1.5; font-style: italic; }
 
         /* Floating Contact */
         .floating-contact {
@@ -810,30 +844,102 @@
 
         .toast-notification.show { transform: translateX(-50%) translateY(0); }
 
-        /* Lightbox */
-        .lightbox-modal {
+        /* NUOVI MODAL (Dettaglio Prodotto & Checkout Alert) */
+        .custom-modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 10000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
-        .lightbox-modal.visible { display: flex; }
-        .lightbox-content { max-width: 90%; max-height: 80vh; border-radius: 10px; }
-        .lightbox-close {
-            position: absolute; top: 20px; right: 30px;
-            color: white; font-size: 40px; cursor: pointer; padding: 10px;
+        .custom-modal-overlay.visible { display: flex; animation: fadeIn 0.3s ease forwards; }
+
+        .custom-modal-content { 
+            background: var(--dark-gray); 
+            border: 1px solid var(--medium-gray);
+            border-radius: 20px; 
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
+
+        .close-modal {
+            position: absolute; 
+            top: 15px; right: 15px;
+            color: white; 
+            background: rgba(0,0,0,0.5);
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; cursor: pointer; z-index: 10;
+        }
+
+        /* Product Modal Specifics */
+        .pm-img-container {
+            width: 100%; height: 250px; background: var(--black);
+        }
+        
+        .pm-img-container img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .pm-details {
+            padding: 20px;
+        }
+
+        .pm-title {
+            color: var(--white); font-size: 22px; font-weight: 700; margin-bottom: 5px;
+        }
+
+        .pm-short {
+            color: var(--gold); font-size: 14px; font-weight: 600; margin-bottom: 15px;
+        }
+
+        .pm-long {
+            color: var(--light-gray); font-size: 14px; line-height: 1.6; margin-bottom: 20px; text-align: justify;
+        }
+
+        .pm-bottom-bar {
+            display: flex; align-items: center; justify-content: space-between; gap: 15px;
+            margin-top: 10px;
+        }
+
+        .pm-price {
+            font-size: 24px; font-weight: 800; color: var(--gold);
+        }
+
+        .pm-controls {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--black); padding: 5px; border-radius: 12px;
+        }
+        
+        .pm-controls button {
+            background: var(--medium-gray); border: none; color: white;
+            width: 40px; height: 40px; border-radius: 8px; font-size: 20px; font-weight: bold; cursor: pointer;
+        }
+
+        .pm-controls span {
+            min-width: 20px; text-align: center; font-weight: 700; font-size: 18px;
+        }
+
+        .pm-add {
+            width: 100%; background: var(--gold); color: var(--black);
+            border: none; padding: 18px; border-radius: 12px; font-weight: 800; font-size: 16px;
+            margin-top: 20px; cursor: pointer; text-transform: uppercase;
+        }
+
     </style>
 </head>
 <body>
 
     <!-- WELCOME SCREEN -->
     <div class="welcome-screen" id="welcomeScreen" aria-labelledby="welcomeTitle">
-        <!-- AGGIORNATO TESTO E STILE WARNING -->
         <div class="welcome-warning">NO CASH ACCEPTED, SAFETY FOR OUR RIDERS FIRST.</div>
         
         <div class="welcome-logo">
@@ -844,23 +950,23 @@
         
         <div class="welcome-section">
             <div class="welcome-section-title" id="langTitle">Language</div>
-            <div class="language-selector" role="group" aria-label="Language selection">
-                <button class="lang-btn active" data-lang="EN" onclick="selectLanguage('EN')" aria-label="English">EN</button>
-                <button class="lang-btn" data-lang="IT" onclick="selectLanguage('IT')" aria-label="Italian">IT</button>
-                <button class="lang-btn" data-lang="FR" onclick="selectLanguage('FR')" aria-label="French">FR</button>
-                <button class="lang-btn" data-lang="DE" onclick="selectLanguage('DE')" aria-label="German">DE</button>
-                <button class="lang-btn" data-lang="RU" onclick="selectLanguage('RU')" aria-label="Russian">RU</button>
+            <div class="language-selector" role="group">
+                <button class="lang-btn active" data-lang="EN" onclick="selectLanguage('EN')">EN</button>
+                <button class="lang-btn" data-lang="IT" onclick="selectLanguage('IT')">IT</button>
+                <button class="lang-btn" data-lang="FR" onclick="selectLanguage('FR')">FR</button>
+                <button class="lang-btn" data-lang="DE" onclick="selectLanguage('DE')">DE</button>
+                <button class="lang-btn" data-lang="RU" onclick="selectLanguage('RU')">RU</button>
             </div>
         </div>
 
         <div class="welcome-section">
             <div class="welcome-section-title" id="currTitle">Currency</div>
-            <div class="currency-selector" role="group" aria-label="Currency selection">
-                <button class="currency-btn active" data-currency="EUR" onclick="selectCurrency('EUR')" aria-label="EUR">EUR</button>
-                <button class="currency-btn" data-currency="USD" onclick="selectCurrency('USD')" aria-label="USD">USD</button>
-                <button class="currency-btn" data-currency="GBP" onclick="selectCurrency('GBP')" aria-label="GBP">GBP</button>
-                <button class="currency-btn" data-currency="JPY" onclick="selectCurrency('JPY')" aria-label="JPY">JPY</button>
-                <button class="currency-btn" data-currency="RUB" onclick="selectCurrency('RUB')" aria-label="RUB">RUB</button>
+            <div class="currency-selector" role="group">
+                <button class="currency-btn active" data-currency="EUR" onclick="selectCurrency('EUR')">EUR</button>
+                <button class="currency-btn" data-currency="USD" onclick="selectCurrency('USD')">USD</button>
+                <button class="currency-btn" data-currency="GBP" onclick="selectCurrency('GBP')">GBP</button>
+                <button class="currency-btn" data-currency="JPY" onclick="selectCurrency('JPY')">JPY</button>
+                <button class="currency-btn" data-currency="RUB" onclick="selectCurrency('RUB')">RUB</button>
             </div>
         </div>
 
@@ -872,7 +978,7 @@
         
         <!-- Top Controls -->
         <div class="top-controls-bar">
-            <select class="currency-select" id="headerCurrency" onchange="changeCurrency(this.value)" aria-label="Select currency">
+            <select class="currency-select" id="headerCurrency" onchange="changeCurrency(this.value)">
                 <option value="EUR">EUR (€)</option>
                 <option value="USD">USD ($)</option>
                 <option value="GBP">GBP (£)</option>
@@ -880,7 +986,7 @@
                 <option value="RUB">RUB (₽)</option>
             </select>
             
-            <div class="lang-selector" role="group" aria-label="Quick language selector">
+            <div class="lang-selector" role="group">
                 <button class="lang-btn active" data-lang="EN" onclick="changeLang('EN')">EN</button>
                 <button class="lang-btn" data-lang="IT" onclick="changeLang('IT')">IT</button>
                 <button class="lang-btn" data-lang="FR" onclick="changeLang('FR')">FR</button>
@@ -894,7 +1000,7 @@
             <div class="main-logo-container">
                 <img src="https://files.catbox.moe/w9w6hz.jpg" alt="El Jefe Logo" loading="lazy">
             </div>
-            <h1 aria-label="Welcome to El Jefe Premium Shop">EL JEFE</h1>
+            <h1>EL JEFE</h1>
             <p id="headerSub">Premium Quality Direct • Delivery in 1 hour!</p>
         </div>
 
@@ -913,33 +1019,33 @@
         </div>
 
         <!-- MENU VIEW -->
-        <div id="view-menu" class="app-view active" role="region" aria-label="Menu View">
+        <div id="view-menu" class="app-view active">
             <div class="categories-wrapper">
                 <div class="categories-scroller">
-                    <div class="categories-list" id="catList" role="tablist" aria-label="Product Categories">
-                        <button class="category-btn active" role="tab" onclick="filterProducts('all', this)">All</button>
-                        <button class="category-btn" role="tab" onclick="filterProducts('special', this)">💎 Special</button>
-                        <button class="category-btn" role="tab" onclick="filterProducts('weed', this)">🌿 Weed</button>
-                        <button class="category-btn" role="tab" onclick="filterProducts('vape', this)">💨 Vapes</button>
-                        <button class="category-btn" role="tab" onclick="filterProducts('hash', this)">🟫 Hash</button>
-                        <button class="category-btn" role="tab" onclick="filterProducts('mushrooms', this)">🍄 Mushrooms</button>
-                        <button class="category-btn" role="tab" onclick="filterProducts('prerolls', this)">🚬 Prerolls</button>
-                        <button class="category-btn" role="tab" onclick="filterProducts('edibles', this)">🍬 Edibles</button>
+                    <div class="categories-list" id="catList">
+                        <button class="category-btn active" onclick="filterProducts('all', this)">All</button>
+                        <button class="category-btn" onclick="filterProducts('special', this)">💎 Special</button>
+                        <button class="category-btn" onclick="filterProducts('weed', this)">🌿 Weed</button>
+                        <button class="category-btn" onclick="filterProducts('vape', this)">💨 Vapes</button>
+                        <button class="category-btn" onclick="filterProducts('hash', this)">🟫 Hash</button>
+                        <button class="category-btn" onclick="filterProducts('mushrooms', this)">🍄 Mushrooms</button>
+                        <button class="category-btn" onclick="filterProducts('prerolls', this)">🚬 Prerolls</button>
+                        <button class="category-btn" onclick="filterProducts('edibles', this)">🍬 Edibles</button>
                     </div>
                 </div>
             </div>
             
             <div class="products-section">
-                <div class="products-grid" id="productsGrid" role="list"></div>
+                <div class="products-grid" id="productsGrid"></div>
             </div>
         </div>
 
         <!-- CART VIEW -->
-        <div id="view-cart" class="app-view" role="region" aria-label="Cart View">
+        <div id="view-cart" class="app-view">
             <div class="view-content">
                 <h2 style="margin-bottom: 20px; font-size: 24px;" id="cartTitle">🛒 Your Cart</h2>
                 
-                <div id="cartItemsContainer" aria-live="polite">
+                <div id="cartItemsContainer">
                     <div class="empty-cart">
                         <div class="empty-cart-icon">🛒</div>
                         <p id="emptyCartText">Your cart is empty</p>
@@ -950,23 +1056,23 @@
                     <h3 style="margin-bottom: 20px; color: var(--gold);" id="deliveryDetails">📍 Delivery Details</h3>
                     
                     <div class="form-group">
-                        <label id="lblCity" for="inputCity">CITY</label>
-                        <input type="text" id="inputCity" placeholder="Enter your city" aria-required="true">
+                        <label id="lblCity">CITY</label>
+                        <input type="text" id="inputCity" placeholder="Enter your city">
                     </div>
                     
                     <div class="form-group">
-                        <label id="lblAddress" for="inputAddress">ADDRESS</label>
-                        <input type="text" id="inputAddress" placeholder="Enter your address" aria-required="true">
+                        <label id="lblAddress">ADDRESS</label>
+                        <input type="text" id="inputAddress" placeholder="Enter your address">
                     </div>
                     
                     <div class="form-group">
-                        <label id="lblZip" for="inputZip">ZIP CODE</label>
-                        <input type="text" id="inputZip" placeholder="Enter ZIP code" aria-required="true">
+                        <label id="lblZip">ZIP CODE</label>
+                        <input type="text" id="inputZip" placeholder="Enter ZIP code">
                     </div>
 
                     <h3 style="margin-top: 25px; margin-bottom: 15px; color: var(--gold);" id="paymentTitle">💳 Payment Method</h3>
                     
-                    <div class="pay-option active" role="button" tabindex="0">
+                    <div class="pay-option active">
                         <div class="pay-option-content">
                             <div class="pay-logo badge-crypto">₿</div>
                             <div>
@@ -984,15 +1090,23 @@
                     <span>TOTAL:</span>
                     <span id="cartTotalValue">€0.00</span>
                 </div>
-                <button class="cart-summary-floating" id="btnCheckout" onclick="checkout()">
+                <button class="cart-summary-floating" id="btnCheckout" onclick="processCheckout()">
                     CHECKOUT
                 </button>
             </div>
         </div>
 
         <!-- INFO VIEW -->
-        <div id="view-info" class="app-view" role="region">
+        <div id="view-info" class="app-view">
             <div class="view-content">
+                
+                <!-- NUOVA SEZIONE NO CASH -->
+                <div class="no-cash-box">
+                    <h3 id="infoNoCashTitle">NO CASH ACCEPTED</h3>
+                    <p id="infoNoCashText">We work exclusively with anonymous riders prepaid via cryptocurrency. We don't know their identities, and they don't know ours. Upon arrival, the rider will contact you directly to guide you to the hidden package. This ensures maximum safety for everyone, with no direct hand-to-hand exchange of cash or products.</p>
+                    <strong id="infoNoCashSub">Please do not insist on cash payments. We make no exceptions.</strong>
+                </div>
+
                 <div class="info-section">
                     <h3 id="shippingTitle">🚚 Shipping</h3>
                     <p id="shippingText">We offer discreet packaging and fast delivery. All orders are tracked and insured.</p>
@@ -1003,29 +1117,23 @@
                     <p id="contactText">Need help? Contact us on Telegram for support.</p>
                     <a href="https://t.me/eljefeshop" class="tg-link-btn">Contact @eljefeshop</a>
                 </div>
-
-                <!-- SEZIONE FEEDBACK -->
-                <div class="info-section">
-                    <h3 id="feedbackTitle">⭐ Feedback</h3>
-                    <p id="feedbackText">Leave your review and feedback on our dedicated channel.</p>
-                    <a href="https://t.me/eljefeshop_feedback" class="feedback-link">Leave Feedback</a>
-                </div>
             </div>
         </div>
 
-        <!-- REVIEWS VIEW -->
-        <div id="view-reviews" class="app-view" role="region">
+        <!-- REVIEWS VIEW (FEEDBACK) -->
+        <div id="view-reviews" class="app-view">
             <div class="view-content">
                 <div class="reviews-header">
                     <h2 id="reviewsTitle">Reviews</h2>
                     <p id="reviewsSub">Real reviews from our customers</p>
                 </div>
-                <div id="reviewsContainer" role="list"></div>
+                <!-- Qui vengono inserite le 4 recensioni a 5 stelle dinamicamente -->
+                <div id="reviewsContainer"></div>
             </div>
         </div>
 
         <!-- Bottom Nav -->
-        <nav class="bottom-nav" role="navigation">
+        <nav class="bottom-nav">
             <button class="nav-tab active" onclick="showView('menu', this)">
                 <span class="icon">🌿</span>
                 <span id="navMenu">Menu</span>
@@ -1056,14 +1164,46 @@
         </button>
     </div>
 
-    <!-- Lightbox -->
-    <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()" role="dialog" aria-modal="true">
-        <span class="lightbox-close" role="button">×</span>
-        <img class="lightbox-content" id="lightbox-img" src="" alt="Zoom" loading="lazy">
+    <!-- MODAL DETTAGLIO PRODOTTO -->
+    <div class="custom-modal-overlay" id="productModal" onclick="closeProductModal()">
+        <div class="custom-modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeProductModal()">×</span>
+            <div class="pm-img-container">
+                <img id="pm-img" src="" alt="Product">
+            </div>
+            <div class="pm-details">
+                <h2 class="pm-title" id="pm-title">Nome</h2>
+                <div class="pm-short" id="pm-short">Short desc</div>
+                <div class="pm-long" id="pm-long">Long desc...</div>
+                
+                <div class="pm-bottom-bar">
+                    <div class="pm-price" id="pm-price">€0.00</div>
+                    <div class="pm-controls">
+                        <button onclick="changeModalQty(-1)">-</button>
+                        <span id="pm-qty">1</span>
+                        <button onclick="changeModalQty(1)">+</button>
+                    </div>
+                </div>
+                <button class="pm-add" id="pm-add-btn" onclick="addModalToCart()">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AVVISO CHECKOUT -->
+    <div class="custom-modal-overlay" id="checkoutAlertModal">
+        <div class="custom-modal-content" style="text-align: center; padding: 35px 20px;">
+            <h2 id="coAlertTitle" style="color: var(--success); margin-bottom: 15px; font-size: 24px;">Order Ready! 📋</h2>
+            <p id="coAlertText" style="margin-bottom: 30px; font-size: 16px; line-height: 1.5; color: var(--light-gray);">
+                Order details copied! Send the message in the chat that is about to open to complete your order.
+            </p>
+            <button class="cart-summary-floating" id="coAlertBtn" onclick="finalizeCheckout()">
+                GO TO CHAT
+            </button>
+        </div>
     </div>
 
     <!-- Toast -->
-    <div class="toast-notification" id="toast" role="alert">✅ Added to cart!</div>
+    <div class="toast-notification" id="toast">✅ Added to cart!</div>
 
     <script>
         // Telegram WebApp
@@ -1077,12 +1217,17 @@
         let cart = [];
         let currentCategory = 'all';
         let gridQuantities = {};
+        
+        // Modal State
+        let currentModalProductId = null;
+        let currentModalQty = 1;
+        let pendingCheckoutLink = "";
 
         // Exchange rates
         const rates = { EUR: 1, USD: 1.08, GBP: 0.85, JPY: 162, RUB: 92 };
         const symbols = { EUR: '€', USD: '$', GBP: '£', JPY: '¥', RUB: '₽' };
 
-        // Complete translations
+        // TRADUZIONI COMPLETE (Inclusi i nuovi testi per Info, Modal Checkout e Descrizioni Lunghe)
         const translations = {
             EN: {
                 welcome: "Welcome to El Jefe", subtitle: "Please select your Language and Currency", language: "Language", currency: "Currency", enter: "ENTER SHOP", headerSub: "Premium Quality Direct • Delivery in 1 hour!", promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!", giftDesc: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
@@ -1091,8 +1236,37 @@
                 navMenu: "Menu", navCart: "Cart", navInfo: "Info", navReviews: "Reviews", contact: "Contact",
                 shippingTitle: "🚚 Shipping", shippingText: "We offer discreet packaging and fast delivery. All orders are tracked and insured.",
                 contactTitle: "📞 Contact", contactText: "Need help? Contact us on Telegram for support.",
-                feedbackTitle: "⭐ Feedback", feedbackText: "Leave your review and feedback on our dedicated channel.",
-                reviewsTitle: "Reviews", reviewsSub: "Real reviews from our customers", addedToCart: "✅ Added to cart!", minOrderError: "⚠️ Minimum order is 30€", fillFieldsError: "⚠️ Please fill in all delivery fields"
+                addedToCart: "✅ Added to cart!", minOrderError: "⚠️ Minimum order is 30€", fillFieldsError: "⚠️ Please fill in all delivery fields",
+                
+                // Nuovi Testi Info NO CASH
+                noCashTitle: "NO CASH ACCEPTED",
+                noCashText: "We work exclusively with anonymous riders prepaid via cryptocurrency. We don't know their identities, and they don't know ours. Upon arrival, the rider will contact you directly to guide you to the hidden package. This ensures maximum safety for everyone, with no direct hand-to-hand exchange of cash or products.",
+                noCashSub: "Please do not insist on cash payments. We make no exceptions.",
+                
+                // Testi Checkout Modal
+                coAlertTitle: "Order Ready! 📋",
+                coAlertText: "Your order details have been prepared! Send the message in the chat that is about to open to confirm and complete your order.",
+                coAlertBtn: "GO TO CHAT",
+                
+                // Reviews Feedback 5 stelle
+                reviewsTitle: "Customer Reviews", reviewsSub: "Real feedback from our community",
+                reviews: [
+                    { name: "Marco D.", rating: "⭐⭐⭐⭐⭐", text: "All perfect, super discreet packaging. Highly recommended!" },
+                    { name: "John S.", rating: "⭐⭐⭐⭐⭐", text: "Punctual rider and excellent product quality." },
+                    { name: "Pierre L.", rating: "⭐⭐⭐⭐⭐", text: "First time ordering, impeccable and very safe service." },
+                    { name: "Alex K.", rating: "⭐⭐⭐⭐⭐", text: "Great communication and invisible drop. You are the best." }
+                ],
+                
+                // Descrizioni lunghe dinamiche per Modal
+                longDesc: {
+                    weed: "Premium quality indoor-grown flower. Carefully cured to preserve terpenes and maximum potency. Delivers a smooth smoke and long-lasting effects. Perfect for both recreational and medicinal use.",
+                    vape: "High-potency distillate vape cartridge. Lab-tested for purity, containing no harmful additives or fillers. Provides discreet, fast-acting relief and rich flavor profiles.",
+                    hash: "Traditional crafted hashish, pressed from premium kief. Offers a rich, spicy aroma and a deeply relaxing, full-body experience. Melts perfectly.",
+                    mushrooms: "Carefully cultivated and dried magic mushrooms. Known for profound, mind-expanding experiences. Start with a low dose if you are a beginner.",
+                    prerolls: "Expertly rolled using premium indoor flower, never trim. Convenient and ready to smoke, offering a consistent and even burn every single time.",
+                    edibles: "Precisely dosed and incredibly tasty. Our edibles offer a smoke-free alternative with long-lasting, full-body effects. Please allow up to 2 hours for full onset.",
+                    special: "Exclusive top-tier product for demanding connoisseurs. Unmatched purity and extreme potency. Handle with extreme care and start with minimal doses."
+                }
             },
             IT: {
                 welcome: "Benvenuto in El Jefe", subtitle: "Seleziona la tua Lingua e Valuta", language: "Lingua", currency: "Valuta", enter: "ENTRA NEL NEGOZIO", headerSub: "Qualità Premium Diretta • Consegna in 1 ora!", promo: "🔥 Ordine min. 30€ + 10€ spedizione | Spedizione GRATIS e Regali da 50€!", giftDesc: "Accendino Clipper, cartine e filtri inclusi gratis in ogni ordine da 50€!",
@@ -1101,8 +1275,33 @@
                 navMenu: "Menu", navCart: "Carrello", navInfo: "Info", navReviews: "Recensioni", contact: "Contatto",
                 shippingTitle: "🚚 Spedizione", shippingText: "Offriamo imballaggio discreto e consegna veloce. Tutti gli ordini sono tracciati e assicurati.",
                 contactTitle: "📞 Contatti", contactText: "Serve aiuto? Contattaci su Telegram per supporto.",
-                feedbackTitle: "⭐ Feedback", feedbackText: "Lascia la tua recensione sul nostro canale dedicato.",
-                reviewsTitle: "Recensioni", reviewsSub: "Recensioni reali dei nostri clienti", addedToCart: "✅ Aggiunto al carrello!", minOrderError: "⚠️ Ordine minimo 30€", fillFieldsError: "⚠️ Compila tutti i campi di consegna"
+                addedToCart: "✅ Aggiunto al carrello!", minOrderError: "⚠️ Ordine minimo 30€", fillFieldsError: "⚠️ Compila tutti i campi di consegna",
+                
+                noCashTitle: "NIENTE CONTANTI",
+                noCashText: "Lavoriamo esclusivamente con rider anonimi che prepaghiamo con criptovalute. Non conosciamo la loro identità e loro non conoscono la nostra. Quando il rider arriva all'indirizzo designato, ti contatterà direttamente per guidarti al punto dove raccogliere il pacchetto nascosto. Questo processo rende l'operazione sicura per tutti, eliminando qualsiasi scambio diretto di soldi o prodotti tra cliente e rider.",
+                noCashSub: "Per favore non insistere con il pagamento in contanti, non facciamo eccezioni.",
+                
+                coAlertTitle: "Ordine Pronto! 📋",
+                coAlertText: "I dettagli dell'ordine sono pronti! Invia il messaggio nella chat che si aprirà per confermare e completare l'acquisto.",
+                coAlertBtn: "VAI ALLA CHAT",
+                
+                reviewsTitle: "Recensioni Clienti", reviewsSub: "Feedback reali dalla nostra community",
+                reviews: [
+                    { name: "Marco D.", rating: "⭐⭐⭐⭐⭐", text: "Tutto perfetto, confezione super discreta. Consigliatissimo!" },
+                    { name: "John S.", rating: "⭐⭐⭐⭐⭐", text: "Rider puntuale e preciso. Qualità del prodotto eccellente." },
+                    { name: "Pierre L.", rating: "⭐⭐⭐⭐⭐", text: "Prima volta che ordino, servizio impeccabile e molto sicuro." },
+                    { name: "Alex K.", rating: "⭐⭐⭐⭐⭐", text: "Comunicazione ottima e drop invisibile. Siete i migliori." }
+                ],
+                
+                longDesc: {
+                    weed: "Fiori coltivati indoor di altissima qualità. Conciati accuratamente per preservare terpeni e potenza. Garantisce una fumata morbida ed effetti duraturi.",
+                    vape: "Cartuccia distillata ad alta potenza. Testata in laboratorio, senza additivi nocivi. Offre un sollievo rapido, discreto e dal sapore ricco.",
+                    hash: "Hashish tradizionale artigianale, pressato da kief premium. Offre un aroma ricco e speziato e un'esperienza rilassante per tutto il corpo.",
+                    mushrooms: "Funghi magici coltivati ed essiccati con cura. Noti per esperienze profonde e di espansione mentale. Inizia con una dose bassa se sei un principiante.",
+                    prerolls: "Rollati da esperti utilizzando solo fiori indoor premium. Pronti da fumare, offrono una combustione lenta, uniforme e perfetta in ogni momento.",
+                    edibles: "Dosati con precisione e incredibilmente gustosi. Un'alternativa senza fumo con effetti corporei duraturi. Attendi fino a 2 ore per l'effetto completo.",
+                    special: "Prodotto esclusivo di primissima fascia per veri intenditori. Purezza e potenza ineguagliabili. Maneggiare con estrema cura e iniziare con dosi minime."
+                }
             },
             FR: {
                 welcome: "Bienvenue chez El Jefe", subtitle: "Veuillez sélectionner votre Langue et Devise", language: "Langue", currency: "Devise", enter: "ENTRER DANS LA BOUTIQUE", headerSub: "Qualité Premium Directe • Livraison en 1 heure!", promo: "🔥 Commande min. 30€ + 10€ livraison | Livraison GRATUITE et Cadeaux dès 50€!", giftDesc: "Briquet Clipper, feuilles et filtres inclus gratuitement dans chaque commande de 50€!",
@@ -1111,8 +1310,33 @@
                 navMenu: "Menu", navCart: "Panier", navInfo: "Info", navReviews: "Avis", contact: "Contact",
                 shippingTitle: "🚚 Livraison", shippingText: "Nous offrons un emballage discret et une livraison rapide. Toutes les commandes sont suivies et assurées.",
                 contactTitle: "📞 Contact", contactText: "Besoin d'aide? Contactez-nous sur Telegram.",
-                feedbackTitle: "⭐ Avis", feedbackText: "Laissez votre avis sur notre canal dédié.",
-                reviewsTitle: "Avis", reviewsSub: "Avis réels de nos clients", addedToCart: "✅ Ajouté au panier!", minOrderError: "⚠️ Commande minimum 30€", fillFieldsError: "⚠️ Veuillez remplir tous les champs de livraison"
+                addedToCart: "✅ Ajouté au panier!", minOrderError: "⚠️ Commande minimum 30€", fillFieldsError: "⚠️ Veuillez remplir tous les champs de livraison",
+                
+                noCashTitle: "PAS D'ESPÈCES",
+                noCashText: "Nous travaillons exclusivement avec des livreurs anonymes prépayés en cryptomonnaie. Nous ne connaissons pas leur identité et ils ne connaissent pas la nôtre. À son arrivée, le livreur vous contactera pour vous guider vers le colis caché. Ce processus garantit une sécurité maximale pour tous, sans aucun échange direct d'argent ou de produit.",
+                noCashSub: "Veuillez ne pas insister pour payer en espèces, nous ne faisons aucune exception.",
+                
+                coAlertTitle: "Commande Prête! 📋",
+                coAlertText: "Les détails de votre commande sont prêts! Envoyez le message dans le chat qui va s'ouvrir pour confirmer votre achat.",
+                coAlertBtn: "ALLER AU CHAT",
+                
+                reviewsTitle: "Avis Clients", reviewsSub: "Commentaires réels de notre communauté",
+                reviews: [
+                    { name: "Marco D.", rating: "⭐⭐⭐⭐⭐", text: "Tout est parfait, emballage super discret. Hautement recommandé!" },
+                    { name: "John S.", rating: "⭐⭐⭐⭐⭐", text: "Livreur ponctuel. Qualité du produit excellente." },
+                    { name: "Pierre L.", rating: "⭐⭐⭐⭐⭐", text: "Première commande, service impeccable et très sûr." },
+                    { name: "Alex K.", rating: "⭐⭐⭐⭐⭐", text: "Excellente communication et livraison invisible. Vous êtes les meilleurs." }
+                ],
+                
+                longDesc: {
+                    weed: "Fleurs cultivées en intérieur de qualité supérieure. Soigneusement affinées pour préserver les terpènes. Offre une fumée douce et des effets durables.",
+                    vape: "Cartouche de distillat haute puissance. Testé en laboratoire, sans additifs nocifs. Soulagement rapide et discret.",
+                    hash: "Haschisch traditionnel, pressé à partir de kief premium. Offre un arôme riche et épicé pour une expérience profondément relaxante.",
+                    mushrooms: "Champignons magiques soigneusement cultivés. Reconnus pour des expériences profondes. Commencez par une faible dose.",
+                    prerolls: "Roulés par des experts avec des fleurs premium. Prêts à fumer, offrant une combustion uniforme.",
+                    edibles: "Dosés avec précision et très savoureux. Alternative sans fumée aux effets durables. Attendez jusqu'à 2 heures pour l'effet.",
+                    special: "Produit exclusif haut de gamme pour connaisseurs. Pureté et puissance inégalées. À manipuler avec soin."
+                }
             },
             DE: {
                 welcome: "Willkommen bei El Jefe", subtitle: "Bitte wählen Sie Ihre Sprache und Währung", language: "Sprache", currency: "Währung", enter: "LADEN BETRETEN", headerSub: "Premium Qualität Direkt • Lieferung in 1 Stunde!", promo: "🔥 Min. Bestellung 30€ + 10€ Versand | GRATIS Versand & Geschenke ab 50€!", giftDesc: "Clipper Feuerzeug, Blättchen und Filter gratis in jeder Bestellung ab 50€!",
@@ -1121,8 +1345,33 @@
                 navMenu: "Menü", navCart: "Warenkorb", navInfo: "Info", navReviews: "Bewertungen", contact: "Kontakt",
                 shippingTitle: "🚚 Versand", shippingText: "Wir bieten diskrete Verpackung und schnelle Lieferung. Alle Bestellungen sind verfolgbar und versichert.",
                 contactTitle: "📞 Kontakt", contactText: "Hilfe nötig? Kontaktieren Sie uns auf Telegram.",
-                feedbackTitle: "⭐ Feedback", feedbackText: "Hinterlassen Sie Ihre Bewertung auf unserem Kanal.",
-                reviewsTitle: "Bewertungen", reviewsSub: "Echte Bewertungen unserer Kunden", addedToCart: "✅ Hinzugefügt!", minOrderError: "⚠️ Mindestbestellung 30€", fillFieldsError: "⚠️ Bitte alle Lieferfelder ausfüllen"
+                addedToCart: "✅ Hinzugefügt!", minOrderError: "⚠️ Mindestbestellung 30€", fillFieldsError: "⚠️ Bitte alle Lieferfelder ausfüllen",
+                
+                noCashTitle: "KEIN BARGELD",
+                noCashText: "Wir arbeiten ausschließlich mit anonymen Fahrern, die per Kryptowährung im Voraus bezahlt werden. Wir kennen ihre Identität nicht und sie kennen unsere nicht. Bei der Ankunft wird der Fahrer Sie kontaktieren, um Sie zum versteckten Paket zu führen. Dieser Prozess macht es für alle sicher, ohne direkten Austausch von Hand zu Hand.",
+                noCashSub: "Bitte bestehen Sie nicht auf Barzahlung, wir machen keine Ausnahmen.",
+                
+                coAlertTitle: "Bestellung Bereit! 📋",
+                coAlertText: "Ihre Bestelldetails sind vorbereitet! Senden Sie die Nachricht im Chat, der sich gleich öffnet, um abzuschließen.",
+                coAlertBtn: "ZUM CHAT",
+                
+                reviewsTitle: "Kundenbewertungen", reviewsSub: "Echtes Feedback aus unserer Community",
+                reviews: [
+                    { name: "Marco D.", rating: "⭐⭐⭐⭐⭐", text: "Alles perfekt, super diskrete Verpackung. Sehr zu empfehlen!" },
+                    { name: "John S.", rating: "⭐⭐⭐⭐⭐", text: "Pünktlicher Fahrer. Ausgezeichnete Produktqualität." },
+                    { name: "Pierre L.", rating: "⭐⭐⭐⭐⭐", text: "Erste Bestellung, tadelloser und sehr sicherer Service." },
+                    { name: "Alex K.", rating: "⭐⭐⭐⭐⭐", text: "Tolle Kommunikation und unsichtbarer Drop. Ihr seid die Besten." }
+                ],
+                
+                longDesc: {
+                    weed: "Premium-Blüten aus Indoor-Anbau. Sorgfältig getrocknet, um Terpene zu erhalten. Bietet einen sanften Rauch.",
+                    vape: "Hochpotente Destillat-Patrone. Laborgeprüft auf Reinheit. Bietet diskrete, schnell wirkende Linderung.",
+                    hash: "Traditionell hergestelltes Haschisch aus Premium-Kief. Bietet ein reichhaltiges, würziges Aroma.",
+                    mushrooms: "Sorgfältig kultivierte Zauberpilze. Bekannt für tiefgreifende Erfahrungen. Beginnen Sie mit einer niedrigen Dosis.",
+                    prerolls: "Von Experten gerollt. Bequem und rauchfertig, bietet jedes Mal ein gleichmäßiges Abbrennen.",
+                    edibles: "Präzise dosiert und unglaublich lecker. Rauchfreie Alternative mit langanhaltender Wirkung. Bitte bis zu 2 Stunden warten.",
+                    special: "Exklusives Spitzenprodukt für Kenner. Unübertroffene Reinheit und extreme Potenz."
+                }
             },
             RU: {
                 welcome: "Добро пожаловать в El Jefe", subtitle: "Пожалуйста, выберите язык и валюту", language: "Язык", currency: "Валюта", enter: "ВОЙТИ В МАГАЗИН", headerSub: "Премиум Качество Напрямую • Доставка за 1 час!", promo: "🔥 Мин. заказ 30€ + 10€ доставка | БЕСПЛАТНАЯ доставка и Подарки от 50€!", giftDesc: "Зажигалка Clipper, бумаги и фильтры бесплатно в каждом заказе от 50€!",
@@ -1131,8 +1380,33 @@
                 navMenu: "Меню", navCart: "Корзина", navInfo: "Инфо", navReviews: "Отзывы", contact: "Контакт",
                 shippingTitle: "🚚 Доставка", shippingText: "Предлагаем дискретную упаковку и быструю доставку. Все заказы отслеживаются и застрахованы.",
                 contactTitle: "📞 Контакты", contactText: "Нужна помощь? Свяжитесь с нами в Telegram.",
-                feedbackTitle: "⭐ Отзывы", feedbackText: "Оставьте свой отзыв на нашем канале.",
-                reviewsTitle: "Отзывы", reviewsSub: "Реальные отзывы наших клиентов", addedToCart: "✅ Добавлено!", minOrderError: "⚠️ Минимальный заказ 30€", fillFieldsError: "⚠️ Заполните все поля доставки"
+                addedToCart: "✅ Добавлено!", minOrderError: "⚠️ Минимальный заказ 30€", fillFieldsError: "⚠️ Заполните все поля доставки",
+                
+                noCashTitle: "НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ",
+                noCashText: "Мы работаем исключительно с анонимными курьерами, которым заранее платим криптовалютой. Мы не знаем их личностей, а они не знают наших. По прибытии курьер свяжется с вами, чтобы направить к спрятанной посылке. Этот процесс делает сделку безопасной для всех, исключая прямой обмен из рук в руки.",
+                noCashSub: "Пожалуйста, не настаивайте на оплате наличными, мы не делаем исключений.",
+                
+                coAlertTitle: "Заказ Готов! 📋",
+                coAlertText: "Детали заказа подготовлены! Отправьте сообщение в чат, который сейчас откроется, чтобы завершить покупку.",
+                coAlertBtn: "ПЕРЕЙТИ В ЧАТ",
+                
+                reviewsTitle: "Отзывы Клиентов", reviewsSub: "Реальные отзывы нашего сообщества",
+                reviews: [
+                    { name: "Marco D.", rating: "⭐⭐⭐⭐⭐", text: "Всё идеально, супер скрытая упаковка. Очень рекомендую!" },
+                    { name: "John S.", rating: "⭐⭐⭐⭐⭐", text: "Пунктуальный курьер. Отличное качество продукта." },
+                    { name: "Pierre L.", rating: "⭐⭐⭐⭐⭐", text: "Заказываю впервые, безупречный и очень безопасный сервис." },
+                    { name: "Alex K.", rating: "⭐⭐⭐⭐⭐", text: "Отличная связь и невидимая закладка. Вы лучшие." }
+                ],
+                
+                longDesc: {
+                    weed: "Цветы премиум-качества, выращенные в помещении. Обеспечивают мягкий дым и длительный эффект.",
+                    vape: "Высокоэффективный дистиллят. Лабораторно проверен на чистоту. Обеспечивает быстрое действие.",
+                    hash: "Традиционный гашиш ручной работы. Обладает богатым ароматом и расслабляющим эффектом.",
+                    mushrooms: "Тщательно выращенные волшебные грибы. Начните с низкой дозы, если вы новичок.",
+                    prerolls: "Профессионально скрученные джойнты. Готовы к употреблению, горят равномерно.",
+                    edibles: "Вкусно и точно дозировано. Альтернатива курению с длительным эффектом. Подождите до 2 часов.",
+                    special: "Эксклюзивный продукт для ценителей. Непревзойденная чистота. Обращайтесь с осторожностью."
+                }
             }
         };
 
@@ -1206,13 +1480,7 @@
             { id: 32, name: "Zkittlez Vape", category: "vape", price: 70, image: "https://files.catbox.moe/chrkoa.jpg", desc: "Fruit flavored vape" }
         ];
 
-        const reviews = [
-            { name: "Marco D.", rating: "⭐⭐⭐⭐⭐", text: "Consegna super veloce, prodotto top quality!" },
-            { name: "John S.", rating: "⭐⭐⭐⭐⭐", text: "Fast delivery, great product. Will order again!" },
-            { name: "Pierre L.", rating: "⭐⭐⭐⭐⭐", text: "Excellent service, emballage discret. Merci!" }
-        ];
-
-        // INIT - LocalStorage Logic & Keyboard Fix
+        // INIT - LocalStorage & Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
             const hasVisited = localStorage.getItem('eljefe_visited');
             
@@ -1239,6 +1507,7 @@
             });
         });
 
+        // App Logic
         function selectLanguage(lang) {
             currentLang = lang;
             document.querySelectorAll('.welcome-screen .lang-btn').forEach(btn => {
@@ -1292,6 +1561,7 @@
             });
             updateAppLanguage();
             renderProducts(currentCategory);
+            renderReviews();
             forceCartFullRender();
         }
 
@@ -1326,9 +1596,17 @@
             document.getElementById('shippingText').textContent = t.shippingText;
             document.getElementById('contactTitle').textContent = t.contactTitle;
             document.getElementById('contactText').textContent = t.contactText;
-            document.getElementById('feedbackTitle').textContent = t.feedbackTitle;
-            document.getElementById('feedbackText').textContent = t.feedbackText;
             
+            // Aggiornamento INFO No Cash
+            document.getElementById('infoNoCashTitle').textContent = t.noCashTitle;
+            document.getElementById('infoNoCashText').textContent = t.noCashText;
+            document.getElementById('infoNoCashSub').textContent = t.noCashSub;
+            
+            // Aggiornamento Alert Checkout
+            document.getElementById('coAlertTitle').textContent = t.coAlertTitle;
+            document.getElementById('coAlertText').textContent = t.coAlertText;
+            document.getElementById('coAlertBtn').textContent = t.coAlertBtn;
+
             document.getElementById('reviewsTitle').textContent = t.reviewsTitle;
             document.getElementById('reviewsSub').textContent = t.reviewsSub;
             
@@ -1357,7 +1635,6 @@
             grid.innerHTML = '';
             
             let filtered = category === 'all' ? [...products] : products.filter(p => p.category === category);
-            
             if (category === 'all') {
                 filtered.sort((a, b) => {
                     if (a.category === 'weed' && b.category !== 'weed') return -1;
@@ -1378,43 +1655,39 @@
                 if (product.category === 'edibles') {
                     footerHtml = `
                         <div class="edibles-btns">
-                            <button class="edible-btn" onclick="addToCart(${product.id}, 5)">+5</button>
-                            <button class="edible-btn" onclick="addToCart(${product.id}, 10)">+10</button>
+                            <button class="edible-btn" onclick="addToCart(${product.id}, 5); event.stopPropagation();">+5</button>
+                            <button class="edible-btn" onclick="addToCart(${product.id}, 10); event.stopPropagation();">+10</button>
                         </div>
                     `;
                 } else {
                     footerHtml = `
-                        <div class="grid-qty-controls">
-                            <button class="grid-qty-btn" onclick="updateGridQty(${product.id}, -1, event)">-</button>
+                        <div class="grid-qty-controls" onclick="event.stopPropagation()">
+                            <button class="grid-qty-btn" onclick="updateGridQty(${product.id}, -1)">-</button>
                             <span class="grid-qty-val" id="grid-qty-${product.id}">${gridQuantities[product.id]}</span>
-                            <button class="grid-qty-btn" onclick="updateGridQty(${product.id}, 1, event)">+</button>
+                            <button class="grid-qty-btn" onclick="updateGridQty(${product.id}, 1)">+</button>
                             <button class="add-to-cart" onclick="addToCart(${product.id})">${t.addToCart}</button>
                         </div>
                     `;
                 }
 
                 card.innerHTML = `
-                    <img src="${product.image}" class="product-image" alt="${product.name}" loading="lazy" onclick="openLightbox('${product.image}', event)">
-                    <div class="product-info">
+                    <img src="${product.image}" class="product-image" alt="${product.name}" loading="lazy" onclick="openProductModal(${product.id})">
+                    <div class="product-info" onclick="openProductModal(${product.id})">
                         <div class="product-name">${product.name}</div>
                         <div class="product-desc">${translatedDesc}</div>
                         <div class="product-price">${formatPrice(product.price)}</div>
-                        ${footerHtml}
                     </div>
+                    <div style="padding: 0 15px 15px 15px;">${footerHtml}</div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        function updateGridQty(productId, delta, event) {
-            if (event) event.stopPropagation();
+        function updateGridQty(productId, delta) {
             if (!gridQuantities[productId] || isNaN(gridQuantities[productId])) gridQuantities[productId] = 1;
-            
             let newQty = gridQuantities[productId] + delta;
             if (newQty < 1) newQty = 1; 
-            
             gridQuantities[productId] = newQty;
-            
             const el = document.getElementById(`grid-qty-${productId}`);
             if (el) el.textContent = gridQuantities[productId];
         }
@@ -1423,6 +1696,45 @@
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             renderProducts(cat);
+        }
+
+        // --- GESTIONE MODAL PRODOTTO ---
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const t = translations[currentLang] || translations['EN'];
+            currentModalProductId = product.id;
+            currentModalQty = 1;
+
+            document.getElementById('pm-img').src = product.image;
+            document.getElementById('pm-title').textContent = product.name;
+            document.getElementById('pm-short').textContent = getProductDescription(product.id);
+            document.getElementById('pm-long').textContent = t.longDesc[product.category] || "";
+            document.getElementById('pm-price').textContent = formatPrice(product.price);
+            document.getElementById('pm-qty').textContent = currentModalQty;
+            document.getElementById('pm-add-btn').textContent = t.addToCart;
+
+            document.getElementById('productModal').classList.add('visible');
+            tg.HapticFeedback?.impactOccurred('light');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('visible');
+        }
+
+        function changeModalQty(delta) {
+            currentModalQty += delta;
+            if (currentModalQty < 1) currentModalQty = 1;
+            document.getElementById('pm-qty').textContent = currentModalQty;
+            
+            const product = products.find(p => p.id === currentModalProductId);
+            document.getElementById('pm-price').textContent = formatPrice(product.price * currentModalQty);
+        }
+
+        function addModalToCart() {
+            addToCart(currentModalProductId, currentModalQty);
+            closeProductModal();
         }
 
         function addToCart(productId, specificQty = null) {
@@ -1504,7 +1816,6 @@
         function updateCartBadgeAndTotal() {
             const badge = document.getElementById('navCartBadge');
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
             badge.textContent = totalItems;
             badge.style.display = totalItems > 0 ? 'flex' : 'none';
 
@@ -1524,12 +1835,11 @@
             
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             window.scrollTo(0, 0);
         }
 
-        /* AGGIORNATA: LOGICA DI CHECKOUT CON MESSAGGIO PRECOMPILATO */
-        function checkout() {
+        // --- NUOVO FLUSSO DI CHECKOUT ---
+        function processCheckout() {
             if (cart.length === 0) return;
             const t = translations[currentLang] || translations['EN'];
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -1548,7 +1858,6 @@
                 return;
             }
 
-            // Costruiamo il testo del messaggio finale
             let orderText = `🛒 *NEW ORDER*\n`;
             orderText += `------------------------\n`;
             cart.forEach(item => {
@@ -1562,39 +1871,36 @@
             orderText += `ZIP: ${zip}\n\n`;
             orderText += `💳 *PAYMENT:* Crypto\n`;
 
-            // Codifica l'URL affinché Telegram lo legga bene
-            const encodedMessage = encodeURIComponent(orderText);
-            const tgLink = `https://t.me/eljefeshop?text=${encodedMessage}`;
+            pendingCheckoutLink = `https://t.me/eljefeshop?text=${encodeURIComponent(orderText)}`;
             
-            // Apriamo il link Telegram (l'utente dovrà solo premere "Invia" nella chat)
+            // Mostriamo la bolla di avviso
+            document.getElementById('checkoutAlertModal').classList.add('visible');
+            tg.HapticFeedback?.impactOccurred('medium');
+        }
+
+        function finalizeCheckout() {
+            document.getElementById('checkoutAlertModal').classList.remove('visible');
             if (tg.openTelegramLink) {
-                tg.openTelegramLink(tgLink);
+                tg.openTelegramLink(pendingCheckoutLink);
             } else {
-                window.open(tgLink, '_blank');
+                window.open(pendingCheckoutLink, '_blank');
             }
         }
 
+        // Aggiornata la generazione delle recensioni (dinamiche per lingua)
         function renderReviews() {
+            const t = translations[currentLang] || translations['EN'];
             const container = document.getElementById('reviewsContainer');
-            container.innerHTML = reviews.map(review => `
+            
+            container.innerHTML = t.reviews.map(review => `
                 <div class="review-card" role="listitem">
                     <div class="review-header">
                         <span class="reviewer-name">${review.name}</span>
                         <span class="review-rating">${review.rating}</span>
                     </div>
-                    <div class="review-text">${review.text}</div>
+                    <div class="review-text">"${review.text}"</div>
                 </div>
             `).join('');
-        }
-
-        function openLightbox(src, event) {
-            if (event) event.stopPropagation();
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').classList.add('visible');
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('visible');
         }
 
         function showToast(message) {
