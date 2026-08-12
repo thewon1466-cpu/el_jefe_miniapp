@@ -55,6 +55,25 @@
             pointer-events: none;
         }
 
+        /* NUOVO STILE PER L'AVVISO CASH */
+        .welcome-warning {
+            background: rgba(255, 68, 68, 0.08);
+            border: 1px solid rgba(255, 68, 68, 0.4);
+            color: #ff6b6b;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 12px;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            line-height: 1.5;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.15);
+            width: 100%;
+            max-width: 400px;
+        }
+
         .welcome-logo {
             width: 150px;
             height: 150px;
@@ -66,18 +85,7 @@
             height: 100%;
             object-fit: contain;
             border-radius: 50%;
-            border: 2px solid var(--gold); /* Sostituito il drop-shadow pesante con un bordo per le performance */
-        }
-
-        .welcome-warning {
-            color: var(--danger);
-            font-size: 20px;
-            text-align: center;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            line-height: 1.3;
+            border: 2px solid var(--gold);
         }
 
         .welcome-title {
@@ -123,7 +131,7 @@
             background: var(--medium-gray);
             border: 2px solid transparent;
             color: var(--white);
-            padding: 14px 8px; /* Tasti più grandi su mobile */
+            padding: 14px 8px;
             border-radius: 10px;
             cursor: pointer;
             font-size: 14px;
@@ -151,14 +159,14 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); /* Ombra alleggerita */
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
 
         /* MAIN APP */
         .app-container {
             display: none;
             min-height: 100vh;
-            padding-bottom: 90px; /* Spazio per la nav bar */
+            padding-bottom: 90px;
         }
 
         .app-container.visible {
@@ -189,7 +197,7 @@
             background: var(--medium-gray);
             border: 1px solid var(--gold);
             color: var(--white);
-            padding: 12px 15px; /* Aumentata area tocco */
+            padding: 12px 15px;
             border-radius: 8px;
             font-size: 14px;
             cursor: pointer;
@@ -203,7 +211,7 @@
         }
 
         .lang-selector .lang-btn {
-            padding: 12px; /* Aumentata area tocco */
+            padding: 12px;
             font-size: 12px;
         }
 
@@ -269,7 +277,7 @@
             border-radius: 8px;
         }
 
-        /* Categories (con scroll hint) */
+        /* Categories */
         .categories-wrapper {
             position: relative;
             margin: 15px 0;
@@ -298,7 +306,7 @@
         .categories-list {
             display: flex;
             gap: 10px;
-            padding-right: 40px; /* Spazio extra per compensare il gradient */
+            padding-right: 40px;
         }
 
         .category-btn {
@@ -387,7 +395,7 @@
             background: var(--medium-gray);
             border: none;
             color: var(--white);
-            width: 44px; /* Aumentata area tocco Apple/Google standards */
+            width: 44px;
             height: 44px;
             border-radius: 8px;
             cursor: pointer;
@@ -414,7 +422,6 @@
             font-size: 14px;
         }
 
-        /* Edibles Specific Buttons */
         .edibles-btns {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -445,7 +452,6 @@
             justify-content: space-around;
             padding: 10px 0;
             z-index: 1000;
-            /* Safe area per iPhone */
             padding-bottom: env(safe-area-inset-bottom, 10px);
         }
 
@@ -454,7 +460,7 @@
             flex-direction: column;
             align-items: center;
             gap: 5px;
-            padding: 10px 15px; /* Aumentata area tocco */
+            padding: 10px 15px;
             cursor: pointer;
             color: var(--light-gray);
             background: none;
@@ -497,23 +503,22 @@
             justify-content: center;
         }
 
-        /* Keyboard Open Fix - Nasconde la barra sotto quando si digita */
+        /* Keyboard Open Fix */
         body.keyboard-open .bottom-nav,
         body.keyboard-open .floating-contact {
             display: none !important;
         }
         body.keyboard-open .checkout-sticky-bar {
-            bottom: 0 !important; /* Si attacca al fondo vero */
+            bottom: 0 !important;
         }
 
         /* Views */
         .app-view {
             display: none;
-            padding: 0; /* Tolto il padding per gestire le sticky bar */
+            padding: 0;
             padding-bottom: 40px;
         }
         
-        /* Contenitore interno delle view per mantenere i margini */
         .view-content {
             padding: 20px;
         }
@@ -566,7 +571,7 @@
             background: var(--medium-gray);
             border: none;
             color: var(--white);
-            width: 44px; /* Aumentata area tocco */
+            width: 44px;
             height: 44px;
             border-radius: 8px;
             cursor: pointer;
@@ -585,7 +590,7 @@
             border: none;
             color: white;
             padding: 0 15px;
-            height: 44px; /* Come gli altri bottoni */
+            height: 44px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
@@ -630,9 +635,9 @@
             background: var(--medium-gray);
             border: 1px solid var(--medium-gray);
             color: var(--white);
-            padding: 16px 15px; /* Aumentato per facilitare il touch */
+            padding: 16px 15px;
             border-radius: 8px;
-            font-size: 16px; /* Evita lo zoom automatico su iOS */
+            font-size: 16px;
             outline: none;
         }
 
@@ -690,7 +695,7 @@
         /* Sticky Checkout Bar */
         .checkout-sticky-bar {
             position: sticky;
-            bottom: 60px; /* Sta sopra alla bottom-nav */
+            bottom: 60px;
             background: var(--black);
             padding: 20px;
             border-top: 1px solid var(--medium-gray);
@@ -732,13 +737,13 @@
 
         .tg-link-btn, .feedback-link {
             display: inline-block;
-            padding: 15px 25px; /* Aumentata area tocco */
+            padding: 15px 25px;
             border-radius: 25px;
             text-decoration: none;
             margin-top: 15px;
             font-weight: 600;
             text-align: center;
-            width: 100%; /* Pulsante largo per mobile */
+            width: 100%;
         }
         
         .tg-link-btn { background: #0088cc; color: white; }
@@ -828,7 +833,8 @@
 
     <!-- WELCOME SCREEN -->
     <div class="welcome-screen" id="welcomeScreen" aria-labelledby="welcomeTitle">
-        <h2 class="welcome-warning">We do not accept cash payment.<br>Safety first</h2>
+        <!-- AGGIORNATO TESTO E STILE WARNING -->
+        <div class="welcome-warning">NO CASH ACCEPTED, SAFETY FOR OUR RIDERS FIRST.</div>
         
         <div class="welcome-logo">
             <img src="https://files.catbox.moe/w9w6hz.jpg" alt="El Jefe Logo" loading="lazy">
@@ -912,7 +918,6 @@
                 <div class="categories-scroller">
                     <div class="categories-list" id="catList" role="tablist" aria-label="Product Categories">
                         <button class="category-btn active" role="tab" onclick="filterProducts('all', this)">All</button>
-                        <!-- CATEGORIA SPECIAL SPOSTATA COME SECONDA -->
                         <button class="category-btn" role="tab" onclick="filterProducts('special', this)">💎 Special</button>
                         <button class="category-btn" role="tab" onclick="filterProducts('weed', this)">🌿 Weed</button>
                         <button class="category-btn" role="tab" onclick="filterProducts('vape', this)">💨 Vapes</button>
@@ -974,7 +979,6 @@
                 </div>
             </div>
             
-            <!-- STICKY CHECKOUT BOTTOM BAR -->
             <div id="checkoutStickyBar" class="checkout-sticky-bar" style="display: none;">
                 <div style="display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; color: var(--gold); margin-bottom: 15px;">
                     <span>TOTAL:</span>
@@ -1000,6 +1004,7 @@
                     <a href="https://t.me/eljefeshop" class="tg-link-btn">Contact @eljefeshop</a>
                 </div>
 
+                <!-- SEZIONE FEEDBACK -->
                 <div class="info-section">
                     <h3 id="feedbackTitle">⭐ Feedback</h3>
                     <p id="feedbackText">Leave your review and feedback on our dedicated channel.</p>
@@ -1227,7 +1232,6 @@
                 updateWelcomeText();
             }
 
-            // Keyboard overlay fix
             const inputs = document.querySelectorAll('input, select');
             inputs.forEach(input => {
                 input.addEventListener('focus', () => document.body.classList.add('keyboard-open'));
@@ -1260,7 +1264,6 @@
         }
 
         function enterShop() {
-            // Save to localStorage
             localStorage.setItem('eljefe_visited', 'true');
             localStorage.setItem('eljefe_lang', currentLang);
             localStorage.setItem('eljefe_curr', currentCurrency);
@@ -1330,7 +1333,6 @@
             document.getElementById('reviewsSub').textContent = t.reviewsSub;
             
             const catButtons = document.querySelectorAll('.category-btn');
-            // Categorie aggiornate per riflettere l'ordine HTML ("special" come seconda)
             const cats = ['all', 'special', 'weed', 'vape', 'hash', 'mushrooms', 'prerolls', 'edibles'];
             catButtons.forEach((btn, i) => {
                 if (cats[i] && t.categories[cats[i]]) btn.textContent = t.categories[cats[i]];
@@ -1441,7 +1443,6 @@
             tg.HapticFeedback?.impactOccurred('light');
         }
 
-        // AGGIORNATO: Rendering completo del carrello (chiamato solo quando si aggiunge/rimuove un prodotto)
         function forceCartFullRender() {
             const container = document.getElementById('cartItemsContainer');
             const checkoutForm = document.getElementById('checkoutForm');
@@ -1484,17 +1485,15 @@
             updateCartBadgeAndTotal();
         }
 
-        // AGGIORNATO: Aggiorna SOLO il numero e il totale senza riscrivere tutto il DOM
         function updateQty(productId, delta) {
             const item = cart.find(i => i.id === productId);
             if (item) {
                 const newQty = item.quantity + delta;
                 if (newQty <= 0) {
                     cart = cart.filter(i => i.id !== productId);
-                    forceCartFullRender(); // Se l'oggetto viene rimosso, serve il render completo
+                    forceCartFullRender(); 
                 } else {
                     item.quantity = newQty;
-                    // Aggiornamento DOM mirato
                     const span = document.getElementById(`cart-qty-span-${productId}`);
                     if (span) span.textContent = item.quantity;
                     updateCartBadgeAndTotal();
@@ -1502,7 +1501,6 @@
             }
         }
 
-        // AGGIORNATO: Calcola i totali e aggiorna solo il Badge e la stringa in fondo
         function updateCartBadgeAndTotal() {
             const badge = document.getElementById('navCartBadge');
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -1527,10 +1525,10 @@
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
-            // Per far funzionare lo sticky menu, assicuriamoci di scrollare in cima se necessario
             window.scrollTo(0, 0);
         }
 
+        /* AGGIORNATA: LOGICA DI CHECKOUT CON MESSAGGIO PRECOMPILATO */
         function checkout() {
             if (cart.length === 0) return;
             const t = translations[currentLang] || translations['EN'];
@@ -1550,18 +1548,29 @@
                 return;
             }
 
-            try {
-                tg.sendData(JSON.stringify({
-                    action: 'checkout',
-                    items: cart,
-                    total: total,
-                    currency: currentCurrency,
-                    lang: currentLang,
-                    delivery: { city, address, zip }
-                }));
-                tg.close();
-            } catch (e) {
-                window.open('https://t.me/eljefeshop', '_blank');
+            // Costruiamo il testo del messaggio finale
+            let orderText = `🛒 *NEW ORDER*\n`;
+            orderText += `------------------------\n`;
+            cart.forEach(item => {
+                orderText += `${item.quantity}x ${item.name} (${formatPrice(item.price * item.quantity)})\n`;
+            });
+            orderText += `------------------------\n`;
+            orderText += `💰 *TOTAL: ${formatPrice(total)}*\n\n`;
+            orderText += `📍 *DELIVERY DETAILS:*\n`;
+            orderText += `City: ${city}\n`;
+            orderText += `Address: ${address}\n`;
+            orderText += `ZIP: ${zip}\n\n`;
+            orderText += `💳 *PAYMENT:* Crypto\n`;
+
+            // Codifica l'URL affinché Telegram lo legga bene
+            const encodedMessage = encodeURIComponent(orderText);
+            const tgLink = `https://t.me/eljefeshop?text=${encodedMessage}`;
+            
+            // Apriamo il link Telegram (l'utente dovrà solo premere "Invia" nella chat)
+            if (tg.openTelegramLink) {
+                tg.openTelegramLink(tgLink);
+            } else {
+                window.open(tgLink, '_blank');
             }
         }
 
