@@ -718,7 +718,7 @@
             font-size: 14px;
         }
 
-        .tg-link-btn, .feedback-link {
+        .tg-link-btn, .feedback-link, .reviews-channel-btn {
             display: inline-block;
             padding: 15px 25px;
             border-radius: 25px;
@@ -731,6 +731,7 @@
         
         .tg-link-btn { background: #0088cc; color: white; }
         .feedback-link { background: var(--gold); color: var(--black); }
+        .reviews-channel-btn { background: #0088cc; color: white; margin-bottom: 20px; }
 
         .reviews-header {
             text-align: center;
@@ -805,6 +806,73 @@
         .lightbox-close {
             position: absolute; top: 20px; right: 30px;
             color: white; font-size: 40px; cursor: pointer; padding: 10px;
+        }
+
+        /* NO CASH SECTION STYLES */
+        .no-cash-warning {
+            background: rgba(255, 68, 68, 0.1);
+            border: 2px solid var(--danger);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .no-cash-warning h3 {
+            color: var(--danger);
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .no-cash-warning p {
+            color: var(--light-gray);
+            line-height: 1.7;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .no-cash-highlight {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .no-cash-highlight p {
+            color: var(--gold);
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* WHOLESALE NOTICE STYLES */
+        .wholesale-notice {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--gold);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .wholesale-notice strong {
+            color: var(--gold);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .wholesale-notice p {
+            color: var(--light-gray);
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
         }
     </style>
 </head>
@@ -971,9 +1039,23 @@
         <!-- INFO VIEW -->
         <div id="view-info" class="app-view">
             <div class="view-content">
+                <!-- NO CASH SECTION - NEW -->
+                <div class="no-cash-warning" id="noCashSection">
+                    <h3 id="noCashTitle">🚫 NO CASH ACCEPTED</h3>
+                    <p id="noCashText">We work exclusively with fully anonymous riders whom we prepay in crypto. We do not know their identities, as they arrive randomly to pickup your package and securely deliver it near your coordinates. When the rider reaches the spot, they will contact you directly to guide you to the precise hideout. This airtight process ensures that even if law enforcement is around, nothing can be connected to you or the rider.</p>
+                    <div class="no-cash-highlight">
+                        <p id="noCashWarning">Do not insist on cash payment. We make absolutely zero exceptions. NO UPFRONT PAYMENT NO DELIVERY.</p>
+                    </div>
+                </div>
+                
+                <!-- SHIPPING SECTION - MODIFIED -->
                 <div class="info-section">
-                    <h3 id="shippingTitle">🚚 Shipping</h3>
-                    <p id="shippingText">We offer discreet packaging and fast delivery. All orders are tracked and insured.</p>
+                    <h3 id="shippingTitle">🚚 Delivery Process & Wholesale</h3>
+                    <p id="shippingText">We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.</p>
+                    <div class="wholesale-notice">
+                        <strong id="wholesaleTitle">WHOLESALE NOTICE:</strong>
+                        <p id="wholesaleText">Orders selected with 24/48hrs Express Shipping option operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.</p>
+                    </div>
                 </div>
                 
                 <div class="info-section">
@@ -993,6 +1075,9 @@
         <!-- REVIEWS VIEW -->
         <div id="view-reviews" class="app-view">
             <div class="view-content">
+                <!-- REVIEWS CHANNEL BUTTON - MOVED TO TOP -->
+                <a href="https://t.me/eljefeshop_reviews" class="reviews-channel-btn" id="reviewsChannelBtn">📢 Join Reviews Channel</a>
+                
                 <div class="reviews-header">
                     <h2 id="reviewsTitle">Reviews</h2>
                     <p id="reviewsSub">Real reviews from our customers</p>
@@ -1066,50 +1151,70 @@
                 categories: { all: "All", special: "💎 Special", weed: "🌿 Weed", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Mushrooms", prerolls: "🚬 Prerolls", edibles: "🍬 Edibles" },
                 addToCart: "Add", cartTitle: "🛒 Your Cart", emptyCart: "Your cart is empty", deliveryDetails: "📍 Delivery Details", city: "CITY", address: "ADDRESS", zip: "ZIP CODE", payment: "💳 Payment Method", checkout: "CHECKOUT",
                 navMenu: "Menu", navCart: "Cart", navInfo: "Info", navReviews: "Reviews", contact: "Contact",
-                shippingTitle: "🚚 Shipping", shippingText: "We offer discreet packaging and fast delivery. All orders are tracked and insured.",
+                shippingTitle: "🚚 Delivery Process & Wholesale", shippingText: "We guarantee flash shipping and highly discreet local deliveries. Every package is hermetically vacuum-sealed, completely odorless, and showing no external branding.",
+                wholesaleTitle: "WHOLESALE NOTICE:", wholesaleText: "Orders selected with 24/48hrs Express Shipping option operate under bulk/wholesale pricing structures and are significantly cheaper than instant local on-demand delivery. Please contact our operator in private for full details on wholesale price slashes.",
+                noCashTitle: "🚫 NO CASH ACCEPTED", noCashText: "We work exclusively with fully anonymous riders whom we prepay in crypto. We do not know their identities, as they arrive randomly to pickup your package and securely deliver it near your coordinates. When the rider reaches the spot, they will contact you directly to guide you to the precise hideout. This airtight process ensures that even if law enforcement is around, nothing can be connected to you or the rider.",
+                noCashWarning: "Do not insist on cash payment. We make absolutely zero exceptions. NO UPFRONT PAYMENT NO DELIVERY.",
                 contactTitle: "📞 Contact", contactText: "Need help? Contact us on Telegram for support.",
                 feedbackTitle: "⭐ Feedback", feedbackText: "Leave your review and feedback on our dedicated channel.",
-                reviewsTitle: "Reviews", reviewsSub: "Real reviews from our customers", addedToCart: "✅ Added to cart!", minOrderError: "⚠️ Minimum order is 30€", fillFieldsError: "⚠️ Please fill in all delivery fields"
+                reviewsTitle: "Reviews", reviewsSub: "Real reviews from our customers", reviewsChannelBtn: "📢 Join Reviews Channel",
+                addedToCart: "✅ Added to cart!", minOrderError: "⚠️ Minimum order is 30€", fillFieldsError: "⚠️ Please fill in all delivery fields"
             },
             IT: {
                 welcome: "Benvenuto in El Jefe", subtitle: "Seleziona la tua Lingua e Valuta", language: "Lingua", currency: "Valuta", enter: "ENTRA NEL NEGOZIO", headerSub: "Qualità Premium Diretta • Consegna in 1 ora!", promo: "🔥 Ordine min. 30€ + 10€ spedizione | Spedizione GRATIS e Regali da 50€!", giftDesc: "Accendino Clipper, cartine e filtri inclusi gratis in ogni ordine da 50€!",
                 categories: { all: "Tutti", special: "💎 Speciali", weed: "🌿 Erba", vape: "💨 Vaporizzatori", hash: "🟫 Hash", mushrooms: "🍄 Funghi", prerolls: "🚬 Preroll", edibles: "🍬 Edibili" },
                 addToCart: "Aggiungi", cartTitle: "🛒 Il tuo Carrello", emptyCart: "Il tuo carrello è vuoto", deliveryDetails: "📍 Dettagli Consegna", city: "CITTÀ", address: "INDIRIZZO", zip: "CAP", payment: "💳 Metodo di Pagamento", checkout: "PAGA ORA",
                 navMenu: "Menu", navCart: "Carrello", navInfo: "Info", navReviews: "Recensioni", contact: "Contatto",
-                shippingTitle: "🚚 Spedizione", shippingText: "Offriamo imballaggio discreto e consegna veloce. Tutti gli ordini sono tracciati e assicurati.",
+                shippingTitle: "🚚 Processo di Consegna & Ingrosso", shippingText: "Garantiamo spedizioni lampo e consegne locali altamente discrete. Ogni pacchetto è sigillato ermeticamente sottovuoto, completamente inodore e senza marchi esterni.",
+                wholesaleTitle: "AVVISO INGROSSO:", wholesaleText: "Gli ordini selezionati con l'opzione Spedizione Express 24/48h operano con strutture di prezzi all'ingrosso e sono significativamente più economici rispetto alla consegna locale istantanea. Contatta il nostro operatore in privato per dettagli completi sugli sconti all'ingrosso.",
+                noCashTitle: "🚫 NO PAGAMENTO IN CONTANTI", noCashText: "Lavoriamo esclusivamente con rider completamente anonimi che prepaghiamo in crypto. Non conosciamo le loro identità, arrivano casualmente a ritirare il tuo pacco e lo consegnano in modo sicuro vicino alle tue coordinate. Quando il rider raggiunge il punto, ti contatterà direttamente per guidarti al nascondiglio preciso. Questo processo ermetico garantisce che anche se ci sono forze dell'ordine, nulla possa essere collegato a te o al rider.",
+                noCashWarning: "Non insistere con pagamento in contanti. Non facciamo assolutamente eccezioni. NESSUN PAGAMENTO ANTICIPATO NESSUNA CONSEGNA.",
                 contactTitle: "📞 Contatti", contactText: "Serve aiuto? Contattaci su Telegram per supporto.",
                 feedbackTitle: "⭐ Feedback", feedbackText: "Lascia la tua recensione sul nostro canale dedicato.",
-                reviewsTitle: "Recensioni", reviewsSub: "Recensioni reali dei nostri clienti", addedToCart: "✅ Aggiunto al carrello!", minOrderError: "⚠️ Ordine minimo 30€", fillFieldsError: "⚠️ Compila tutti i campi di consegna"
+                reviewsTitle: "Recensioni", reviewsSub: "Recensioni reali dei nostri clienti", reviewsChannelBtn: "📢 Unisciti al Canale Recensioni",
+                addedToCart: "✅ Aggiunto al carrello!", minOrderError: "⚠️ Ordine minimo 30€", fillFieldsError: "⚠️ Compila tutti i campi di consegna"
             },
             FR: {
                 welcome: "Bienvenue chez El Jefe", subtitle: "Veuillez sélectionner votre Langue et Devise", language: "Langue", currency: "Devise", enter: "ENTRER DANS LA BOUTIQUE", headerSub: "Qualité Premium Directe • Livraison en 1 heure!", promo: "🔥 Commande min. 30€ + 10€ livraison | Livraison GRATUITE et Cadeaux dès 50€!", giftDesc: "Briquet Clipper, feuilles et filtres inclus gratuitement dans chaque commande de 50€!",
                 categories: { all: "Tout", special: "💎 Spécial", weed: "🌿 Herbe", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Champignons", prerolls: "🚬 Prerolls", edibles: "🍬 Comestibles" },
                 addToCart: "Ajouter", cartTitle: "🛒 Votre Panier", emptyCart: "Votre panier est vide", deliveryDetails: "📍 Détails Livraison", city: "VILLE", address: "ADRESSE", zip: "CODE POSTAL", payment: "💳 Mode de Paiement", checkout: "PAIER",
                 navMenu: "Menu", navCart: "Panier", navInfo: "Info", navReviews: "Avis", contact: "Contact",
-                shippingTitle: "🚚 Livraison", shippingText: "Nous offrons un emballage discret et une livraison rapide. Toutes les commandes sont suivies et assurées.",
+                shippingTitle: "🚚 Processus de Livraison & Grossiste", shippingText: "Nous garantissons une expédition éclair et des livraisons locales hautement discrètes. Chaque colis est scellé hermétiquement sous vide, complètement inodore et sans marquage externe.",
+                wholesaleTitle: "AVIS GROSSISTE:", wholesaleText: "Les commandes sélectionnées avec l'option Livraison Express 24/48h fonctionnent selon des structures de tarification en gros et sont significativement moins chères que la livraison locale instantanée. Veuillez contacter notre opérateur en privé pour tous les détails sur les réductions de prix de gros.",
+                noCashTitle: "🚫 PAS DE PAIEMENT EN ESPÈCES", noCashText: "Nous travaillons exclusivement avec des livreurs totalement anonymes que nous prépayons en crypto. Nous ne connaissons pas leurs identités, ils arrivent au hasard pour récupérer votre colis et le livrer en toute sécurité près de vos coordonnées. Lorsque le livreur atteint le lieu, il vous contactera directement pour vous guider vers la cachette précise. Ce processus étanche garantit que même si les forces de l'ordre sont présentes, rien ne peut être relié à vous ou au livreur.",
+                noCashWarning: "N'insistez pas pour un paiement en espèces. Nous ne faisons absolument aucune exception. PAS DE PAIEMENT ANTICIPÉ, PAS DE LIVRAISON.",
                 contactTitle: "📞 Contact", contactText: "Besoin d'aide? Contactez-nous sur Telegram.",
                 feedbackTitle: "⭐ Avis", feedbackText: "Laissez votre avis sur notre canal dédié.",
-                reviewsTitle: "Avis", reviewsSub: "Avis réels de nos clients", addedToCart: "✅ Ajouté au panier!", minOrderError: "⚠️ Commande minimum 30€", fillFieldsError: "⚠️ Veuillez remplir tous les champs de livraison"
+                reviewsTitle: "Avis", reviewsSub: "Avis réels de nos clients", reviewsChannelBtn: "📢 Rejoindre le Canal Avis",
+                addedToCart: "✅ Ajouté au panier!", minOrderError: "⚠️ Commande minimum 30€", fillFieldsError: "⚠️ Veuillez remplir tous les champs de livraison"
             },
             DE: {
                 welcome: "Willkommen bei El Jefe", subtitle: "Bitte wählen Sie Ihre Sprache und Währung", language: "Sprache", currency: "Währung", enter: "LADEN BETRETEN", headerSub: "Premium Qualität Direkt • Lieferung in 1 Stunde!", promo: "🔥 Min. Bestellung 30€ + 10€ Versand | GRATIS Versand & Geschenke ab 50€!", giftDesc: "Clipper Feuerzeug, Blättchen und Filter gratis in jeder Bestellung ab 50€!",
                 categories: { all: "Alle", special: "💎 Spezial", weed: "🌿 Gras", vape: "💨 Vapes", hash: "🟫 Hash", mushrooms: "🍄 Pilze", prerolls: "🚬 Prerolls", edibles: "🍬 Esswaren" },
                 addToCart: "Hinzufügen", cartTitle: "🛒 Ihr Warenkorb", emptyCart: "Ihr Warenkorb ist leer", deliveryDetails: "📍 Lieferdetails", city: "STADT", address: "ADRESSE", zip: "PLZ", payment: "💳 Zahlungsmethode", checkout: "ZUR KASSE",
                 navMenu: "Menü", navCart: "Warenkorb", navInfo: "Info", navReviews: "Bewertungen", contact: "Kontakt",
-                shippingTitle: "🚚 Versand", shippingText: "Wir bieten diskrete Verpackung und schnelle Lieferung. Alle Bestellungen sind verfolgbar und versichert.",
+                shippingTitle: "🚚 Lieferprozess & Großhandel", shippingText: "Wir garantieren Blitzversand und hochdiskrete lokale Lieferungen. Jedes Paket ist hermetisch vakuumversiegelt, vollständig geruchlos und zeigt keine externe Markierung.",
+                wholesaleTitle: "GROßHANDELSHINWEIS:", wholesaleText: "Bestellungen mit der Expressversand-Option 24/48h arbeiten mit Großhandelspreisstrukturen und sind deutlich günstiger als die sofortige lokale Lieferung auf Anfrage. Bitte kontaktieren Sie unseren Betreiber privat für alle Details zu Großhandelspreissenkungen.",
+                noCashTitle: "🚫 KEINE BARGELDZAHLUNG", noCashText: "Wir arbeiten ausschließlich mit vollständig anonymen Fahrern, die wir in Crypto vorbezahlen. Wir kennen ihre Identitäten nicht, sie kommen zufällig, um Ihr Paket abzuholen und liefern es sicher in der Nähe Ihrer Koordinaten. Wenn der Fahrer den Ort erreicht, wird er Sie direkt kontaktieren, um Sie zum genauen Versteck zu führen. Dieser luftdichte Prozess stellt sicher, dass selbst wenn Strafverfolgungsbehörden in der Nähe sind, nichts mit Ihnen oder dem Fahrer in Verbindung gebracht werden kann.",
+                noCashWarning: "Bestehen Sie nicht auf Barzahlung. Wir machen absolut keine Ausnahmen. KEINE VORAUSZAHLUNG, KEINE LIEFERUNG.",
                 contactTitle: "📞 Kontakt", contactText: "Hilfe nötig? Kontaktieren Sie uns auf Telegram.",
                 feedbackTitle: "⭐ Feedback", feedbackText: "Hinterlassen Sie Ihre Bewertung auf unserem Kanal.",
-                reviewsTitle: "Bewertungen", reviewsSub: "Echte Bewertungen unserer Kunden", addedToCart: "✅ Hinzugefügt!", minOrderError: "⚠️ Mindestbestellung 30€", fillFieldsError: "⚠️ Bitte alle Lieferfelder ausfüllen"
+                reviewsTitle: "Bewertungen", reviewsSub: "Echte Bewertungen unserer Kunden", reviewsChannelBtn: "📢 Bewertungskanal Beitreten",
+                addedToCart: "✅ Hinzugefügt!", minOrderError: "⚠️ Mindestbestellung 30€", fillFieldsError: "⚠️ Bitte alle Lieferfelder ausfüllen"
             },
             RU: {
                 welcome: "Добро пожаловать в El Jefe", subtitle: "Пожалуйста, выберите язык и валюту", language: "Язык", currency: "Валюта", enter: "ВОЙТИ В МАГАЗИН", headerSub: "Премиум Качество Напрямую • Доставка за 1 час!", promo: "🔥 Мин. заказ 30€ + 10€ доставка | БЕСПЛАТНАЯ доставка и Подарки от 50€!", giftDesc: "Зажигалка Clipper, бумаги и фильтры бесплатно в каждом заказе от 50€!",
                 categories: { all: "Все", special: "💎 Специальное", weed: "🌿 Травка", vape: "💨 Вейпы", hash: "🟫 Гашиш", mushrooms: "🍄 Грибы", prerolls: "🚬 Джойнты", edibles: "🍬 Еда" },
                 addToCart: "Добавить", cartTitle: "🛒 Ваша Корзина", emptyCart: "Ваша корзина пуста", deliveryDetails: "📍 Детали Доставки", city: "ГОРОД", address: "АДРЕС", zip: "ИНДЕКС", payment: "💳 Способ Оплаты", checkout: "ОФОРМИТЬ",
                 navMenu: "Меню", navCart: "Корзина", navInfo: "Инфо", navReviews: "Отзывы", contact: "Контакт",
-                shippingTitle: "🚚 Доставка", shippingText: "Предлагаем дискретную упаковку и быструю доставку. Все заказы отслеживаются и застрахованы.",
+                shippingTitle: "🚚 Процесс Доставки & Опт", shippingText: "Мы гарантируем молниеносную доставку и высокодискретные локальные поставки. Каждый пакет герметично вакуумирован, полностью без запаха и без внешней маркировки.",
+                wholesaleTitle: "УВЕДОМЛЕНИЕ ОБ ОПТЕ:", wholesaleText: "Заказы с опцией Экспресс-доставки 24/48ч работают по оптовым ценовым структурам и значительно дешевле, чем мгновенная локальная доставка по требованию. Пожалуйста, свяжитесь с нашим оператором в личных сообщениях для получения полной информации об оптовых скидках.",
+                noCashTitle: "🚫 НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ", noCashText: "Мы работаем исключительно с полностью анонимными курьерами, которых предоплачиваем криптой. Мы не знаем их личностей, они случайным образом прибывают, чтобы забрать вашу посылку и безопасно доставить её рядом с вашими координатами. Когда курьер достигнет места, он свяжется с вами напрямую, чтобы направить вас к точному укрытию. Этот герметичный процесс гарантирует, что даже если поблизости правоохранительные органы, ничто не может быть связано с вами или курьером.",
+                noCashWarning: "Не настаивайте на оплате наличными. Мы не делаем абсолютно никаких исключений. НЕТ ПРЕДОПЛАТЫ — НЕТ ДОСТАВКИ.",
                 contactTitle: "📞 Контакты", contactText: "Нужна помощь? Свяжитесь с нами в Telegram.",
                 feedbackTitle: "⭐ Отзывы", feedbackText: "Оставьте свой отзыв на нашем канале.",
-                reviewsTitle: "Отзывы", reviewsSub: "Реальные отзывы наших клиентов", addedToCart: "✅ Добавлено!", minOrderError: "⚠️ Минимальный заказ 30€", fillFieldsError: "⚠️ Заполните все поля доставки"
+                reviewsTitle: "Отзывы", reviewsSub: "Реальные отзывы наших клиентов", reviewsChannelBtn: "📢 Присоединиться к Каналу Отзывов",
+                addedToCart: "✅ Добавлено!", minOrderError: "⚠️ Минимальный заказ 30€", fillFieldsError: "⚠️ Заполните все поля доставки"
             }
         };
 
@@ -1229,15 +1334,23 @@
             document.getElementById('navReviews').textContent = t.navReviews;
             document.getElementById('contactBtnText').textContent = t.contact;
             
+            // Info section translations
             document.getElementById('shippingTitle').textContent = t.shippingTitle;
             document.getElementById('shippingText').textContent = t.shippingText;
+            document.getElementById('wholesaleTitle').textContent = t.wholesaleTitle;
+            document.getElementById('wholesaleText').textContent = t.wholesaleText;
+            document.getElementById('noCashTitle').textContent = t.noCashTitle;
+            document.getElementById('noCashText').textContent = t.noCashText;
+            document.getElementById('noCashWarning').textContent = t.noCashWarning;
             document.getElementById('contactTitle').textContent = t.contactTitle;
             document.getElementById('contactText').textContent = t.contactText;
             document.getElementById('feedbackTitle').textContent = t.feedbackTitle;
             document.getElementById('feedbackText').textContent = t.feedbackText;
             
+            // Reviews section translations
             document.getElementById('reviewsTitle').textContent = t.reviewsTitle;
             document.getElementById('reviewsSub').textContent = t.reviewsSub;
+            document.getElementById('reviewsChannelBtn').textContent = t.reviewsChannelBtn;
             
             const catButtons = document.querySelectorAll('.category-btn');
             const cats = ['all', 'special', 'weed', 'vape', 'hash', 'mushrooms', 'prerolls', 'edibles'];
