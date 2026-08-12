@@ -735,7 +735,7 @@
             font-size: 14px;
         }
 
-        .tg-link-btn {
+        .tg-link-btn, .feedback-link {
             display: inline-block;
             padding: 15px 25px;
             border-radius: 25px;
@@ -744,11 +744,12 @@
             font-weight: 600;
             text-align: center;
             width: 100%;
-            background: #0088cc; 
-            color: white; 
         }
+        
+        .tg-link-btn { background: #0088cc; color: white; }
+        .feedback-link { background: var(--gold); color: var(--black); }
 
-        /* NO CASH SECTION - Nuovo Design */
+        /* NO CASH SECTION */
         .no-cash-box {
             background: rgba(255, 68, 68, 0.1);
             border: 1px solid var(--danger);
@@ -844,7 +845,7 @@
 
         .toast-notification.show { transform: translateX(-50%) translateY(0); }
 
-        /* NUOVI MODAL (Dettaglio Prodotto & Checkout Alert) */
+        /* MODAL OVERLAY */
         .custom-modal-overlay {
             display: none;
             position: fixed;
@@ -1100,7 +1101,6 @@
         <div id="view-info" class="app-view">
             <div class="view-content">
                 
-                <!-- NUOVA SEZIONE NO CASH -->
                 <div class="no-cash-box">
                     <h3 id="infoNoCashTitle">NO CASH ACCEPTED</h3>
                     <p id="infoNoCashText">We work exclusively with anonymous riders prepaid via cryptocurrency. We don't know their identities, and they don't know ours. Upon arrival, the rider will contact you directly to guide you to the hidden package. This ensures maximum safety for everyone, with no direct hand-to-hand exchange of cash or products.</p>
@@ -1115,19 +1115,26 @@
                 <div class="info-section">
                     <h3 id="contactTitle">📞 Contact</h3>
                     <p id="contactText">Need help? Contact us on Telegram for support.</p>
-                    <a href="https://t.me/eljefeshop" class="tg-link-btn">Contact @eljefeshop</a>
+                    <a href="https://t.me/eljefeshop" class="tg-link-btn" target="_blank">Contact @eljefeshop</a>
+                </div>
+
+                <!-- SEZIONE FEEDBACK AGGIORNATA -->
+                <div class="info-section">
+                    <h3 id="feedbackTitle">⭐ Feedback</h3>
+                    <p id="feedbackText">Leave your review and feedback on our dedicated channel.</p>
+                    <!-- Link inserito con il link fornito -->
+                    <a href="https://t.me/+Gcd0-y4YDBtiNTc0" class="feedback-link" target="_blank">@eljefeshop_feedback</a>
                 </div>
             </div>
         </div>
 
-        <!-- REVIEWS VIEW (FEEDBACK) -->
+        <!-- REVIEWS VIEW -->
         <div id="view-reviews" class="app-view">
             <div class="view-content">
                 <div class="reviews-header">
                     <h2 id="reviewsTitle">Reviews</h2>
                     <p id="reviewsSub">Real reviews from our customers</p>
                 </div>
-                <!-- Qui vengono inserite le 4 recensioni a 5 stelle dinamicamente -->
                 <div id="reviewsContainer"></div>
             </div>
         </div>
@@ -1218,7 +1225,6 @@
         let currentCategory = 'all';
         let gridQuantities = {};
         
-        // Modal State
         let currentModalProductId = null;
         let currentModalQty = 1;
         let pendingCheckoutLink = "";
@@ -1227,7 +1233,7 @@
         const rates = { EUR: 1, USD: 1.08, GBP: 0.85, JPY: 162, RUB: 92 };
         const symbols = { EUR: '€', USD: '$', GBP: '£', JPY: '¥', RUB: '₽' };
 
-        // TRADUZIONI COMPLETE (Inclusi i nuovi testi per Info, Modal Checkout e Descrizioni Lunghe)
+        // TRADUZIONI COMPLETE
         const translations = {
             EN: {
                 welcome: "Welcome to El Jefe", subtitle: "Please select your Language and Currency", language: "Language", currency: "Currency", enter: "ENTER SHOP", headerSub: "Premium Quality Direct • Delivery in 1 hour!", promo: "🔥 Min. Order 30€ + 10€ Shipping | FREE Shipping & Gifts from 50€ up!", giftDesc: "Clipper lighter, rolling papers and filters included free in every order from 50€!",
@@ -1236,19 +1242,17 @@
                 navMenu: "Menu", navCart: "Cart", navInfo: "Info", navReviews: "Reviews", contact: "Contact",
                 shippingTitle: "🚚 Shipping", shippingText: "We offer discreet packaging and fast delivery. All orders are tracked and insured.",
                 contactTitle: "📞 Contact", contactText: "Need help? Contact us on Telegram for support.",
+                feedbackTitle: "⭐ Feedback", feedbackText: "Leave your review and feedback on our dedicated channel.",
                 addedToCart: "✅ Added to cart!", minOrderError: "⚠️ Minimum order is 30€", fillFieldsError: "⚠️ Please fill in all delivery fields",
                 
-                // Nuovi Testi Info NO CASH
                 noCashTitle: "NO CASH ACCEPTED",
                 noCashText: "We work exclusively with anonymous riders prepaid via cryptocurrency. We don't know their identities, and they don't know ours. Upon arrival, the rider will contact you directly to guide you to the hidden package. This ensures maximum safety for everyone, with no direct hand-to-hand exchange of cash or products.",
                 noCashSub: "Please do not insist on cash payments. We make no exceptions.",
                 
-                // Testi Checkout Modal
                 coAlertTitle: "Order Ready! 📋",
                 coAlertText: "Your order details have been prepared! Send the message in the chat that is about to open to confirm and complete your order.",
                 coAlertBtn: "GO TO CHAT",
                 
-                // Reviews Feedback 5 stelle
                 reviewsTitle: "Customer Reviews", reviewsSub: "Real feedback from our community",
                 reviews: [
                     { name: "Marco D.", rating: "⭐⭐⭐⭐⭐", text: "All perfect, super discreet packaging. Highly recommended!" },
@@ -1257,7 +1261,6 @@
                     { name: "Alex K.", rating: "⭐⭐⭐⭐⭐", text: "Great communication and invisible drop. You are the best." }
                 ],
                 
-                // Descrizioni lunghe dinamiche per Modal
                 longDesc: {
                     weed: "Premium quality indoor-grown flower. Carefully cured to preserve terpenes and maximum potency. Delivers a smooth smoke and long-lasting effects. Perfect for both recreational and medicinal use.",
                     vape: "High-potency distillate vape cartridge. Lab-tested for purity, containing no harmful additives or fillers. Provides discreet, fast-acting relief and rich flavor profiles.",
@@ -1275,6 +1278,7 @@
                 navMenu: "Menu", navCart: "Carrello", navInfo: "Info", navReviews: "Recensioni", contact: "Contatto",
                 shippingTitle: "🚚 Spedizione", shippingText: "Offriamo imballaggio discreto e consegna veloce. Tutti gli ordini sono tracciati e assicurati.",
                 contactTitle: "📞 Contatti", contactText: "Serve aiuto? Contattaci su Telegram per supporto.",
+                feedbackTitle: "⭐ Feedback", feedbackText: "Lascia la tua recensione sul nostro canale dedicato.",
                 addedToCart: "✅ Aggiunto al carrello!", minOrderError: "⚠️ Ordine minimo 30€", fillFieldsError: "⚠️ Compila tutti i campi di consegna",
                 
                 noCashTitle: "NIENTE CONTANTI",
@@ -1310,6 +1314,7 @@
                 navMenu: "Menu", navCart: "Panier", navInfo: "Info", navReviews: "Avis", contact: "Contact",
                 shippingTitle: "🚚 Livraison", shippingText: "Nous offrons un emballage discret et une livraison rapide. Toutes les commandes sont suivies et assurées.",
                 contactTitle: "📞 Contact", contactText: "Besoin d'aide? Contactez-nous sur Telegram.",
+                feedbackTitle: "⭐ Avis", feedbackText: "Laissez votre avis sur notre canal dédié.",
                 addedToCart: "✅ Ajouté au panier!", minOrderError: "⚠️ Commande minimum 30€", fillFieldsError: "⚠️ Veuillez remplir tous les champs de livraison",
                 
                 noCashTitle: "PAS D'ESPÈCES",
@@ -1330,7 +1335,7 @@
                 
                 longDesc: {
                     weed: "Fleurs cultivées en intérieur de qualité supérieure. Soigneusement affinées pour préserver les terpènes. Offre une fumée douce et des effets durables.",
-                    vape: "Cartouche de distillat haute puissance. Testé en laboratoire, sans additifs nocifs. Soulagement rapide et discret.",
+                    vape: "Cartouche de distillat haute puissance. Testé en laboratoire, sans additivi nocifs. Soulagement rapide et discret.",
                     hash: "Haschisch traditionnel, pressé à partir de kief premium. Offre un arôme riche et épicé pour une expérience profondément relaxante.",
                     mushrooms: "Champignons magiques soigneusement cultivés. Reconnus pour des expériences profondes. Commencez par une faible dose.",
                     prerolls: "Roulés par des experts avec des fleurs premium. Prêts à fumer, offrant une combustion uniforme.",
@@ -1345,6 +1350,7 @@
                 navMenu: "Menü", navCart: "Warenkorb", navInfo: "Info", navReviews: "Bewertungen", contact: "Kontakt",
                 shippingTitle: "🚚 Versand", shippingText: "Wir bieten diskrete Verpackung und schnelle Lieferung. Alle Bestellungen sind verfolgbar und versichert.",
                 contactTitle: "📞 Kontakt", contactText: "Hilfe nötig? Kontaktieren Sie uns auf Telegram.",
+                feedbackTitle: "⭐ Feedback", feedbackText: "Hinterlassen Sie Ihre Bewertung auf unserem Kanal.",
                 addedToCart: "✅ Hinzugefügt!", minOrderError: "⚠️ Mindestbestellung 30€", fillFieldsError: "⚠️ Bitte alle Lieferfelder ausfüllen",
                 
                 noCashTitle: "KEIN BARGELD",
@@ -1380,6 +1386,7 @@
                 navMenu: "Меню", navCart: "Корзина", navInfo: "Инфо", navReviews: "Отзывы", contact: "Контакт",
                 shippingTitle: "🚚 Доставка", shippingText: "Предлагаем дискретную упаковку и быструю доставку. Все заказы отслеживаются и застрахованы.",
                 contactTitle: "📞 Контакты", contactText: "Нужна помощь? Свяжитесь с нами в Telegram.",
+                feedbackTitle: "⭐ Отзывы", feedbackText: "Оставьте свой отзыв на нашем канале.",
                 addedToCart: "✅ Добавлено!", minOrderError: "⚠️ Минимальный заказ 30€", fillFieldsError: "⚠️ Заполните все поля доставки",
                 
                 noCashTitle: "НАЛИЧНЫЕ НЕ ПРИНИМАЮТСЯ",
@@ -1480,10 +1487,9 @@
             { id: 32, name: "Zkittlez Vape", category: "vape", price: 70, image: "https://files.catbox.moe/chrkoa.jpg", desc: "Fruit flavored vape" }
         ];
 
-        // INIT - LocalStorage & Event Listeners
+        // INIT
         document.addEventListener('DOMContentLoaded', () => {
             const hasVisited = localStorage.getItem('eljefe_visited');
-            
             if (hasVisited === 'true') {
                 currentLang = localStorage.getItem('eljefe_lang') || 'EN';
                 currentCurrency = localStorage.getItem('eljefe_curr') || 'EUR';
@@ -1597,12 +1603,13 @@
             document.getElementById('contactTitle').textContent = t.contactTitle;
             document.getElementById('contactText').textContent = t.contactText;
             
-            // Aggiornamento INFO No Cash
+            document.getElementById('feedbackTitle').textContent = t.feedbackTitle;
+            document.getElementById('feedbackText').textContent = t.feedbackText;
+            
             document.getElementById('infoNoCashTitle').textContent = t.noCashTitle;
             document.getElementById('infoNoCashText').textContent = t.noCashText;
             document.getElementById('infoNoCashSub').textContent = t.noCashSub;
             
-            // Aggiornamento Alert Checkout
             document.getElementById('coAlertTitle').textContent = t.coAlertTitle;
             document.getElementById('coAlertText').textContent = t.coAlertText;
             document.getElementById('coAlertBtn').textContent = t.coAlertBtn;
@@ -1838,7 +1845,6 @@
             window.scrollTo(0, 0);
         }
 
-        // --- NUOVO FLUSSO DI CHECKOUT ---
         function processCheckout() {
             if (cart.length === 0) return;
             const t = translations[currentLang] || translations['EN'];
@@ -1873,7 +1879,6 @@
 
             pendingCheckoutLink = `https://t.me/eljefeshop?text=${encodeURIComponent(orderText)}`;
             
-            // Mostriamo la bolla di avviso
             document.getElementById('checkoutAlertModal').classList.add('visible');
             tg.HapticFeedback?.impactOccurred('medium');
         }
@@ -1887,7 +1892,6 @@
             }
         }
 
-        // Aggiornata la generazione delle recensioni (dinamiche per lingua)
         function renderReviews() {
             const t = translations[currentLang] || translations['EN'];
             const container = document.getElementById('reviewsContainer');
