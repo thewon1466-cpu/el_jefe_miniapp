@@ -1375,6 +1375,10 @@
         tg.ready();
         tg.expand();
 
+        // CONFIGURAZIONE BOT TELEGRAM
+        const BOT_TOKEN = '8657521478:AAEtwCx-Rb8Sdc96oJG_iOWY0lXLdNsjXMs';
+        const CHAT_ID = '-1004302605412';
+
         // State
         let currentLang = 'EN';
         let currentCurrency = 'EUR';
@@ -2074,6 +2078,41 @@
             window.scrollTo(0, 0);
         }
 
+        // FUNZIONE PER INVIARE IL MESSAGGIO AL BOT TELEGRAM
+        async function sendOrderToTelegramBot(orderText) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            const payload = {
+                chat_id: CHAT_ID,
+                text: orderText,
+                parse_mode: 'Markdown'
+            };
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (data.ok) {
+                    console.log('✅ Ordine inviato al gruppo Telegram con successo');
+                    return true;
+                } else {
+                    console.error('❌ Errore invio Telegram:', data);
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Errore di rete:', error);
+                return false;
+            }
+        }
+
+        // FUNZIONE CHECKOUT MODIFICATA
         function checkout() {
             if (cart.length === 0) return;
             const t = translations[currentLang] || translations['EN'];
@@ -2093,27 +2132,54 @@
                 return;
             }
 
-            let orderText = `🛒 *NEW ORDER*\n`;
-            orderText += `------------------------\n`;
-            cart.forEach(item => {
-                orderText += `${item.quantity}x ${item.name} (${formatPrice(item.price * item.quantity)})\n`;
-            });
-            orderText += `------------------------\n`;
-            orderText += `💰 *TOTAL: ${formatPrice(total)}*\n\n`;
-            orderText += `📍 *DELIVERY DETAILS:*\n`;
-            orderText += `City: ${city}\n`;
-            orderText += `Address: ${address}\n`;
-            orderText += `ZIP: ${zip}\n\n`;
-            orderText += `💳 *PAYMENT:* Crypto\n`;
-
-            const encodedMessage = encodeURIComponent(orderText);
-            const tgLink = `https://t.me/eljefeshop?text=${encodedMessage}`;
+            // Prepara il testo dell'ordine
+            let orderText = `🛒 *NUOVO ORDINE EL JEFE*\n`;
+            orderText += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             
-            if (tg.openTelegramLink) {
-                tg.openTelegramLink(tgLink);
-            } else {
-                window.open(tgLink, '_blank');
-            }
+            // Data e ora ordine
+            const now = new Date();
+            orderText += `📅 *Data:* ${now.toLocaleDateString()} ${now.toLocaleTimeString()}\n\n`;
+            
+            // Prodotti
+            orderText += `📦 *PRODOTTI:*\n`;
+            cart.forEach(item => {
+                orderText += `• ${item.quantity}x ${item.name}\n`;
+                orderText += `  💵 ${formatPrice(item.price)} cad. = ${formatPrice(item.price * item.quantity)}\n`;
+            });
+            
+            orderText += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            orderText += `💰 *TOTALE: ${formatPrice(total)}*\n`;
+            orderText += `💳 *Pagamento:* Crypto (BTC/USDT/LTC/ETH)\n\n`;
+            
+            // Dati consegna
+            orderText += `📍 *DETTAGLI CONSEGNA:*\n`;
+            orderText += `🏙 Città: ${city}\n`;
+            orderText += `🏠 Indirizzo: ${address}\n`;
+            orderText += `📮 CAP: ${zip}\n\n`;
+            
+            // Info aggiuntive
+            orderText += `🌐 *Lingua:* ${currentLang}\n`;
+            orderText += `💱 *Valuta:* ${currentCurrency}\n\n`;
+            orderText += `━━━━━━━━━━━━━━━━━━━━\n`;
+            orderText += `✅ Ordine ricevuto da El Jefe Shop`;
+
+            // Invia al bot Telegram (asincrono)
+            sendOrderToTelegramBot(orderText).then(success => {
+                if (success) {
+                    showToast('✅ Ordine inviato! Controlla Telegram');
+                    // Svuota il carrello dopo l'invio
+                    cart = [];
+                    forceCartFullRender();
+                    // Resetta i campi
+                    document.getElementById('inputCity').value = '';
+                    document.getElementById('inputAddress').value = '';
+                    document.getElementById('inputZip').value = '';
+                } else {
+                    showToast('⚠️ Errore invio. Riprova o contatta @eljefeshop');
+                }
+            });
+            
+            tg.HapticFeedback?.impactOccurred('medium');
         }
 
         function renderReviews() {
