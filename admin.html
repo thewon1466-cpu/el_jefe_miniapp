@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>El Jefe - Admin Panel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --gold: #D4AF37; --gold-light: #F4D03F; --black: #0a0a0a;
+            --dark-gray: #1a1a1a; --medium-gray: #2a2a2a; --light-gray: #888;
+            --white: #ffffff; --danger: #ff4444; --success: #00C851;
+            --blue: #0088cc;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--black); color: var(--white); min-height: 100vh;
+        }
+
+        .login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 50%, var(--black) 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; z-index: 10000;
+        }
+        .login-box {
+            width: 100%; max-width: 400px; background: var(--dark-gray);
+            border-radius: 20px; padding: 40px 30px; border: 1px solid var(--medium-gray);
+        }
+        .login-logo {
+            width: 100px; height: 100px; margin: 0 auto 30px;
+            background: var(--gold); border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 40px;
+        }
+        .login-title {
+            text-align: center; color: var(--gold); font-size: 24px;
+            margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block; color: var(--gold); font-size: 12px;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+        }
+        .form-group input {
+            width: 100%; background: var(--medium-gray); border: 1px solid var(--medium-gray);
+            color: var(--white); padding: 16px 15px; border-radius: 10px;
+            font-size: 16px; outline: none; transition: border-color 0.3s;
+        }
+        .form-group input:focus { border-color: var(--gold); }
+        .login-btn {
+            width: 100%; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--black); border: none; padding: 18px; border-radius: 12px;
+            font-size: 16px; font-weight: 700; cursor: pointer; text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .login-error {
+            color: var(--danger); text-align: center; margin-top: 15px;
+            font-size: 14px; display: none;
+        }
+
+        .admin-panel { display: none; padding-bottom: 100px; }
+        .admin-header {
+            background: var(--dark-gray); padding: 20px;
+            border-bottom: 1px solid var(--medium-gray); position: sticky; top: 0; z-index: 100;
+        }
+        .admin-header-top {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;
+        }
+        .admin-title { color: var(--gold); font-size: 20px; font-weight: 700; }
+        .logout-btn {
+            background: var(--danger); color: white; border: none;
+            padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;
+        }
+        .stats-bar {
+            display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px;
+        }
+        .stat-box {
+            background: var(--medium-gray); padding: 15px 20px; border-radius: 10px;
+            min-width: 120px; text-align: center;
+        }
+        .stat-number { color: var(--gold); font-size: 24px; font-weight: 700; }
+        .stat-label { color: var(--light-gray); font-size: 12px; margin-top: 5px; }
+
+        .actions-bar {
+            padding: 20px; display: flex; gap: 10px; flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: var(--gold); color: var(--black); border: none;
+            padding: 15px 25px; border-radius: 10px; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
+            font-size: 14px;
+        }
+        .btn-secondary {
+            background: var(--medium-gray); color: var(--white); border: 1px solid var(--gold);
+            padding: 15px 25px; border-radius: 10px; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
+            font-size: 14px;
+        }
+
+        .cat-tabs {
+            display: flex; gap: 10px; padding: 0 20px 20px;
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .cat-tabs::-webkit-scrollbar { display: none; }
+        .cat-tab {
+            background: var(--medium-gray); border: 2px solid transparent;
+            color: var(--white); padding: 12px 20px; border-radius: 25px;
+            cursor: pointer; white-space: nowrap; font-weight: 500;
+        }
+        .cat-tab.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
+
+        .products-container { padding: 0 20px; }
+        .section-title {
+            color: var(--gold); font-size: 18px; margin-bottom: 15px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .products-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .product-card {
+            background: var(--dark-gray); border-radius: 15px;
+            overflow: hidden; border: 1px solid var(--medium-gray);
+            position: relative;
+        }
+        .product-img {
+            width: 100%; height: 120px; object-fit: cover;
+            background: var(--medium-gray);
+        }
+        .product-info { padding: 12px; }
+        .product-name {
+            font-size: 14px; font-weight: 600; margin-bottom: 5px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .product-price {
+            color: var(--gold); font-size: 16px; font-weight: 700;
+        }
+        .product-cat {
+            font-size: 11px; color: var(--light-gray); text-transform: uppercase;
+            margin-top: 5px;
+        }
+        .product-actions {
+            display: flex; gap: 5px; padding: 0 12px 12px;
+        }
+        .btn-edit, .btn-delete {
+            flex: 1; padding: 10px; border: none; border-radius: 8px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+        }
+        .btn-edit { background: var(--blue); color: white; }
+        .btn-delete { background: var(--danger); color: white; }
+
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            z-index: 1000; align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.visible { display: flex; }
+        .modal-content {
+            background: var(--dark-gray); border-radius: 20px;
+            width: 100%; max-width: 500px; max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            padding: 20px; border-bottom: 1px solid var(--medium-gray);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-title { color: var(--gold); font-size: 20px; }
+        .modal-close {
+            background: none; border: none; color: var(--light-gray);
+            font-size: 28px; cursor: pointer;
+        }
+        .modal-body { padding: 20px; }
+        .form-row { margin-bottom: 20px; }
+        .form-row label {
+            display: block; color: var(--gold); font-size: 12px;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+        }
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%; background: var(--medium-gray); border: 1px solid var(--medium-gray);
+            color: var(--white); padding: 15px; border-radius: 10px;
+            font-size: 16px; outline: none;
+        }
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+            border-color: var(--gold);
+        }
+        .form-row textarea { min-height: 80px; resize: vertical; }
+        .image-preview {
+            width: 100%; height: 150px; background: var(--medium-gray);
+            border-radius: 10px; display: flex; align-items: center;
+            justify-content: center; margin-top: 10px; overflow: hidden;
+        }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .image-preview span { color: var(--light-gray); }
+        .modal-footer {
+            padding: 20px; border-top: 1px solid var(--medium-gray);
+            display: flex; gap: 10px;
+        }
+        .btn-save {
+            flex: 1; background: var(--success); color: white;
+            border: none; padding: 16px; border-radius: 10px;
+            font-weight: 700; cursor: pointer; font-size: 16px;
+        }
+        .btn-cancel {
+            flex: 1; background: var(--medium-gray); color: var(--white);
+            border: none; padding: 16px; border-radius: 10px;
+            font-weight: 600; cursor: pointer; font-size: 16px;
+        }
+
+        .code-block {
+            background: var(--black); border: 1px solid var(--medium-gray);
+            border-radius: 10px; padding: 15px; font-family: monospace;
+            font-size: 11px; color: var(--light-gray); max-height: 300px;
+            overflow-y: auto; white-space: pre-wrap; word-break: break-all;
+            margin: 15px 0;
+        }
+        .copy-btn {
+            background: var(--blue); color: white; border: none;
+            padding: 12px 25px; border-radius: 8px; cursor: pointer;
+            font-weight: 600; width: 100%;
+        }
+
+        .empty-state {
+            text-align: center; padding: 60px 20px; color: var(--light-gray);
+        }
+        .empty-state-icon { font-size: 60px; margin-bottom: 20px; }
+
+        .toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+            background: var(--success); color: white; padding: 15px 30px;
+            border-radius: 30px; font-weight: 600; z-index: 10001;
+            transition: transform 0.3s ease;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark-gray); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <div class="login-logo">🔐</div>
+            <h1 class="login-title">Admin Access</h1>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <button class="login-btn" onclick="login()">LOGIN</button>
+            <div class="login-error" id="loginError">Accesso negato! Credenziali errate.</div>
+        </div>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <div class="admin-header-top">
+                <div class="admin-title">📦 Gestione Catalogo</div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <div class="stat-number" id="totalProducts">0</div>
+                    <div class="stat-label">Prodotti</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="totalCategories">0</div>
+                    <div class="stat-label">Categorie</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="avgPrice">0€</div>
+                    <div class="stat-label">Prezzo Medio</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions-bar">
+            <button class="btn-primary" onclick="openAddModal()">➕ Aggiungi Prodotto</button>
+            <button class="btn-secondary" onclick="openExportModal()">📋 Esporta Codice JS</button>
+            <button class="btn-secondary" onclick="loadDefaultProducts()">🔄 Ripristina Default</button>
+        </div>
+
+        <div class="cat-tabs">
+            <button class="cat-tab active" onclick="filterByCategory('all', this)">Tutti</button>
+            <button class="cat-tab" onclick="filterByCategory('special', this)">💎 Special</button>
+            <button class="cat-tab" onclick="filterByCategory('weed', this)">🌿 Weed</button>
+            <button class="cat-tab" onclick="filterByCategory('vape', this)">💨 Vapes</button>
+            <button class="cat-tab" onclick="filterByCategory('hash', this)">🟫 Hash</button>
+            <button class="cat-tab" onclick="filterByCategory('mushrooms', this)">🍄 Mushrooms</button>
+            <button class="cat-tab" onclick="filterByCategory('prerolls', this)">🚬 Prerolls</button>
+            <button class="cat-tab" onclick="filterByCategory('edibles', this)">🍬 Edibles</button>
+        </div>
+
+        <div class="products-container">
+            <div class="section-title">📑 Prodotti (<span id="productCount">0</span>)</div>
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Aggiungi Prodotto</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editProductId">
+                <div class="form-row">
+                    <label>Nome Prodotto</label>
+                    <input type="text" id="productName" placeholder="Es. Amnesia Haze">
+                </div>
+                <div class="form-row">
+                    <label>Categoria</label>
+                    <select id="productCategory">
+                        <option value="special">💎 Special</option>
+                        <option value="weed">🌿 Weed</option>
+                        <option value="vape">💨 Vapes</option>
+                        <option value="hash">🟫 Hash</option>
+                        <option value="mushrooms">🍄 Mushrooms</option>
+                        <option value="prerolls">🚬 Prerolls</option>
+                        <option value="edibles">🍬 Edibles</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>Prezzo (€)</label>
+                    <input type="number" id="productPrice" placeholder="Es. 25" min="0" step="0.01">
+                </div>
+                <div class="form-row">
+                    <label>URL Immagine</label>
+                    <input type="text" id="productImage" placeholder="https://..." onchange="previewImage()">
+                    <div class="image-preview" id="imagePreview"><span>Nessuna immagine</span></div>
+                </div>
+                <div class="form-row">
+                    <label>Descrizione IT</label>
+                    <textarea id="descIT" placeholder="Descrizione in italiano..."></textarea>
+                </div>
+                <div class="form-row">
+                    <label>Descrizione EN</label>
+                    <textarea id="descEN" placeholder="Descrizione in inglese..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal()">Annulla</button>
+                <button class="btn-save" onclick="saveProduct()">💾 Salva</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">📋 Codice JS Esportato</h2>
+                <button class="modal-close" onclick="closeExportModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--light-gray); margin-bottom: 15px;">Copia questo codice e incollalo nel tuo file <strong>prodotti.js</strong>:</p>
+                <div class="code-block" id="exportCode"></div>
+                <button class="copy-btn" onclick="copyToClipboard()">📋 Copia negli Appunti</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Operazione completata!</div>
+
+    <script>
+        const ADMIN_USER = 'root';
+        const ADMIN_PASS = 'Ciaociao10!';
+
+        const defaultProducts = [
+            { id: 1, name: "Amnesia Vape", category: "vape", price: 70, image: "https://files.catbox.moe/k6utct.jpg", descEN: "Premium THC vape cartridge", descIT: "Cartuccia vape THC premium" },
+            { id: 2, name: "Baby Jeeter Prerolls", category: "prerolls", price: 30, image: "https://files.catbox.moe/uzsqh3.jpg", descEN: "5 pack infused prerolls", descIT: "5 preroll infusi" },
+            { id: 3, name: "Blue Dream Vape", category: "vape", price: 70, image: "https://files.catbox.moe/e42bu5.jpg", descEN: "Sativa dominant vape", descIT: "Vape sativa dominante" },
+            { id: 4, name: "Blue Dream", category: "weed", price: 12, image: "https://files.catbox.moe/l3rb72.jpg", descEN: "Top shelf sativa", descIT: "Sativa top quality" },
+            { id: 5, name: "Bubblegum Gusher", category: "weed", price: 12, image: "https://files.catbox.moe/q1vuzm.jpg", descEN: "Sweet indica hybrid", descIT: "Ibrido indica dolce" },
+            { id: 6, name: "Cookies", category: "weed", price: 12, image: "https://files.catbox.moe/9cm291.jpg", descEN: "Classic Cookies strain", descIT: "Strain Cookies classico" },
+            { id: 7, name: "Crystal Meth Special", category: "special", price: 60, image: "https://files.catbox.moe/sg5khm.jpg", descEN: "Premium quality crystal", descIT: "Cristallo qualità premium" },
+            { id: 8, name: "Frozen Sift Hash", category: "hash", price: 15, image: "https://files.catbox.moe/dwnep1.jpg", descEN: "Cold extracted hash", descIT: "Hash estratto a freddo" },
+            { id: 9, name: "Gelato", category: "weed", price: 12, image: "https://files.catbox.moe/iuulm3.jpg", descEN: "Sweet dessert strain", descIT: "Strain dolce da dessert" },
+            { id: 10, name: "Golden Teacher", category: "mushrooms", price: 40, image: "https://files.catbox.moe/4bcbhp.jpg", descEN: "Psychedelic mushrooms", descIT: "Funghi psichedelici" },
+            { id: 11, name: "Green Crack", category: "weed", price: 12, image: "https://files.catbox.moe/dpq2lc.jpg", descEN: "Energetic sativa", descIT: "Sativa energizzante" },
+            { id: 12, name: "Lemon Cherry", category: "weed", price: 12, image: "https://files.catbox.moe/nkf4c3.jpg", descEN: "Fruity hybrid", descIT: "Ibrido fruttato" },
+            { id: 13, name: "LSD Liquid Special", category: "special", price: 50, image: "https://files.catbox.moe/upcbag.jpg", descEN: "Pure LSD liquid", descIT: "LSD liquido puro" },
+            { id: 14, name: "MDMA Special", category: "special", price: 65, image: "https://files.catbox.moe/6xqi64.jpg", descEN: "Pure MDMA crystals", descIT: "Cristalli MDMA puri" },
+            { id: 15, name: "Moonrock", category: "weed", price: 20, image: "https://files.catbox.moe/i4nqr1.jpg", descEN: "Covered in kief", descIT: "Ricoperto di kief" },
+            { id: 16, name: "Moroccan Dry Hash", category: "hash", price: 8, image: "https://files.catbox.moe/kbbn9j.jpg", descEN: "Traditional Moroccan", descIT: "Marocchino tradizionale" },
+            { id: 17, name: "Northern Lights", category: "weed", price: 12, image: "https://files.catbox.moe/jnv4ei.jpg", descEN: "Classic indica", descIT: "Indica classica" },
+            { id: 18, name: "Premium Hash", category: "hash", price: 12, image: "https://files.catbox.moe/wlsxrg.jpg", descEN: "Top quality hash", descIT: "Hash top quality" },
+            { id: 19, name: "Premium Wholesale", category: "weed", price: 7.5, image: "https://files.catbox.moe/1ah9ve.jpg", descEN: "Bulk pricing available", descIT: "Prezzi all'ingrosso" },
+            { id: 20, name: "Pure Cocaine", category: "special", price: 120, image: "https://files.catbox.moe/vghr7c.jpg", descEN: "Fishscale quality", descIT: "Qualità fishscale" },
+            { id: 21, name: "Purple Mystic", category: "mushrooms", price: 45, image: "https://files.catbox.moe/qvzz3u.jpg", descEN: "Magic mushrooms", descIT: "Funghi magici" },
+            { id: 22, name: "Purple Platinum", category: "weed", price: 12, image: "https://files.catbox.moe/p393wj.jpg", descEN: "Purple indica", descIT: "Indica viola" },
+            { id: 23, name: "Rainbow Zaza", category: "weed", price: 12, image: "https://files.catbox.moe/pbjgn1.jpg", descEN: "Colorful hybrid", descIT: "Ibrido colorato" },
+            { id: 24, name: "Runtz Vape", category: "vape", price: 70, image: "https://files.catbox.moe/pjj7h1.jpg", descEN: "Premium disposable", descIT: "Vape usa e getta premium" },
+            { id: 25, name: "Runtz", category: "weed", price: 12, image: "https://files.catbox.moe/xxeqh7.jpg", descEN: "Sweet candy strain", descIT: "Strain caramella dolce" },
+            { id: 26, name: "Snowcone", category: "weed", price: 12, image: "https://files.catbox.moe/3m3tdq.jpg", descEN: "Icy hybrid", descIT: "Ibrido ghiacciato" },
+            { id: 27, name: "Sour Diesel", category: "weed", price: 12, image: "https://files.catbox.moe/pk12h0.jpg", descEN: "Classic sativa", descIT: "Sativa classica" },
+            { id: 28, name: "Standard Prerolls", category: "prerolls", price: 15, image: "https://files.catbox.moe/9tu5hx.jpg", descEN: "7 pack classic joints", descIT: "7 joints classici" },
+            { id: 29, name: "THC Edibles 40mg", category: "edibles", price: 40, image: "https://files.catbox.moe/wlkvg0.jpg", descEN: "Gummies 40mg THC", descIT: "Gummies 40mg THC" },
+            { id: 30, name: "THC Edibles 60mg", category: "edibles", price: 60, image: "https://files.catbox.moe/8ymlq9.jpg", descEN: "Gummies 60mg THC", descIT: "Gummies 60mg THC" },
+            { id: 31, name: "White Widow", category: "weed", price: 12, image: "https://files.catbox.moe/dux0y2.jpg", descEN: "Balanced hybrid", descIT: "Ibrido bilanciato" },
+            { id: 32, name: "Zkittlez Vape", category: "vape", price: 70, image: "https://files.catbox.moe/chrkoa.jpg", descEN: "Fruit flavored vape", descIT: "Vape al frutto" }
+        ];
+
+        let products = [];
+        let currentFilter = 'all';
+
+        function login() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            
+            if (user === ADMIN_USER && pass === ADMIN_PASS) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadProducts();
+                showToast('✅ Accesso effettuato!');
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+                setTimeout(() => document.getElementById('loginError').style.display = 'none', 3000);
+            }
+        }
+
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') login();
+        });
+
+        function logout() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function loadProducts() {
+            const saved = localStorage.getItem('eljefe_products');
+            if (saved) {
+                products = JSON.parse(saved);
+            } else {
+                products = JSON.parse(JSON.stringify(defaultProducts));
+                saveProducts();
+            }
+            renderProducts();
+            updateStats();
+        }
+
+        function saveProducts() {
+            localStorage.setItem('eljefe_products', JSON.stringify(products));
+        }
+
+        function loadDefaultProducts() {
+            if (confirm('Vuoi davvero ripristinare i prodotti di default? I tuoi dati attuali verranno persi.')) {
+                products = JSON.parse(JSON.stringify(defaultProducts));
+                saveProducts();
+                renderProducts();
+                updateStats();
+                showToast('✅ Prodotti ripristinati!');
+            }
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            let filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
+            
+            document.getElementById('productCount').textContent = filtered.length;
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;"><div class="empty-state-icon">📭</div><p>Nessun prodotto in questa categoria</p></div>`;
+                return;
+            }
+            
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.image}" class="product-img" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300/333/fff?text=No+Image'">
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">€${product.price}</div>
+                        <div class="product-cat">${getCategoryName(product.category)}</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-edit" onclick="editProduct(${product.id})">✏️ Modifica</button>
+                        <button class="btn-delete" onclick="deleteProduct(${product.id})">🗑️</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function getCategoryName(cat) {
+            const names = { special: '💎 Special', weed: '🌿 Weed', vape: '💨 Vape', hash: '🟫 Hash', mushrooms: '🍄 Mushrooms', prerolls: '🚬 Prerolls', edibles: '🍬 Edibles' };
+            return names[cat] || cat;
+        }
+
+        function updateStats() {
+            document.getElementById('totalProducts').textContent = products.length;
+            const categories = [...new Set(products.map(p => p.category))];
+            document.getElementById('totalCategories').textContent = categories.length;
+            const avg = products.length > 0 ? (products.reduce((a, b) => a + b.price, 0) / products.length).toFixed(1) : 0;
+            document.getElementById('avgPrice').textContent = '€' + avg;
+        }
+
+        function filterByCategory(cat, btn) {
+            currentFilter = cat;
+            document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts();
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').textContent = 'Aggiungi Prodotto';
+            document.getElementById('editProductId').value = '';
+            document.getElementById('productName').value = '';
+            document.getElementById('productCategory').value = 'weed';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productImage').value = '';
+            document.getElementById('descIT').value = '';
+            document.getElementById('descEN').value = '';
+            document.getElementById('imagePreview').innerHTML = '<span>Nessuna immagine</span>';
+            document.getElementById('productModal').classList.add('visible');
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            
+            document.getElementById('modalTitle').textContent = 'Modifica Prodotto';
+            document.getElementById('editProductId').value = product.id;
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productCategory').value = product.category;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productImage').value = product.image;
+            document.getElementById('descIT').value = product.descIT || '';
+            document.getElementById('descEN').value = product.descEN || '';
+            
+            previewImage();
+            document.getElementById('productModal').classList.add('visible');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('visible');
+        }
+
+        function previewImage() {
+            const url = document.getElementById('productImage').value;
+            const preview = document.getElementById('imagePreview');
+            if (url) {
+                preview.innerHTML = `<img src="${url}" onerror="this.parentElement.innerHTML='<span>Immagine non valida</span>'">`;
+            } else {
+                preview.innerHTML = '<span>Nessuna immagine</span>';
+            }
+        }
+
+        function saveProduct() {
+            const id = document.getElementById('editProductId').value;
+            const name = document.getElementById('productName').value.trim();
+            const category = document.getElementById('productCategory').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const image = document.getElementById('productImage').value.trim();
+            const descIT = document.getElementById('descIT').value.trim();
+            const descEN = document.getElementById('descEN').value.trim();
+
+            if (!name || !price || !image) {
+                alert('Compila tutti i campi obbligatori!');
+                return;
+            }
+
+            if (id) {
+                const index = products.findIndex(p => p.id == id);
+                if (index !== -1) {
+                    products[index] = { id: parseInt(id), name, category, price, image, descIT, descEN };
+                }
+            } else {
+                const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+                products.push({ id: newId, name, category, price, image, descIT, descEN });
+            }
+
+            saveProducts();
+            renderProducts();
+            updateStats();
+            closeModal();
+            showToast(id ? '✅ Prodotto aggiornato!' : '✅ Prodotto aggiunto!');
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Sei sicuro di voler eliminare questo prodotto?')) {
+                products = products.filter(p => p.id !== id);
+                saveProducts();
+                renderProducts();
+                updateStats();
+                showToast('🗑️ Prodotto eliminato!');
+            }
+        }
+
+        function openExportModal() {
+            const code = generateJSCode();
+            document.getElementById('exportCode').textContent = code;
+            document.getElementById('exportModal').classList.add('visible');
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.remove('visible');
+        }
+
+        function generateJSCode() {
+            let code = '// TRADUZIONI DELLE DESCRIZIONI\nconst productDescTranslations = {\n';
+            
+            products.forEach(p => {
+                if (p.descEN || p.descIT) {
+                    code += `    ${p.id}: { `;
+                    if (p.descEN) code += `EN: "${p.descEN}", `;
+                    if (p.descIT) code += `IT: "${p.descIT}"`;
+                    code += ` },\n`;
+                }
+            });
+            
+            code += '};\n\n// CATALOGO PRODOTTI\nconst products = [\n';
+            
+            products.forEach(p => {
+                code += `    { id: ${p.id}, name: "${p.name}", category: "${p.category}", price: ${p.price}, image: "${p.image}", desc: "${p.descEN || ''}" },\n`;
+            });
+            
+            code += '];';
+            return code;
+        }
+
+        function copyToClipboard() {
+            const code = document.getElementById('exportCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('📋 Codice copiato!');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = code;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('📋 Codice copiato!');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('visible');
+            });
+        });
+    </script>
+</body>
+</html>
