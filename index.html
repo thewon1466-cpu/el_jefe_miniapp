@@ -1,4 +1,4 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -337,6 +337,12 @@
             border: 1px solid var(--medium-gray);
             display: flex;
             flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
         }
 
         .product-image {
@@ -873,6 +879,216 @@
             line-height: 1.6;
             margin: 0;
         }
+
+        /* PRODUCT MODAL STYLES */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .product-modal.visible {
+            display: flex;
+        }
+
+        .product-modal-content {
+            background: var(--dark-gray);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid var(--medium-gray);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 35px;
+            color: var(--light-gray);
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .product-modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .product-modal-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-modal-image-container {
+            width: 100%;
+            height: 300px;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+        }
+
+        .product-modal-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: zoom-in;
+        }
+
+        .product-modal-info {
+            padding: 25px;
+        }
+
+        .product-modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .product-modal-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .product-modal-description {
+            font-size: 15px;
+            color: var(--light-gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .product-modal-category {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--black);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .product-modal-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-modal-qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--medium-gray);
+            padding: 5px;
+            border-radius: 12px;
+        }
+
+        .product-modal-qty-btn {
+            background: var(--dark-gray);
+            border: none;
+            color: var(--white);
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .product-modal-qty-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .product-modal-qty-value {
+            font-size: 20px;
+            font-weight: 700;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .product-modal-add-btn {
+            flex: 1;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            border: none;
+            color: var(--black);
+            height: 55px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s ease;
+        }
+
+        .product-modal-add-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .product-modal-add-btn:active {
+            transform: scale(0.98);
+        }
+
+        .product-modal-edibles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .product-modal-edible-btn {
+            background: var(--gold);
+            border: none;
+            color: var(--black);
+            height: 55px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
@@ -1120,6 +1336,40 @@
     <!-- Toast -->
     <div class="toast-notification" id="toast">✅ Added to cart!</div>
 
+    <!-- PRODUCT DETAIL POPUP MODAL -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <span class="product-modal-close" onclick="closeProductModal()">×</span>
+            <div class="product-modal-body">
+                <div class="product-modal-image-container">
+                    <img id="modalProductImage" src="" alt="Product" onclick="openLightboxFromModal()">
+                </div>
+                <div class="product-modal-info">
+                    <h2 id="modalProductName" class="product-modal-title"></h2>
+                    <div id="modalProductPrice" class="product-modal-price"></div>
+                    <div id="modalProductDesc" class="product-modal-description"></div>
+                    <div class="product-modal-category" id="modalProductCategory"></div>
+                    
+                    <div class="product-modal-controls">
+                        <div class="product-modal-qty-controls" id="modalQtyControls">
+                            <button class="product-modal-qty-btn" onclick="updateModalQty(-1)">-</button>
+                            <span id="modalQtyValue" class="product-modal-qty-value">1</span>
+                            <button class="product-modal-qty-btn" onclick="updateModalQty(1)">+</button>
+                        </div>
+                        <button id="modalAddToCart" class="product-modal-add-btn" onclick="addToCartFromModal()">
+                            Add to Cart
+                        </button>
+                    </div>
+                    
+                    <div id="modalEdiblesBtns" class="product-modal-edibles" style="display: none;">
+                        <button class="product-modal-edible-btn" onclick="addToCartFromModal(5)">Add 5</button>
+                        <button class="product-modal-edible-btn" onclick="addToCartFromModal(10)">Add 10</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Telegram WebApp
         const tg = window.Telegram.WebApp;
@@ -1212,6 +1462,238 @@
             { name: "Pierre L.", rating: "⭐⭐⭐⭐⭐", text: "Excellent service, emballage discret. Merci!" }
         ];
 
+        // Product Modal State
+        let currentModalProduct = null;
+        let modalQuantity = 1;
+
+        // Extended product descriptions
+        const extendedDescriptions = {
+            1: { 
+                EN: "Premium Amnesia Haze vape cartridge with 90%+ THC content. Made from pure sativa strain extracts, this vape delivers an energetic and uplifting high. Compatible with standard 510 thread batteries. Lab tested for purity and potency.",
+                IT: "Cartuccia vape Amnesia Haze premium con contenuto THC superiore al 90%. Realizzata con estratti di ceppi sativa puri, questa vape offre uno sballo energizzante ed edificante. Compatibile con batterie standard a filettatura 510. Testata in laboratorio per purezza e potenza.",
+                FR: "Cartouche vape Amnesia Haze premium avec plus de 90% de THC. Fabriquée à partir d'extraits de souches sativa pures, cette vape offre une sensation énergisante et édifiante. Compatible avec les batteries standard à filetage 510. Testée en laboratoire pour la pureté et la puissance.",
+                DE: "Premium Amnesia Haze Vape-Kartusche mit über 90% THC-Gehalt. Hergestellt aus reinen Sativa-Stammextrakten, liefert dieser Vape ein energetisierendes und erhebendes High. Kompatibel mit Standard-510-Gewindebatterien. Laborgetestet auf Reinheit und Potenz.",
+                RU: "Премиум-картридж Amnesia Haze с содержанием ТГК более 90%. Изготовлен из чистых экстрактов сативы, этот вейп обеспечивает энергичный и поднимающий настроение эффект. Совместим со стандартными батареями с резьбой 510. Протестирован в лаборатории на чистоту и эффективность."
+            },
+            2: { 
+                EN: "5-pack of infused Baby Jeeter prerolls. Each joint is carefully crafted with premium flower and infused with high-quality concentrates for an extra potent experience. Perfect for sharing or solo sessions.",
+                IT: "Confezione da 5 preroll Baby Jeeter infusi. Ogni joint è accuratamente realizzato con fiori premium e infuso con concentrati di alta qualità per un'esperienza extra potente. Perfetto da condividere o per sessioni individuali.",
+                FR: "Pack de 5 prerolls Baby Jeeter infusés. Chaque joint est soigneusement fabriqué avec des fleurs premium et infusé avec des concentrés de haute qualité pour une expérience extra puissante. Parfait pour partager ou pour des sessions en solo.",
+                DE: "5er-Pack infundierte Baby Jeeter Prerolls. Jeder Joint ist sorgfältig mit Premium-Blüten hergestellt und mit hochwertigen Konzentraten infundiert für ein extra potentes Erlebnis. Perfekt zum Teilen oder für Solo-Sessions.",
+                RU: "Набор из 5 наполненных Baby Jeeter прероллов. Каждый джойнт тщательно изготовлен из премиальных цветов и наполнен высококачественными концентратами для особенно мощного эффекта. Идеально для совместного или индивидуального использования."
+            },
+            3: { 
+                EN: "Blue Dream vape cartridge featuring the legendary sativa-dominant hybrid. Sweet berry aroma with balanced full-body relaxation and cerebral invigoration. 1g premium oil, no additives or fillers.",
+                IT: "Cartuccia vape Blue Dream con la leggendaria ibrida a dominanza sativa. Aroma di bacche dolci con rilassamento corporeo bilanciato e invigorente cerebrale. 1g di olio premium, senza additivi o riempitivi.",
+                FR: "Cartouche vape Blue Dream présentant l'hybride légendaire à dominance sativa. Arôme de baies sucrées avec relaxation corporelle équilibrée et vivification cérébrale. 1g d'huile premium, sans additifs ni charges.",
+                DE: "Blue Dream Vape-Kartusche mit der legendären sativa-dominanten Hybrid-Sorte. Süßes Beerenaroma mit ausgewogener Ganzkörperentspannung und zerebraler Belebung. 1g Premium-Öl, keine Zusatzstoffe oder Füllstoffe.",
+                RU: "Картридж Blue Dream с легендарным гибридом сативы. Сладкий ягодный аромат с сбалансированным расслаблением всего тела и церебральным оживлением. 1г премиального масла, без добавок и наполнителей."
+            },
+            4: { 
+                EN: "Top shelf Blue Dream flower. This sativa-dominant hybrid delivers a balanced high with full-body relaxation and gentle cerebral invigoration. Sweet berry aroma with earthy undertones. Hand-trimmed and cured to perfection.",
+                IT: "Fiori Blue Dream top shelf. Questa ibrida a dominanza sativa offre uno sballo bilanciato con rilassamento corporeo completo e delicato invigorente cerebrale. Aroma di bacche dolci con note terrose. Potato a mano e curato alla perfezione.",
+                FR: "Fleurs Blue Dream top shelf. Cet hybride à dominance sativa offre une sensation équilibrée avec relaxation corporelle complète et douce vivification cérébrale. Arôme de baies sucrées avec des notes terreuses. Taillé à la main et séché à la perfection.",
+                DE: "Blue Dream Blüten Top Shelf. Diese sativa-dominante Hybrid-Sorte bietet ein ausgewogenes High mit vollständiger Ganzkörperentspannung und sanfter zerebraler Belebung. Süßes Beerenaroma mit erdigen Untertönen. Von Hand getrimmt und perfekt ausgereift.",
+                RU: "Цветы Blue Dream высшего качества. Этот гибрид сативы обеспечивает сбалансированный эффект с полным расслаблением тела и мягким церебральным оживлением. Сладкий ягодный аромат с землистыми нотками. Обрезанные вручную и доведенные до совершенства."
+            },
+            5: { 
+                EN: "Bubblegum Gusher premium flower. Sweet candy-like flavor with fruity undertones. Indica-dominant hybrid providing deep relaxation and stress relief. Dense, resinous buds with purple hues.",
+                IT: "Fiori Bubblegum Gusher premium. Sapore dolce simile alla caramella con note fruttate. Ibrido a dominanza indica che fornisce profondo rilassamento e sollievo dallo stress. Gemme dense e resinose con sfumature viola.",
+                FR: "Fleurs Bubblegum Gusher premium. Saveur sucrée rappelant le bonbon avec des notes fruitées. Hybride à dominance indica offrant une relaxation profonde et un soulagement du stress. Bourgeons denses et résineux aux reflets violets.",
+                DE: "Bubblegum Gusher Premium-Blüten. Süßer bonbonartiger Geschmack mit fruchtigen Untertönen. Indica-dominante Hybrid-Sorte für tiefe Entspannung und Stressabbau. Dichte, harzige Knospen mit violetten Schattierungen.",
+                RU: "Премиальные цветы Bubblegum Gusher. Сладкий конфетный вкус с фруктовыми нотками. Индика-доминантный гибрид, обеспечивающий глубокое расслабление и снятие стресса. Плотные смолистые почки с фиолетовыми оттенками."
+            },
+            6: { 
+                EN: "Classic Cookies strain. World-renowned hybrid with sweet, earthy aroma and balanced effects. Dense, frosty buds with orange hairs. Perfect for any time of day with moderate THC levels.",
+                IT: "Strain Cookies classico. Ibrido di fama mondiale con aroma dolce e terroso ed effetti bilanciati. Gemme dense e ghiacciate con peli arancioni. Perfetto per qualsiasi momento della giornata con livelli moderati di THC.",
+                FR: "Strain Cookies classique. Hybride de renommée mondiale avec un arôme sucré et terreux et des effets équilibrés. Bourgeons denses et givrés avec des poils orange. Parfait pour n'importe quel moment de la journée avec des niveaux modérés de THC.",
+                DE: "Klassische Cookies Sorte. Weltbekannte Hybrid-Sorte mit süßem, erdigem Aroma und ausgewogenen Effekten. Dichte, frostige Knospen mit orangefarbenen Haaren. Perfekt für jede Tageszeit mit moderaten THC-Werten.",
+                RU: "Классический сорт Cookies. Всемирно известный гибрид с сладким землистым ароматом и сбалансированными эффектами. Плотные покрытые инеем почки с оранжевыми волосками. Идеально для любого времени дня с умеренным уровнем ТГК."
+            },
+            7: { 
+                EN: "Premium Crystal Meth Special. Lab-tested for purity and potency. Glass-like appearance with high purity levels. Fast-acting and long-lasting effects. For experienced users only.",
+                IT: "Crystal Meth Special premium. Testato in laboratorio per purezza e potenza. Aspetto simile al vetro con alti livelli di purezza. Effetti rapidi e duraturi. Solo per utenti esperti.",
+                FR: "Crystal Meth Special premium. Testé en laboratoire pour la pureté et la puissance. Apparence vitreuse avec des niveaux de pureté élevés. Effets rapides et durables. Réservé aux utilisateurs expérimentés.",
+                DE: "Premium Crystal Meth Special. Laborgetestet auf Reinheit und Potenz. Glasähnliches Erscheinungsbild mit hohen Reinheitsgraden. Schnell wirkende und lang anhaltende Effekte. Nur für erfahrene Benutzer.",
+                RU: "Премиальный Crystal Meth Special. Протестирован в лаборатории на чистоту и эффективность. Стекловидный вид с высоким уровнем чистоты. Быстрое и длительное действие. Только для опытных пользователей."
+            },
+            8: { 
+                EN: "Frozen Sift Hash - cold extracted for maximum terpene preservation. Traditional Moroccan-style hash with modern extraction techniques. Soft, pliable texture with spicy, earthy flavor profile.",
+                IT: "Frozen Sift Hash - estratto a freddo per la massima conservazione dei terpeni. Hash di stile marocchino tradizionale con tecniche moderne di estrazione. Texture morbida e plasmabile con profilo di sapore piccante e terroso.",
+                FR: "Frozen Sift Hash - extrait à froid pour une préservation maximale des terpènes. Hash de style marocain traditionnel avec des techniques d'extraction modernes. Texture douce et malléable avec un profil de saveur épicée et terreuse.",
+                DE: "Frozen Sift Hash - kaltextrahiert für maximale Terpenerhaltung. Traditioneller marokkanischer Hash mit modernen Extraktionstechniken. Weiche, formbare Textur mit würzigem, erdigem Geschmacksprofil.",
+                RU: "Frozen Sift Hash - холодное извлечение для максимального сохранения терпенов. Традиционный марокканский гашиш с современными методами экстракции. Мягкая, податливая текстура с пряным, землистым вкусом."
+            },
+            9: { 
+                EN: "Gelato premium flower - the famous dessert strain. Sweet, creamy flavor with hints of lavender and citrus. Balanced hybrid providing euphoric relaxation without heavy sedation.",
+                IT: "Fiori Gelato premium - il famoso strain da dessert. Sapore dolce e cremoso con note di lavanda e agrumi. Ibrido bilanciato che fornisce rilassamento euforico senza pesante sedazione.",
+                FR: "Fleurs Gelato premium - la célèbre souche de dessert. Saveur douce et crémeuse avec des notes de lavande et d'agrumes. Hybride équilibré offrant une relaxation euphorique sans sédation lourde.",
+                DE: "Gelato Premium-Blüten - die berühmte Dessert-Sorte. Süßer, cremiger Geschmack mit Noten von Lavendel und Zitrusfrüchten. Ausgewogener Hybrid, der euphorische Entspannung ohne starke Sedierung bietet.",
+                RU: "Премиальные цветы Gelato - знаменитый десертный сорт. Сладкий, сливочный вкус с нотками лаванды и цитруса. Сбалансированный гибрид, обеспечивающий эйфорическое расслабление без тяжелого седативного эффекта."
+            },
+            10: { 
+                EN: "Golden Teacher psychedelic mushrooms. Known for their spiritual and insightful experiences. Medium potency, good for beginners and experienced users alike. Dried and preserved for maximum shelf life.",
+                IT: "Funghi psichedelici Golden Teacher. Conosciuti per le loro esperienze spirituali e illuminanti. Potenza media, buono per principianti e utenti esperti. Essiccati e conservati per la massima durata.",
+                FR: "Champignons psychédéliques Golden Teacher. Connus pour leurs expériences spirituelles et perspicaces. Potent moyenne, bon pour les débutants et les utilisateurs expérimentés. Séchés et conservés pour une durée de conservation maximale.",
+                DE: "Golden Teacher psychedelische Pilze. Bekannt für ihre spirituellen und aufschlussreichen Erfahrungen. Mittlere Potenz, gut für Anfänger und erfahrene Benutzer gleichermaßen. Getrocknet und konserviert für maximale Haltbarkeit.",
+                RU: "Психоделические грибы Golden Teacher. Известны своим духовным и проницательным опытом. Средняя эффективность, хороши как для начинающих, так и для опытных пользователей. Высушены и сохранены для максимального срока хранения."
+            },
+            11: { 
+                EN: "Green Crack - the energetic sativa. Sharp, fruity flavor with mango and citrus notes. Provides a sharp energy boost and mental clarity. Perfect for daytime use and creative activities.",
+                IT: "Green Crack - la sativa energizzante. Sapore intenso e fruttato con note di mango e agrumi. Fornisce una spinta energetica decisa e chiarezza mentale. Perfetto per uso diurno e attività creative.",
+                FR: "Green Crack - la sativa énergisante. Saveur vive et fruitée avec des notes de mangue et d'agrumes. Fournit un regain d'énergie vif et une clarté mentale. Parfait pour une utilisation diurne et les activités créatives.",
+                DE: "Green Crack - die energetisierende Sativa. Scharfer, fruchtiger Geschmack mit Mango- und Zitrusnoten. Bietet einen kräftigen Energieschub und mentale Klarheit. Perfekt für den Tagesgebrauch und kreative Aktivitäten.",
+                RU: "Green Crack - энергичная сатива. Резкий, фруктовый вкус с нотками манго и цитруса. Обеспечивает резкий прилив энергии и ясность ума. Идеально для дневного использования и творческой деятельности."
+            },
+            12: { 
+                EN: "Lemon Cherry - fruity hybrid with citrus and berry notes. Balanced effects combining relaxation with gentle euphoria. Dense, colorful buds with a strong fruity aroma.",
+                IT: "Lemon Cherry - ibrido fruttato con note di agrumi e bacche. Effetti bilanciati che combinano rilassamento con delicata euforia. Gemme dense e colorate con un forte aroma fruttato.",
+                FR: "Lemon Cherry - hybride fruité avec des notes d'agrumes et de baies. Effets équilibrés combinant relaxation et euphorie douce. Bourgeons denses et colorés avec un fort arôme fruité.",
+                DE: "Lemon Cherry - fruchtiger Hybrid mit Zitrus- und Beerennoten. Ausgewogene Effekte, die Entspannung mit sanfter Euphorie kombinieren. Dichte, bunte Knospen mit einem starken fruchtigen Aroma.",
+                RU: "Lemon Cherry - фруктовый гибрид с цитрусовыми и ягодными нотками. Сбалансированные эффекты, сочетающие расслабление с легкой эйфорией. Плотные, красочные почки с сильным фруктовым ароматом."
+            },
+            13: { 
+                EN: "Pure LSD Liquid Special. High-quality lysergic acid diethylamide in liquid form. Precise dosing with dropper included. Store in cool, dark place. For experienced psychonauts only.",
+                IT: "LSD Liquid Special puro. Di-etilammide dell'acido lisergico di alta qualità in forma liquida. Dosaggio preciso con contagocce incluso. Conservare in luogo fresco e buio. Solo per psiconauti esperti.",
+                FR: "LSD Liquid Special pur. Diéthylamide de l'acide lysergique de haute qualité sous forme liquide. Dosage précis avec compte-gouttes inclus. Conserver dans un endroit frais et sombre. Réservé aux psychonautes expérimentés.",
+                DE: "Reines LSD Liquid Special. Hochwertige Lysergsäurediethylamid in flüssiger Form. Präzise Dosierung mit inklusivem Tropfer. An einem kühlen, dunklen Ort aufbewahren. Nur für erfahrene Psychonauten.",
+                RU: "Чистый LSD Liquid Special. Высококачественный диэтиламид лизергиновой кислоты в жидкой форме. Точное дозирование с пипеткой. Хранить в прохладном темном месте. Только для опытных психонавтов."
+            },
+            14: { 
+                EN: "Pure MDMA crystals. Lab-tested for purity. Crystalline form with 84%+ purity. Known for empathogenic and euphoric effects. Start with low dose.",
+                IT: "Cristalli MDMA puri. Testati in laboratorio per purezza. Forma cristallina con purezza superiore all'84%. Conosciuti per effetti empatici ed euforici. Iniziare con dose bassa.",
+                FR: "Cristaux MDMA purs. Testés en laboratoire pour la pureté. Forme cristalline avec plus de 84% de pureté. Connus pour leurs effets empathogènes et euphoriques. Commencer par une faible dose.",
+                DE: "Reine MDMA Kristalle. Laborgetestet auf Reinheit. Kristalline Form mit über 84% Reinheit. Bekannt für empathogene und euphorische Effekte. Mit niedriger Dosis beginnen.",
+                RU: "Чистые кристаллы MDMA. Протестированы в лаборатории на чистоту. Кристаллическая форма с чистотой 84%+. Известны эмпатогенными и эйфорическими эффектами. Начинать с низкой дозы."
+            },
+            15: { 
+                EN: "Moonrock - the ultimate cannabis experience. Premium bud dipped in hash oil and rolled in kief. Extremely potent with THC levels exceeding 50%. Break apart carefully for best results.",
+                IT: "Moonrock - l'esperienza cannabis definitiva. Gemma premium immersa in olio di hash e rotolata nel kief. Estremamente potente con livelli di THC superiori al 50%. Sbriciolare con cura per i migliori risultati.",
+                FR: "Moonrock - l'expérience cannabis ultime. Bourgeon premium trempé dans de l'huile de haschich et roulé dans du kief. Extrêmement puissant avec des niveaux de THC dépassant 50%. Se briser soigneusement pour de meilleurs résultats.",
+                DE: "Moonrock - das ultimative Cannabis-Erlebnis. Premium-Knospe in Haschischöl getaucht und in Kief gerollt. Extrem potent mit THC-Werten über 50%. Vorsichtig zerbröseln für beste Ergebnisse.",
+                RU: "Moonrock - конечный опыт каннабиса. Премиальный бутон, окунутый в гашишное масло и обваленный в кифе. Чрезвычайно мощный с уровнем ТГК более 50%. Разламывать осторожно для лучших результатов."
+            },
+            16: { 
+                EN: "Traditional Moroccan Dry Hash. Imported directly from the Rif Mountains. Classic hashish with spicy, earthy flavor. Medium potency, perfect for traditional hash lovers.",
+                IT: "Hash Secco Marocchino tradizionale. Importato direttamente dalle Montagne del Rif. Hashish classico con sapore piccante e terroso. Potenza media, perfetto per gli amanti dell'hash tradizionale.",
+                FR: "Hash Sec Marocain traditionnel. Importé directement des montagnes du Rif. Haschisch classique avec une saveur épicée et terreuse. Potent moyenne, parfait pour les amateurs de haschisch traditionnel.",
+                DE: "Traditioneller Marokkanischer Trocken-Hash. Direkt aus dem Rif-Gebirge importiert. Klassischer Haschisch mit würzigem, erdigem Geschmack. Mittlere Potenz, perfekt für traditionelle Hash-Liebhaber.",
+                RU: "Традиционный марокканский сухой гашиш. Импортирован непосредственно из гор Риф. Классический гашиш с пряным, землистым вкусом. Средняя эффективность, идеально для любителей традиционного гашиша."
+            },
+            17: { 
+                EN: "Northern Lights - the classic indica. Pure relaxation and sedation with sweet, spicy aroma. One of the most famous indicas worldwide. Perfect for evening use and sleep aid.",
+                IT: "Northern Lights - l'indica classica. Puro rilassamento e sedazione con aroma dolce e piccante. Una delle indica più famose al mondo. Perfetta per uso serale e aiuto al sonno.",
+                FR: "Northern Lights - l'indica classique. Pure relaxation et sédation avec un arôme sucré et épicé. L'une des indicas les plus célèbres au monde. Parfaite pour une utilisation en soirée et comme aide au sommeil.",
+                DE: "Northern Lights - die klassische Indica. Reine Entspannung und Sedierung mit süßem, würzigem Aroma. Eine der berühmtesten Indicas weltweit. Perfekt für den Abendgebrauch und als Schlafhilfe.",
+                RU: "Northern Lights - классическая индика. Чистое расслабление и седация с сладким, пряным ароматом. Одна из самых известных индик в мире. Идеально для вечернего использования и помощи в сне."
+            },
+            18: { 
+                EN: "Premium Hash - top quality pressed hashish. Made from selected strains with high resin content. Smooth smoke with complex flavor profile. Consistent potency batch to batch.",
+                IT: "Hash Premium - hashish pressato di alta qualità. Realizzato con ceppi selezionati con alto contenuto di resina. Fumo morbido con profilo di sapore complesso. Potenza coerente da lotto a lotto.",
+                FR: "Hash Premium - haschisch pressé de haute qualité. Fabriqué à partir de souches sélectionnées avec une teneur élevée en résine. Fumée douce avec un profil de saveur complexe. Puissance cohérente d'un lot à l'autre.",
+                DE: "Premium Hash - hochwertiger gepresster Haschisch. Hergestellt aus ausgewählten Sorten mit hohem Harzgehalt. Rauch mit komplexem Geschmacksprofil. Konsistente Potenz von Charge zu Charge.",
+                RU: "Премиум гашиш - высококачественный прессованный гашиш. Изготовлен из отборных сортов с высоким содержанием смолы. Мягкий дым со сложным вкусовым профилем. Стабильная эффективность от партии к партии."
+            },
+            19: { 
+                EN: "Premium Wholesale - bulk pricing available. High-quality flower at competitive prices. Minimum order quantities apply. Contact for wholesale pricing tiers and availability.",
+                IT: "Premium Wholesale - prezzi all'ingrosso disponibili. Fiori di alta qualità a prezzi competitivi. Si applicano quantità minime d'ordine. Contattare per livelli di prezzo all'ingrosso e disponibilità.",
+                FR: "Premium Wholesale - tarifs de gros disponibles. Fleurs de haute qualité à des prix compétitifs. Quantités minimum de commande applicables. Contactez pour les niveaux de prix de gros et la disponibilité.",
+                DE: "Premium Großhandel - Großhandelspreise verfügbar. Hochwertige Blüten zu wettbewerbsfähigen Preisen. Mindestbestellmengen gelten. Kontaktieren Sie für Großhandelspreisstufen und Verfügbarkeit.",
+                RU: "Премиум опт - доступны оптовые цены. Высококачественные цветы по конкурентным ценам. Применяются минимальные объемы заказа. Свяжитесь для уровней оптовых цен и наличия."
+            },
+            20: { 
+                EN: "Pure Cocaine - fishscale quality. High purity imported cocaine with characteristic fishscale appearance. Lab-tested for cuts and adulterants. For experienced users only.",
+                IT: "Cocaina Pura - qualità fishscale. Cocaina importata ad alta purezza con caratteristica apparenza fishscale. Testata in laboratorio per tagli e adulteranti. Solo per utenti esperti.",
+                FR: "Cocaïne Pure - qualité fishscale. Cocaïne importée à haute pureté avec l'apparence caractéristique d'écailles de poisson. Testée en laboratoire pour les coupes et les adultérants. Réservé aux utilisateurs expérimentés.",
+                DE: "Reines Kokain - Fishscale-Qualität. Hochreines importiertes Kokain mit charakteristischem Fishscale-Aussehen. Laborgetestet auf Streckmittel und Verunreinigungen. Nur für erfahrene Benutzer.",
+                RU: "Чистый кокаин - качество fishscale. Высокочистый импортный кокаин с характерным видом чешуи рыбы. Протестирован в лаборатории на примеси и загрязнения. Только для опытных пользователей."
+            },
+            21: { 
+                EN: "Purple Mystic magic mushrooms. Known for vivid visual effects and spiritual experiences. High potency variety with deep purple spores. Carefully cultivated and dried.",
+                IT: "Funghi magici Purple Mystic. Conosciuti per vividi effetti visivi ed esperienze spirituali. Varietà ad alta potenza con spore viola intenso. Coltivati e essiccati con cura.",
+                FR: "Champignons magiques Purple Mystic. Connus pour leurs effets visuels vivants et leurs expériences spirituelles. Variété à haute potent avec des spores violettes profondes. Cultivés et séchés avec soin.",
+                DE: "Purple Mystic Zauberpilze. Bekannt für lebhafte visuelle Effekte und spirituelle Erfahrungen. Hochpotente Sorte mit tiefvioletten Sporen. Sorgfältig angebaut und getrocknet.",
+                RU: "Волшебные грибы Purple Mystic. Известны яркими визуальными эффектами и духовным опытом. Высокоэффективный сорт с глубоко-фиолетовыми спорами. Тщательно выращены и высушены."
+            },
+            22: { 
+                EN: "Purple Platinum - stunning purple indica. Deep purple hues with platinum trichome coverage. Sweet grape and berry flavor with heavy sedating effects. Premium top-shelf quality.",
+                IT: "Purple Platinum - indica viola mozzafiato. Sfumature viola intenso con copertura di tricomi platino. Sapore dolce di uva e bacche con effetti sedativi pesanti. Qualità premium top-shelf.",
+                FR: "Purple Platinum - indica violette époustouflante. Teintes violettes profondes avec une couverture de trichomes platine. Saveur sucrée de raisin et de baies avec des effets sédatifs lourds. Qualité premium haut de gamme.",
+                DE: "Purple Platinum - atemberaubende violette Indica. Tiefe violette Farbtöne mit Platin-Trichom-Abdeckung. Süßer Trauben- und Beeren-Geschmack mit stark sedierenden Effekten. Premium Top-Shelf-Qualität.",
+                RU: "Purple Platinum - потрясающая фиолетовая индика. Глубокие фиолетовые оттенки с платиновым покрытием трихом. Сладкий виноградно-ягодный вкус с тяжелым седативным эффектом. Премиальное качество высшей полки."
+            },
+            23: { 
+                EN: "Rainbow Zaza - colorful hybrid delight. Multi-colored buds with sweet, tropical flavor. Balanced effects perfect for any occasion. Eye-catching appearance with premium potency.",
+                IT: "Rainbow Zaza - delizia ibrida colorata. Gemme multicolori con sapore dolce e tropicale. Effetti bilanciati perfetti per ogni occasione. Aspetto accattivante con potenza premium.",
+                FR: "Rainbow Zaza - délice hybride coloré. Bourgeons multicolores avec une saveur sucrée et tropicale. Effets équilibrés parfaits pour toute occasion. Apparence accrocheuse avec une potent premium.",
+                DE: "Rainbow Zaza - farbenfroher Hybrid-Genuss. Mehrfarbige Knospen mit süßem, tropischem Geschmack. Ausgewogene Effekte, perfekt für jede Gelegenheit. Blickfang mit Premium-Potenz.",
+                RU: "Rainbow Zaza - цветной гибридный восторг. Разноцветные почки со сладким тропическим вкусом. Сбалансированные эффекты, идеальные для любого случая. Броский вид с премиальной эффективностью."
+            },
+            24: { 
+                EN: "Runtz Vape - premium disposable vape. Sweet, fruity flavor profile with balanced hybrid effects. High-quality hardware with ceramic coil. No charging needed, ready to use.",
+                IT: "Runtz Vape - vape usa e getta premium. Profilo di sapore dolce e fruttato con effetti ibridi bilanciati. Hardware di alta qualità con bobina ceramica. Non necessita di ricarica, pronto all'uso.",
+                FR: "Runtz Vape - vape jetable premium. Profil de saveur sucrée et fruitée avec des effets hybrides équilibrés. Matériel de haute qualité avec bobine céramique. Pas besoin de recharge, prêt à l'emploi.",
+                DE: "Runtz Vape - Premium-Einweg-Vape. Süßes, fruchtiges Geschmacksprofil mit ausgewogenen Hybrid-Effekten. Hochwertige Hardware mit Keramikspule. Kein Aufladen nötig, sofort einsatzbereit.",
+                RU: "Runtz Vape - премиум одноразовый вейп. Сладкий, фруктовый вкусовой профиль с сбалансированными гибридными эффектами. Высококачественное оборудование с керамической катушкой. Не требует зарядки, готов к использованию."
+            },
+            25: { 
+                EN: "Runtz - the famous candy strain. Sweet, fruity flavor like the candy. Balanced hybrid with euphoric and relaxing effects. Dense, trichome-covered buds.",
+                IT: "Runtz - il famoso strain caramella. Sapore dolce e fruttato come la caramella. Ibrido bilanciato con effetti euforici e rilassanti. Gemme dense e ricoperte di tricomi.",
+                FR: "Runtz - la célèbre souche de bonbon. Saveur sucrée et fruitée comme le bonbon. Hybride équilibré avec des effets euphoriques et relaxants. Bourgeons denses et couverts de trichomes.",
+                DE: "Runtz - die berühmte Bonbon-Sorte. Süßer, fruchtiger Geschmack wie der Bonbon. Ausgewogener Hybrid mit euphorischen und entspannenden Effekten. Dichte, trichombedeckte Knospen.",
+                RU: "Runtz - знаменитый конфетный сорт. Сладкий, фруктовый вкус как конфета. Сбалансированный гибрид с эйфорическими и расслабляющими эффектами. Плотные, покрытые трихомами почки."
+            },
+            26: { 
+                EN: "Snowcone - icy hybrid freshness. Cool, minty flavor with sweet undertones. Refreshing smoke with balanced cerebral and body effects. Frosty, white trichome coverage.",
+                IT: "Snowcone - freschezza ibrida ghiacciata. Sapore fresco e mentolato con note dolci. Fumo rinfrescante con effetti cerebrali e corporei bilanciati. Copertura di tricomi bianchi e ghiacciati.",
+                FR: "Snowcone - fraîcheur hybride glacée. Saveur fraîche et mentholée avec des notes sucrées. Fumée rafraîchissante avec des effets cérébraux et corporels équilibrés. Couverture de trichomes blancs et givrés.",
+                DE: "Snowcone - eisige Hybrid-Frische. Coole, minzige Note mit süßen Untertönen. Erfrischender Rauch mit ausgewogenen zerebralen und körperlichen Effekten. Frostige, weiße Trichom-Abdeckung.",
+                RU: "Snowcone - ледяная гибридная свежесть. Прохладный, мятный вкус с сладкими нотками. Освежающий дым со сбалансированными церебральными и телесными эффектами. Морозное белое покрытие трихом."
+            },
+            27: { 
+                EN: "Sour Diesel - the legendary sativa. Pungent, diesel-like aroma with energetic, dreamy effects. Fast-acting and long-lasting. One of the most popular strains of all time.",
+                IT: "Sour Diesel - la sativa leggendaria. Aroma pungente simile al gasolio con effetti energetici e onirici. Azione rapida e duratura. Uno dei ceppi più popolari di tutti i tempi.",
+                FR: "Sour Diesel - la sativa légendaire. Arôme piquant rappelant le diesel avec des effets énergiques et rêveurs. Action rapide et durable. L'une des souches les plus populaires de tous les temps.",
+                DE: "Sour Diesel - die legendäre Sativa. Stechendes, dieselähnliches Aroma mit energetischen, verträumten Effekten. Schnell wirkend und lange anhaltend. Eine der beliebtesten Sorten aller Zeiten.",
+                RU: "Sour Diesel - легендарная сатива. Едкий, похожий на дизель аромат с энергичными, мечтательными эффектами. Быстрое действие и длительный эффект. Один из самых популярных сортов всех времен."
+            },
+            28: { 
+                EN: "Standard Prerolls - 7 pack classic joints. Quality flower rolled to perfection. Convenient and ready to smoke. Perfect for on-the-go or sharing with friends.",
+                IT: "Preroll Standard - 7 joint classici. Fiori di qualità rollati alla perfezione. Comodi e pronti da fumare. Perfetti per viaggi o da condividere con amici.",
+                FR: "Prerolls Standard - pack de 7 joints classiques. Fleurs de qualité roulées à la perfection. Pratiques et prêts à fumer. Parfaits pour les déplacements ou à partager avec des amis.",
+                DE: "Standard Prerolls - 7er-Pack klassische Joints. Qualitäts-Blüten perfekt gerollt. Bequem und sofort rauchfertig. Perfekt für unterwegs oder zum Teilen mit Freunden.",
+                RU: "Стандартные прероллы - 7 классических джойнтов. Качественные цветы, скрученные до совершенства. Удобные и готовые к курению. Идеально для путешествий или совместного использования с друзьями."
+            },
+            29: { 
+                EN: "THC Edibles 40mg - tasty gummies infused with 40mg THC each. Precise dosing for consistent effects. Fruit flavored and discreet. Start with half for beginners.",
+                IT: "THC Edibles 40mg - gommosi gustosi infusi con 40mg di THC ciascuno. Dosaggio preciso per effetti coerenti. Al gusto di frutta e discreti. Iniziare con metà per principianti.",
+                FR: "THC Edibles 40mg - bonbons gélifiés savoureux infusés avec 40mg de THC chacun. Dosage précis pour des effets cohérents. Saveur fruitée et discret. Commencer par la moitié pour les débutants.",
+                DE: "THC Edibles 40mg - leckere Gummibonbons mit jeweils 40mg THC infundiert. Präzise Dosierung für konsistente Effekte. Fruchtgeschmack und diskret. Für Anfänger mit der Hälfte beginnen.",
+                RU: "THC Edibles 40mg - вкусные жевательные конфеты с 40мг ТГК каждая. Точное дозирование для стабильных эффектов. Фруктовый вкус и дискретность. Начинайте с половинки для новичков."
+            },
+            30: { 
+                EN: "THC Edibles 60mg - extra strength gummies with 60mg THC each. For experienced users seeking stronger effects. Same great taste with increased potency.",
+                IT: "THC Edibles 60mg - gommosi extra forti con 60mg di THC ciascuno. Per utenti esperti che cercano effetti più forti. Lo stesso ottimo sapore con potenza aumentata.",
+                FR: "THC Edibles 60mg - bonbons gélifiés extra fort avec 60mg de THC chacun. Pour les utilisateurs expérimentés recherchant des effets plus forts. Le même goût excellent avec une puissance accrue.",
+                DE: "THC Edibles 60mg - extra starke Gummibonbons mit jeweils 60mg THC. Für erfahrene Benutzer, die stärkere Effekte suchen. Der gleiche großartige Geschmack mit erhöhter Potenz.",
+                RU: "THC Edibles 60mg - экстра сильные жевательные конфеты с 60мг ТГК каждая. Для опытных пользователей, ищущих более сильные эффекты. Тот же отличный вкус с повышенной эффективностью."
+            },
+            31: { 
+                EN: "White Widow - the balanced classic. Equal parts indica and sativa with resinous, white buds. Energetic yet relaxing effects. One of the most famous hybrids worldwide.",
+                IT: "White Widow - il classico bilanciato. Parti uguali di indica e sativa con gemme resinose e bianche. Effetti energizzanti ma rilassanti. Uno degli ibridi più famosi al mondo.",
+                FR: "White Widow - le classique équilibré. Parts égales d'indica et de sativa avec des bourgeons résineux et blancs. Effets énergiques mais relaxants. L'un des hybrides les plus célèbres au monde.",
+                DE: "White Widow - der ausgewogene Klassiker. Gleiche Teile Indica und Sativa mit harzigen, weißen Knospen. Energetische aber entspannende Effekte. Einer der berühmtesten Hybriden weltweit.",
+                RU: "White Widow - сбалансированная классика. Равные части индики и сативы со смолистыми белыми почками. Энергичные, но расслабляющие эффекты. Один из самых известных гибридов в мире."
+            },
+            32: { 
+                EN: "Zkittlez Vape - fruit flavored premium vape. Tastes like the rainbow candy with sweet, tropical notes. Relaxing indica-dominant effects. High-quality disposable hardware.",
+                IT: "Zkittlez Vape - vape premium al gusto di frutta. Sapore simile alla caramella arcobaleno con note dolci e tropicali. Effetti rilassanti a dominanza indica. Hardware usa e getta di alta qualità.",
+                FR: "Zkittlez Vape - vape premium au goût fruité. Goût rappelant le bonbon arc-en-ciel avec des notes sucrées et tropicales. Effets relaxants à dominance indica. Matériel jetable de haute qualité.",
+                DE: "Zkittlez Vape - Premium-Vape mit Fruchtgeschmack. Schmeckt wie der Regenbogenbonbon mit süßen, tropischen Noten. Entspannende indica-dominante Effekte. Hochwertige Einweg-Hardware.",
+                RU: "Zkittlez Vape - премиум вейп с фруктовым вкусом. На вкус как радужная конфета со сладкими тропическими нотками. Расслабляющие индика-доминантные эффекты. Высококачественное одноразовое оборудование."
+            }
+        };
+
         // INIT
         document.addEventListener('DOMContentLoaded', () => {
             const hasVisited = localStorage.getItem('eljefe_visited');
@@ -1236,6 +1718,11 @@
             inputs.forEach(input => {
                 input.addEventListener('focus', () => document.body.classList.add('keyboard-open'));
                 input.addEventListener('blur', () => document.body.classList.remove('keyboard-open'));
+            });
+
+            // Close modal on outside click
+            document.getElementById('productModal').addEventListener('click', function(e) {
+                if (e.target === this) closeProductModal();
             });
         });
 
@@ -1356,6 +1843,61 @@
             return products.find(p => p.id === productId)?.desc || '';
         }
 
+        // Product Modal Functions
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentModalProduct = product;
+            modalQuantity = 1;
+            
+            const t = translations[currentLang] || translations['EN'];
+            const extDesc = extendedDescriptions[productId];
+            const translatedExtDesc = extDesc ? (extDesc[currentLang] || extDesc['EN']) : product.desc;
+            
+            document.getElementById('modalProductImage').src = product.image;
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductPrice').textContent = formatPrice(product.price);
+            document.getElementById('modalProductDesc').textContent = translatedExtDesc;
+            document.getElementById('modalProductCategory').textContent = t.categories[product.category] || product.category;
+            document.getElementById('modalQtyValue').textContent = modalQuantity;
+            
+            // Show/hide appropriate controls
+            const isEdibles = product.category === 'edibles';
+            document.getElementById('modalQtyControls').style.display = isEdibles ? 'none' : 'flex';
+            document.getElementById('modalEdiblesBtns').style.display = isEdibles ? 'grid' : 'none';
+            document.getElementById('modalAddToCart').style.display = isEdibles ? 'none' : 'block';
+            
+            document.getElementById('productModal').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('visible');
+            document.body.style.overflow = '';
+            currentModalProduct = null;
+        }
+
+        function updateModalQty(delta) {
+            modalQuantity += delta;
+            if (modalQuantity < 1) modalQuantity = 1;
+            document.getElementById('modalQtyValue').textContent = modalQuantity;
+        }
+
+        function addToCartFromModal(qty = null) {
+            if (!currentModalProduct) return;
+            
+            const quantity = qty || modalQuantity;
+            addToCart(currentModalProduct.id, quantity);
+            closeProductModal();
+        }
+
+        function openLightboxFromModal() {
+            if (!currentModalProduct) return;
+            closeProductModal();
+            setTimeout(() => openLightbox(currentModalProduct.image), 300);
+        }
+
         function renderProducts(category = 'all') {
             currentCategory = category;
             const t = translations[currentLang] || translations['EN'];
@@ -1375,6 +1917,12 @@
             filtered.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
+                card.setAttribute('role', 'listitem');
+                card.onclick = function(e) {
+                    // Don't open modal if clicking on buttons
+                    if (e.target.tagName === 'BUTTON') return;
+                    openProductModal(product.id);
+                };
                 
                 if (!gridQuantities[product.id]) gridQuantities[product.id] = 1;
                 const translatedDesc = getProductDescription(product.id);
@@ -1383,23 +1931,23 @@
                 if (product.category === 'edibles') {
                     footerHtml = `
                         <div class="edibles-btns">
-                            <button class="edible-btn" onclick="addToCart(${product.id}, 5)">+5</button>
-                            <button class="edible-btn" onclick="addToCart(${product.id}, 10)">+10</button>
+                            <button class="edible-btn" onclick="event.stopPropagation(); addToCart(${product.id}, 5)">+5</button>
+                            <button class="edible-btn" onclick="event.stopPropagation(); addToCart(${product.id}, 10)">+10</button>
                         </div>
                     `;
                 } else {
                     footerHtml = `
                         <div class="grid-qty-controls">
-                            <button class="grid-qty-btn" onclick="updateGridQty(${product.id}, -1, event)">-</button>
+                            <button class="grid-qty-btn" onclick="event.stopPropagation(); updateGridQty(${product.id}, -1, event)">-</button>
                             <span class="grid-qty-val" id="grid-qty-${product.id}">${gridQuantities[product.id]}</span>
-                            <button class="grid-qty-btn" onclick="updateGridQty(${product.id}, 1, event)">+</button>
-                            <button class="add-to-cart" onclick="addToCart(${product.id})">${t.addToCart}</button>
+                            <button class="grid-qty-btn" onclick="event.stopPropagation(); updateGridQty(${product.id}, 1, event)">+</button>
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">${t.addToCart}</button>
                         </div>
                     `;
                 }
 
                 card.innerHTML = `
-                    <img src="${product.image}" class="product-image" alt="${product.name}" loading="lazy" onclick="openLightbox('${product.image}', event)">
+                    <img src="${product.image}" class="product-image" alt="${product.name}" loading="lazy" onclick="event.stopPropagation(); openLightbox('${product.image}', event)">
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
                         <div class="product-desc">${translatedDesc}</div>
